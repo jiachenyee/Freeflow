@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:text="Hi Username!"
             android:textFontWeight="700"
+            android:fontFamily="@font/interbold"
+            android:textColor="@color/black"
             android:textSize="24dp"
 
             app:layout_constraintLeft_toLeftOf="parent"
