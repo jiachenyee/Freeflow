@@ -1,11 +1,13 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
+
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent accountActivity = new Intent(MainActivity.this, AccountActivity.class);
+
+                startActivity(accountActivity);
+            }
+        });
     }
 
     @Override
