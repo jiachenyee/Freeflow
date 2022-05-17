@@ -23,6 +23,7 @@ public class AccountActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
+    // Grab the UI elements from the view.
     TextView usernameTextView;
     TextView emailTextView;
     ImageView profileImageView;
@@ -34,14 +35,19 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        // Get the user and auth info from Firebase
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        // Grab the text views from the XML.
         usernameTextView = findViewById(R.id.name_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
         emailTextView = findViewById(R.id.email_text_view);
 
         closeButton = findViewById(R.id.close_button);
+        logOutButton = findViewById(R.id.log_out_button);
+
+        // Setup close button to dismiss view on click
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +55,7 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        logOutButton = findViewById(R.id.log_out_button);
+        // Setup log out button to sign user out and dismiss view
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,10 +68,11 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        
         setUpUser();
     }
 
+    // Display personalised content for each user
     private void setUpUser() {
         usernameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());

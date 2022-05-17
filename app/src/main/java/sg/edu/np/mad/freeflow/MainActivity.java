@@ -36,15 +36,16 @@ public class MainActivity extends AppCompatActivity {
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
 
+        // When the user clicks the profile image, show the account activity
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent accountActivity = new Intent(MainActivity.this, AccountActivity.class);
-
                 startActivity(accountActivity);
             }
         });
 
+        // This is for testing, set up empty state
         setUpEmptyState();
     }
 
@@ -52,21 +53,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // If the user is not signed in, get the user to sign in
         if (mAuth.getCurrentUser() == null) {
+            // The user is not signed in, show sign in interface
             Intent signInActivity = new Intent(MainActivity.this, SignInActivity.class);
-
             startActivity(signInActivity);
         } else {
+            // User is signed in, set `user` to the current user
             user = mAuth.getCurrentUser();
+
+            // Set up the interface for the user
             setUpUser();
         }
     }
 
+    // Set up username and profile picture
     private void setUpUser() {
         usernameTextView.setText("Hello " + user.getDisplayName() + "!");
 
-        // Add profile picture
+        // Add profile picture, make async HTTP request to download pfp
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    // Create empty state if the user does not currently have a workspace.
     private void setUpEmptyState() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new HomeEmptyStateFragment(this));
