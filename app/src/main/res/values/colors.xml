@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="workspace_red">#FFFF4646</color>
+    <color name="workspace_orange">#FFFF6746</color>
+    <color name="workspace_yellow">#FFFFC046</color>
+    <color name="workspace_green">#FF13BB5E</color>
+    <color name="workspace_blue">#FF3962CB</color>
+    <color name="workspace_purple">#FFB946FF</color>
 </resources>
