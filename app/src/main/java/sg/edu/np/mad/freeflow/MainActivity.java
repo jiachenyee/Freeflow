@@ -2,6 +2,7 @@ package sg.edu.np.mad.freeflow;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(accountActivity);
             }
         });
+
+        setUpEmptyState();
     }
 
     @Override
@@ -83,5 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void setUpEmptyState() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_fragment, new HomeEmptyStateFragment(this));
+        ft.commit();
     }
 }
