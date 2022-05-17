@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Freeflow</string>
     <string name="web_client_id">734498139025-a5rtihoa5ieri8hqtjt90013aotlvdgd.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

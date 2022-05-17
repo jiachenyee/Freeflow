@@ -7,14 +7,17 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
+
         android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+
+        app:layout_constraintEnd_toStartOf="@id/profile_image_view"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/username_text_view"
@@ -23,8 +26,16 @@
             android:fontFamily="@font/interbold"
             android:text="Hi Username!"
             android:textColor="@color/black"
-            android:textFontWeight="700"
             android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/subtitle_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/interregular"
+            android:text="Subtitle"
+            android:textColor="@color/black"
+            android:textSize="12dp" />
     </LinearLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
