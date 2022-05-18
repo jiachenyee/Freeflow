@@ -68,7 +68,7 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
+
         setUpUser();
     }
 

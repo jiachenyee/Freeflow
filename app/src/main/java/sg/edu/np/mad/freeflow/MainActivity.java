@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     TextView usernameTextView;
     ImageView profileImageView;
 
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
+
+
+        db = FirebaseFirestore.getInstance();
 
         // When the user clicks the profile image, show the account activity
         profileImageView.setOnClickListener(new View.OnClickListener() {
