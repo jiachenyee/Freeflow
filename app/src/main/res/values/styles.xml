@@ -8,4 +8,24 @@
     <style name="Button.red" parent="ThemeOverlay.AppCompat">
         <item name="colorPrimary">@color/workspace_red</item>
     </style>
+
+    <style name="Button.orange" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/workspace_orange</item>
+    </style>
+
+    <style name="Button.yellow" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/workspace_yellow</item>
+    </style>
+
+    <style name="Button.green" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/workspace_green</item>
+    </style>
+
+    <style name="Button.blue" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/workspace_blue</item>
+    </style>
+
+    <style name="Button.purple" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/workspace_purple</item>
+    </style>
 </resources>
