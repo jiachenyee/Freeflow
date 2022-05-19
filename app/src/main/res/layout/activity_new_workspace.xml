@@ -83,7 +83,7 @@
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="3dp"
-            android:text="Overflow"
+            android:hint="My Amazing Workspace"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
