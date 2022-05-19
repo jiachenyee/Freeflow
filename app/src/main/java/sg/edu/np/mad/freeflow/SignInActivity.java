@@ -17,12 +17,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.model.Document;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -30,6 +40,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +69,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        db = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -108,9 +120,66 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    private void addUserInfoToDB(FirebaseUser user) {
+        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    boolean newAccount = true;
+
+                    for (QueryDocumentSnapshot document: task.getResult()) {
+                        if (document.getId().equals(user.getUid())) {
+
+                            updateUserInfoInDB(user, document.getData());
+                            newAccount = false;
+                            break;
+                        }
+                    }
+
+                    if (newAccount) {
+                        Map<String, Object> encodedUser = new User(user).toHashMap();
+                        db.collection("users")
+                                .add(encodedUser)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Firestore", "Uploaded to DB");
+                                finish();
+                            }
+                        });
+                    }
+                } else {
+                    Log.w("TAG", "Error getting documents.", task.getException());
+                }
+            }
+        });
+    }
+
+    private void updateUserInfoInDB(FirebaseUser user, Map<String, Object> encodedUser) {
+        if (!user.getDisplayName().equals(encodedUser.get("name"))) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("users", user.getDisplayName());
+
+            db.collection("users")
+                    .document(user.getUid())
+                    .set(data, SetOptions.merge());
+        }
+
+        if (!user.getPhotoUrl().toString().equals(encodedUser.get("profilePictureURL"))) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("profilePictureURL", user.getPhotoUrl().toString());
+
+            db.collection("users")
+                    .document(user.getUid())
+                    .set(data, SetOptions.merge());
+        }
+
+        finish();
+    }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            finish();
+            addUserInfoToDB(user);
             Log.i("Sign In", "Success");
         } else {
             Log.i("Sign In", "Failure");
