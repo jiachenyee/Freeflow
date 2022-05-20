@@ -5,10 +5,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +24,7 @@ public class HomeEmptyStateFragment extends Fragment {
     Button newWorkspaceButton;
 
     private MainActivity activity;
+    private ImageButton addWorkspaceButton;
 
     public HomeEmptyStateFragment(MainActivity activity) {
         // Required empty public constructor
@@ -39,6 +44,7 @@ public class HomeEmptyStateFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home_empty_state, container, false);
 
         newWorkspaceButton = v.findViewById(R.id.new_workspace_button);
+        addWorkspaceButton = v.findViewById(R.id.add_workspace_button);
 
         return v;
     }
@@ -47,11 +53,28 @@ public class HomeEmptyStateFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        newWorkspaceButton.setOnClickListener(new View.OnClickListener() {
+        addWorkspaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
-                startActivity(newWorkspaceActivity);
+                PopupMenu popupMenu = new PopupMenu(activity, addWorkspaceButton);
+                popupMenu.getMenuInflater().inflate(R.menu.workspace_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        if (menuItem.getItemId() == R.id.join_workspace_menu) {
+                            // TODO: Link with join workspace interface
+                        } else {
+                            Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
+                            startActivity(newWorkspaceActivity);
+                        }
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
             }
         });
     }
