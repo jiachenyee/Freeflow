@@ -38,7 +38,7 @@
             android:layout_marginTop="32dp"
 
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/freeflow_logo2" />
+            app:srcCompat="@drawable/ic_freeflow" />
 
 
         <com.google.android.gms.common.SignInButton
