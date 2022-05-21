@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.material.card.MaterialCardView;
+
+import java.io.IOException;
 
 public class NewWorkspaceActivity extends AppCompatActivity {
 
@@ -67,10 +72,25 @@ public class NewWorkspaceActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        
+
         Uri selectedImageUri = data.getData();
 
         System.out.println(selectedImageUri);
+        Bitmap selectedImageBitmap;
+        try {
+            selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+            int newImageWidth = Math.min(selectedImageBitmap.getWidth(), selectedImageBitmap.getHeight());
+
+            Bitmap croppedBitmap = Bitmap.createBitmap(selectedImageBitmap,
+                    (selectedImageBitmap.getWidth() - newImageWidth) / 2,
+                    (selectedImageBitmap.getHeight() - newImageWidth) / 2, newImageWidth, newImageWidth);
+
+            workplaceImage.setImageBitmap(croppedBitmap);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
