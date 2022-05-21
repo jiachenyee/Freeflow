@@ -1,8 +1,11 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -21,6 +25,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
     private MaterialCardView workspaceAccent4;
     private MaterialCardView workspaceAccent5;
     private MaterialCardView workspaceAccent6;
+
+    private ImageView workplaceImage;
 
     private int selectedColorIndex = 1;
 
@@ -38,9 +44,33 @@ public class NewWorkspaceActivity extends AppCompatActivity {
             }
         });
 
+        workplaceImage = findViewById(R.id.workspace_image);
+
+        workplaceImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent imagePickerIntent = new Intent();
+                imagePickerIntent.setType("image/*");
+                imagePickerIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+                // pass the constant to compare it
+                // with the returned requestCode
+                startActivityForResult(Intent.createChooser(imagePickerIntent, "Select a workspace icon"), 200);
+            }
+        });
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         setUpAccentColorSelector();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        Uri selectedImageUri = data.getData();
+
+        System.out.println(selectedImageUri);
     }
 
     @Override

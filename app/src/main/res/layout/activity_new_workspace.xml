@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/workplaceImage"
+        android:id="@+id/workspace_image"
         android:layout_width="74dp"
         android:layout_height="74dp"
         android:layout_marginStart="16dp"
@@ -62,7 +62,7 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/workplaceImage"
+        app:layout_constraintStart_toEndOf="@+id/workspace_image"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
