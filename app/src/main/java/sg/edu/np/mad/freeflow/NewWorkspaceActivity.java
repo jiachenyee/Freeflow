@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 public class NewWorkspaceActivity extends AppCompatActivity {
 
@@ -174,5 +182,28 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         workspaceAccent4.setStrokeWidth(selectedColorIndex == 4 ? 21 : 0);
         workspaceAccent5.setStrokeWidth(selectedColorIndex == 5 ? 21 : 0);
         workspaceAccent6.setStrokeWidth(selectedColorIndex == 6 ? 21 : 0);
+    }
+
+    private void uploadBitmap(Bitmap bitmap) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference imageRef = storageRef.child("workspaceicons/" + UUID.randomUUID().toString() + ".jpg");
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
     }
 }
