@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +30,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -44,6 +51,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
     private MaterialCardView workspaceAccent6;
 
     private ImageView workplaceImage;
+
+    private LinearLayout headerView;
 
     private int selectedColorIndex = 1;
 
@@ -76,6 +85,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
             }
         });
 
+        headerView = findViewById(R.id.header_view);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         setUpAccentColorSelector();
@@ -99,7 +110,7 @@ public class NewWorkspaceActivity extends AppCompatActivity {
 
             workplaceImage.setImageBitmap(croppedBitmap);
 
-            uploadBitmap(croppedBitmap);
+            createDynamicLink();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -181,6 +192,15 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         updateAccentColorSelector();
     }
 
+    private int[] color = {
+            R.color.workspace_red,
+            R.color.workspace_orange,
+            R.color.workspace_yellow,
+            R.color.workspace_green,
+            R.color.workspace_blue,
+            R.color.workspace_purple
+    };
+
     private void updateAccentColorSelector() {
         workspaceAccent1.setStrokeWidth(selectedColorIndex == 1 ? 21 : 0);
         workspaceAccent2.setStrokeWidth(selectedColorIndex == 2 ? 21 : 0);
@@ -188,6 +208,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         workspaceAccent4.setStrokeWidth(selectedColorIndex == 4 ? 21 : 0);
         workspaceAccent5.setStrokeWidth(selectedColorIndex == 5 ? 21 : 0);
         workspaceAccent6.setStrokeWidth(selectedColorIndex == 6 ? 21 : 0);
+
+        headerView.setBackgroundResource(color[selectedColorIndex - 1]);
     }
 
     private void uploadBitmap(Bitmap bitmap) {
@@ -203,7 +225,7 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-
+                displayErrorToast();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -226,12 +248,41 @@ public class NewWorkspaceActivity extends AppCompatActivity {
 
                             Log.i("FB Storage", downloadUri.toString());
                         } else {
-                            // Handle failures
-                            // ...
+                            displayErrorToast();
                         }
                     }
                 });
             }
         });
     }
+
+    private void createDynamicLink() {
+        Task<ShortDynamicLink> dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://www.example.com/"))
+                .setDomainUriPrefix("https://npff.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT);
+
+        dynamicLink.addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
+            @Override
+            public void onSuccess(ShortDynamicLink shortDynamicLink) {
+                System.out.println(shortDynamicLink.getShortLink());
+            }
+        });
+
+        dynamicLink.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                displayErrorToast();
+            }
+        });
+    }
+
+    private void displayErrorToast() {
+        Toast.makeText(getApplicationContext(),
+                "Failed to create workspace. Try again.",
+                Toast.LENGTH_LONG)
+                .show();
+    }
+
 }

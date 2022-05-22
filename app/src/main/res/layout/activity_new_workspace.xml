@@ -7,10 +7,10 @@
     tools:context=".NewWorkspaceActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/header_view"
         android:layout_width="0dp"
         android:layout_height="85dp"
-        android:background="#FF6746"
+        android:background="@color/workspace_orange"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/header_view"
         app:shapeAppearance="@style/Circle"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -64,7 +64,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/workspace_image"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/header_view">
 
         <TextView
             android:id="@+id/workspaceName"
