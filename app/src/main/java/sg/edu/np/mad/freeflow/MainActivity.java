@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+        loadUserInformation();
+    }
+
+    private void loadUserInformation() {
         db.collection("users").document(user.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // TODO: Handle error
+                        setUpErrorState();
                     }
                 });
     }
@@ -131,6 +135,17 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new HomeFragment());
+        ft.commit();
+    }
+
+    private void setUpErrorState() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_fragment, ErrorFragment.newInstance().setOnRetryActionHandler(new ErrorFragment.OnRetryActionHandler() {
+            @Override
+            public void onRetry() {
+                loadUserInformation();
+            }
+        }));
         ft.commit();
     }
 
