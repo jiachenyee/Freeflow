@@ -3,6 +3,9 @@ package sg.edu.np.mad.freeflow;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +22,18 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private List<String> workspaceIDs;
+    private MainActivity activity;
+
+    private RecyclerView workspaceRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance() {
+    public static HomeFragment newInstance(MainActivity activity) {
         HomeFragment fragment = new HomeFragment();
+
+        fragment.activity = activity;
 
         return fragment;
     }
@@ -42,7 +50,24 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+        workspaceRecyclerView = v.findViewById(R.id.workspace_recycler_view);
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        WorkspaceCardAdapter mAdapter = new WorkspaceCardAdapter(new ArrayList<>(), activity);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(
+                activity,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+
+        workspaceRecyclerView.setLayoutManager(mLayoutManager);
+        workspaceRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        workspaceRecyclerView.setAdapter(mAdapter);
     }
 
     public void setWorkspaceIDs(ArrayList<String> workspaceIDs) {

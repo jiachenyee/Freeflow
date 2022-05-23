@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         if (workspaces == null || workspaces.isEmpty()) {  setUpEmptyState(); return; }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_fragment, new HomeFragment());
+        ft.replace(R.id.content_fragment, HomeFragment.newInstance(this));
         ft.commit();
     }
 
