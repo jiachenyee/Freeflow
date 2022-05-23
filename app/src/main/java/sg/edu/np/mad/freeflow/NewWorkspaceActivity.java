@@ -99,7 +99,12 @@ public class NewWorkspaceActivity extends AppCompatActivity {
                         .setAccentColor(selectedColorIndex)
                         .setOnSuccessListener(new WorkspaceBuilder.OnSuccessListener() {
                             @Override
-                            public void onSuccess() {
+                            public void onSuccess(String workspaceID) {
+                                Intent intent = new Intent();
+                                intent.putExtra("workspaceID", workspaceID);
+
+                                setResult(200, intent);
+
                                 finish();
                             }
                         }).setOnErrorListener(new WorkspaceBuilder.OnErrorListener() {

@@ -83,7 +83,7 @@ public class WorkspaceBuilder {
     }
 
     public interface OnSuccessListener {
-        public void onSuccess();
+        public void onSuccess(String workspaceID);
     }
 
     public interface OnErrorListener {
@@ -128,7 +128,6 @@ public class WorkspaceBuilder {
                             Uri downloadUri = task.getResult();
 
                             workspaceIconURI = downloadUri;
-
 
                             attemptWorkspaceCreation();
                         } else {
@@ -195,30 +194,17 @@ public class WorkspaceBuilder {
 
                         DocumentReference userReference = db.collection("users").document(userID);
 
-                        userReference.get().addOnSuccessListener(new com.google.android.gms.tasks.OnSuccessListener<DocumentSnapshot>() {
+                        userReference.update("workspaces", FieldValue.arrayUnion(documentReference.getId())).addOnSuccessListener(new com.google.android.gms.tasks.OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Map<String, Object> data = documentSnapshot.getData();
-
-                                List<String> workspaces = new ArrayList<>();
-
-                                if (data.get("workspaces") != null) workspaces.addAll((ArrayList<String>) data.get("workspaces"));
-
-                                workspaces.add(documentReference.getId());
-
-                                userReference.update("workspaces", FieldValue.arrayUnion(documentReference.getId())).addOnSuccessListener(new com.google.android.gms.tasks.OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        if (successListener != null) {
-                                            successListener.onSuccess();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        throwError();
-                                    }
-                                });
+                            public void onSuccess(Void unused) {
+                                if (successListener != null) {
+                                    successListener.onSuccess(documentReference.getId());
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                throwError();
                             }
                         });
                     }

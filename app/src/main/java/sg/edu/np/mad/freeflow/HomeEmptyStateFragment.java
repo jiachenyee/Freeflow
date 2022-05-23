@@ -64,7 +64,7 @@ public class HomeEmptyStateFragment extends Fragment {
                             // TODO: Link with join workspace interface
                         } else {
                             Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
-                            startActivity(newWorkspaceActivity);
+                            startActivityForResult(newWorkspaceActivity, 1);
                         }
 
                         return true;
