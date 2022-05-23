@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,13 +13,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView profileImageView;
 
     FirebaseFirestore db;
+
+    ArrayList<String> workspaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,12 +102,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+        db.collection("users").document(user.getUid()).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        workspaces = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
+                        setUpWorkspaces();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // TODO: Handle error
+                    }
+                });
     }
 
     // Create empty state if the user does not currently have a workspace.
     private void setUpEmptyState() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new HomeEmptyStateFragment(this));
+        ft.commit();
+    }
+
+    private void setUpWorkspaces() {
+        if (workspaces == null || workspaces.isEmpty()) {  setUpEmptyState(); return; }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_fragment, new HomeFragment());
         ft.commit();
     }
 }
