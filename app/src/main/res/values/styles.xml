@@ -5,6 +5,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="WorkspaceIcon" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30%</item>
+    </style>
+
     <style name="Button.red" parent="ThemeOverlay.AppCompat">
         <item name="colorPrimary">@color/workspace_red</item>
     </style>

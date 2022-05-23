@@ -3,6 +3,8 @@ package sg.edu.np.mad.freeflow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -53,8 +56,23 @@ public class NewWorkspaceActivity extends AppCompatActivity {
     private ImageView workplaceImage;
 
     private LinearLayout headerView;
+    private Button doneButton;
+    private CardView workspaceNameEditTextCard;
+
+    EditText workspaceNameEditText;
 
     private int selectedColorIndex = 1;
+
+    private int[] color = {
+            R.color.workspace_red,
+            R.color.workspace_orange,
+            R.color.workspace_yellow,
+            R.color.workspace_green,
+            R.color.workspace_blue,
+            R.color.workspace_purple
+    };
+
+    private Bitmap workspaceIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +104,34 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         });
 
         headerView = findViewById(R.id.header_view);
+        doneButton = findViewById(R.id.done_button);
+        workspaceNameEditTextCard = findViewById(R.id.workspace_name_edit_text_card);
+        workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WorkspaceBuilder workspaceBuilder = WorkspaceBuilder.newInstance()
+                        .setWorkspaceName(workspaceNameEditText.getText().toString())
+                        .setWorkspaceIcon(workspaceIcon)
+                        .setAccentColor(selectedColorIndex)
+                        .setOnSuccessListener(new WorkspaceBuilder.OnSuccessListener() {
+                            @Override
+                            public void onSuccess() {
+
+                            }
+                        }).setOnErrorListener(new WorkspaceBuilder.OnErrorListener() {
+                            @Override
+                            public void onError() {
+                                Toast.makeText(getApplicationContext(),
+                                        "Failed to create workspace. Try again.",
+                                        Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                        });
+                workspaceBuilder.build();
+            }
+        });
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
@@ -108,21 +154,16 @@ public class NewWorkspaceActivity extends AppCompatActivity {
                     (selectedImageBitmap.getWidth() - newImageWidth) / 2,
                     (selectedImageBitmap.getHeight() - newImageWidth) / 2, newImageWidth, newImageWidth);
 
+            workspaceIcon = croppedBitmap;
             workplaceImage.setImageBitmap(croppedBitmap);
-
-            createDynamicLink();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        EditText workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
-
         workspaceNameEditText.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -192,15 +233,6 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         updateAccentColorSelector();
     }
 
-    private int[] color = {
-            R.color.workspace_red,
-            R.color.workspace_orange,
-            R.color.workspace_yellow,
-            R.color.workspace_green,
-            R.color.workspace_blue,
-            R.color.workspace_purple
-    };
-
     private void updateAccentColorSelector() {
         workspaceAccent1.setStrokeWidth(selectedColorIndex == 1 ? 21 : 0);
         workspaceAccent2.setStrokeWidth(selectedColorIndex == 2 ? 21 : 0);
@@ -210,79 +242,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
         workspaceAccent6.setStrokeWidth(selectedColorIndex == 6 ? 21 : 0);
 
         headerView.setBackgroundResource(color[selectedColorIndex - 1]);
+        doneButton.setBackgroundResource(color[selectedColorIndex - 1]);
+
+        workspaceNameEditTextCard.setCardBackgroundColor(ContextCompat.getColor(this, color[selectedColorIndex - 1]));
     }
-
-    private void uploadBitmap(Bitmap bitmap) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        StorageReference imageRef = storageRef.child("workspaceicons/" + UUID.randomUUID().toString() + ".jpg");
-
-        UploadTask uploadTask = imageRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                displayErrorToast();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-
-                        // Continue with the task to get the download URL
-                        return imageRef.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadUri = task.getResult();
-
-                            Log.i("FB Storage", downloadUri.toString());
-                        } else {
-                            displayErrorToast();
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private void createDynamicLink() {
-        Task<ShortDynamicLink> dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://www.example.com/"))
-                .setDomainUriPrefix("https://npff.page.link")
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                .buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT);
-
-        dynamicLink.addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
-            @Override
-            public void onSuccess(ShortDynamicLink shortDynamicLink) {
-                System.out.println(shortDynamicLink.getShortLink());
-            }
-        });
-
-        dynamicLink.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                displayErrorToast();
-            }
-        });
-    }
-
-    private void displayErrorToast() {
-        Toast.makeText(getApplicationContext(),
-                "Failed to create workspace. Try again.",
-                Toast.LENGTH_LONG)
-                .show();
-    }
-
 }

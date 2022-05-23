@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
 
-
         db = FirebaseFirestore.getInstance();
 
         // When the user clicks the profile image, show the account activity
