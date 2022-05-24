@@ -6,8 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".SignInActivity">
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/welcome_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/interextrabold"
+            android:textColor="@color/black"
+            android:text="Welcome to"
+            android:textSize="34dp" />
+
+        <ImageView
+            android:id="@+id/freeflowIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="32dp"
+
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_freeflow" />
+
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="32dp"
+
+            app:layout_constraintTop_toBottomOf="@+id/freeflowIcon" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

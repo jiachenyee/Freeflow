@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="@color/workspace_orange"
+    android:layout_marginHorizontal="4dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:padding="8dp"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/workspace_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            app:shapeAppearance="@style/WorkspaceIcon"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/workspace_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/interbold"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:text="Overflow" />
+
+            <TextView
+                android:id="@+id/workspace_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 tasks • 10 Members"
+                android:fontFamily="@font/interregular"
+                android:textSize="8dp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

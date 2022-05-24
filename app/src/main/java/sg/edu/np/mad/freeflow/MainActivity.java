@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,13 +13,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    ArrayList<String> workspaceIDs;
+    ArrayList<Workspace> workspaces = new ArrayList<>();
+
+    HomeFragment homeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
-
 
         db = FirebaseFirestore.getInstance();
 
@@ -64,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
             Intent signInActivity = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(signInActivity);
         } else {
-            // User is signed in, set `user` to the current user
-            user = mAuth.getCurrentUser();
+            if (user == null) {
+                // User is signed in, set `user` to the current user
+                user = mAuth.getCurrentUser();
 
-            // Set up the interface for the user
-            setUpUser();
+                // Set up the interface for the user
+                setUpUser();
+            }
         }
     }
 
@@ -96,6 +111,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+        loadUserInformation();
+    }
+
+    private void loadUserInformation() {
+        db.collection("users").document(user.getUid()).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        workspaceIDs = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
+                        setUpWorkspaces();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        setUpErrorState();
+                    }
+                });
     }
 
     // Create empty state if the user does not currently have a workspace.
@@ -103,5 +137,75 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, new HomeEmptyStateFragment(this));
         ft.commit();
+    }
+
+    private void setUpWorkspaces() {
+        if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        homeFragment = HomeFragment.newInstance(this).setWorkspaces(workspaces);
+
+        ft.replace(R.id.content_fragment, homeFragment);
+        ft.commit();
+
+        for (int i = 0; i < workspaceIDs.size(); i++) {
+            String workspaceID = workspaceIDs.get(i);
+
+            DocumentReference workspaceDocumentReference = db.collection("workspaces").document(workspaceID);
+            workspaceDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Map<String, Object> data = document.getData();
+
+                            Workspace workspace = new Workspace(data).setImageLoadHandler(new Workspace.OnImageLoadHandler() {
+                                @Override
+                                public void onImageLoad() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            homeFragment.reloadData();
+                                        }
+                                    });
+                                }
+                            });
+                            workspaces.add(workspace);
+
+                            homeFragment.reloadData();
+                        }
+                    } else {
+
+                    }
+                }
+            });
+        }
+    }
+
+    private void setUpErrorState() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_fragment, ErrorFragment.newInstance().setOnRetryActionHandler(new ErrorFragment.OnRetryActionHandler() {
+            @Override
+            public void onRetry() {
+                loadUserInformation();
+            }
+        }));
+        ft.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 200 && data.getStringExtra("workspaceID") != null) {
+            // Returned from new workspace activity
+            workspaceIDs.add(data.getStringExtra("workspaceID"));
+
+            workspaces = new ArrayList<>();
+
+            setUpWorkspaces();
+        }
     }
 }

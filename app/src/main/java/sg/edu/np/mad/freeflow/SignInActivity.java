@@ -115,9 +115,7 @@ public class SignInActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
 
-//        startActivity(signInIntent);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     private void addUserInfoToDB(FirebaseUser user) {
