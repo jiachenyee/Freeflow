@@ -56,6 +56,13 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
         holder.workspaceNameTextView.setText(workspace.name);
         holder.workspaceInformationTextView.setText(workspace.users.size() + " members");
+
+        if (workspace.workspaceIcon != null) {
+            holder.workspaceIconImageView.setVisibility(View.VISIBLE);
+            holder.workspaceIconImageView.setImageBitmap(workspace.workspaceIcon);
+        } else {
+            holder.workspaceIconImageView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public int convertDpToPixels(float dips) {
