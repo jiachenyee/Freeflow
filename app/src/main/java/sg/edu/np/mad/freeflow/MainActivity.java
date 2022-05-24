@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> workspaceIDs;
     ArrayList<Workspace> workspaces = new ArrayList<>();
 
+    HomeFragment homeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +141,10 @@ public class MainActivity extends AppCompatActivity {
         if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_fragment, HomeFragment.newInstance(this));
+
+        homeFragment = HomeFragment.newInstance(this).setWorkspaces(workspaces);
+
+        ft.replace(R.id.content_fragment, homeFragment);
         ft.commit();
 
         for (int i = 0; i < workspaceIDs.size(); i++) {
@@ -156,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
 
                             Workspace workspace = new Workspace(data);
                             workspaces.add(workspace);
+
+                            System.out.println("HELLO");
+
+                            homeFragment.reloadData();
                         }
                     } else {
 

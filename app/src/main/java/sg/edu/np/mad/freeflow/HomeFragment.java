@@ -21,8 +21,9 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    private List<String> workspaceIDs;
+    private List<Workspace> workspaces;
     private MainActivity activity;
+    private WorkspaceCardAdapter mAdapter;
 
     private RecyclerView workspaceRecyclerView;
 
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        WorkspaceCardAdapter mAdapter = new WorkspaceCardAdapter(new ArrayList<>(), activity);
+        mAdapter = new WorkspaceCardAdapter(workspaces, activity);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(
                 activity,
@@ -70,7 +71,13 @@ public class HomeFragment extends Fragment {
         workspaceRecyclerView.setAdapter(mAdapter);
     }
 
-    public void setWorkspaceIDs(ArrayList<String> workspaceIDs) {
-        this.workspaceIDs = workspaceIDs;
+    public void reloadData() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public HomeFragment setWorkspaces(ArrayList<Workspace> workspaces) {
+        this.workspaces = workspaces;
+
+        return this;
     }
 }

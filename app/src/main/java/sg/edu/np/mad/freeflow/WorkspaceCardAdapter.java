@@ -59,7 +59,6 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
     @Override
     public int getItemCount() {
-//        return workspaces.size();
-        return 10;
+        return workspaces.size();
     }
 }
