@@ -13,10 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
 
-    ArrayList<String> workspaces;
+    ArrayList<String> workspaceIDs;
+    ArrayList<Workspace> workspaces = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        workspaces = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
+                        workspaceIDs = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
                         setUpWorkspaces();
                     }
                 })
@@ -131,11 +136,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpWorkspaces() {
-        if (workspaces == null || workspaces.isEmpty()) {  setUpEmptyState(); return; }
+        if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment, HomeFragment.newInstance(this));
         ft.commit();
+
+        for (int i = 0; i < workspaceIDs.size(); i++) {
+            String workspaceID = workspaceIDs.get(i);
+
+            DocumentReference workspaceDocumentReference = db.collection("workspaces").document(workspaceID);
+            workspaceDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Map<String, Object> data = document.getData();
+
+                            Workspace workspace = new Workspace(data);
+                            workspaces.add(workspace);
+                        }
+                    } else {
+
+                    }
+                }
+            });
+        }
     }
 
     private void setUpErrorState() {
@@ -155,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             // Returned from new workspace activity
-            workspaces.add(data.getStringExtra("workspaceID"));
+            workspaceIDs.add(data.getStringExtra("workspaceID"));
 
             setUpWorkspaces();
         }
