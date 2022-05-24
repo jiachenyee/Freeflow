@@ -67,4 +67,13 @@ public class Workspace {
     public interface OnImageLoadHandler {
         void onImageLoad();
     }
+
+    public static int[] colors = {
+            R.color.workspace_red,
+            R.color.workspace_orange,
+            R.color.workspace_yellow,
+            R.color.workspace_green,
+            R.color.workspace_blue,
+            R.color.workspace_purple
+    };
 }

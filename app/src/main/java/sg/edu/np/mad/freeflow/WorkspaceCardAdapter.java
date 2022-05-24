@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -56,6 +57,8 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
         holder.workspaceNameTextView.setText(workspace.name);
         holder.workspaceInformationTextView.setText(workspace.users.size() + " members");
+
+        holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor]));
 
         if (workspace.workspaceIcon != null) {
             holder.workspaceIconImageView.setVisibility(View.VISIBLE);
