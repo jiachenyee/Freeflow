@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,8 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,8 @@ public class HomeFragment extends Fragment {
     private WorkspaceCardAdapter mAdapter;
 
     private RecyclerView workspaceRecyclerView;
+
+    private ImageButton addWorkspaceButton;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,6 +59,8 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         workspaceRecyclerView = v.findViewById(R.id.workspace_recycler_view);
+        addWorkspaceButton = v.findViewById(R.id.add_workspace_button);
+
         return v;
     }
 
@@ -69,6 +78,31 @@ public class HomeFragment extends Fragment {
         workspaceRecyclerView.setLayoutManager(mLayoutManager);
         workspaceRecyclerView.setItemAnimator(new DefaultItemAnimator());
         workspaceRecyclerView.setAdapter(mAdapter);
+
+        addWorkspaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(activity, addWorkspaceButton);
+                popupMenu.getMenuInflater().inflate(R.menu.workspace_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        if (menuItem.getItemId() == R.id.join_workspace_menu) {
+                            // TODO: Link with join workspace interface
+                        } else {
+                            Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
+                            startActivityForResult(newWorkspaceActivity, 1);
+                        }
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+            }
+        });
     }
 
     public void reloadData() {

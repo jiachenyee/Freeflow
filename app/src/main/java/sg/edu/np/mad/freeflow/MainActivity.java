@@ -77,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
             Intent signInActivity = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(signInActivity);
         } else {
-            // User is signed in, set `user` to the current user
-            user = mAuth.getCurrentUser();
+            if (user == null) {
+                // User is signed in, set `user` to the current user
+                user = mAuth.getCurrentUser();
 
-            // Set up the interface for the user
-            setUpUser();
+                // Set up the interface for the user
+                setUpUser();
+            }
         }
     }
 
@@ -197,9 +199,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
+        if (resultCode == 200 && data.getStringExtra("workspaceID") != null) {
             // Returned from new workspace activity
             workspaceIDs.add(data.getStringExtra("workspaceID"));
+
+            workspaces = new ArrayList<>();
 
             setUpWorkspaces();
         }
