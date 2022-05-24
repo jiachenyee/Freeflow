@@ -24,6 +24,7 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:background="#00FFFFFF"
+            android:contentDescription="Cross button"
             app:srcCompat="@drawable/close"
             app:tint="#FFFFFF"
             tools:ignore="TouchTargetSizeCheck" />
@@ -56,10 +57,11 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/workplaceImage"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -98,7 +100,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <Button
@@ -106,48 +108,44 @@
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
+
 
             <Button
                 android:id="@+id/accentColor2"
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/accentColor3"
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-               />
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/accentColor4"
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                 />
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/accentColor5"
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/accentColor6"
                 style="@style/FirebaseUI.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
+
         </LinearLayout>
 
     </LinearLayout>
