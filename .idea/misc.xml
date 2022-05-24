@@ -12,26 +12,23 @@
         <entry key="..\:/Users/Tan Jin Daat/Documents/Polytechnic Materials/Year 2/Semester 1/MAD/FreeFlow Assignment/app/src/main/res/layout/activity_sign_in.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Tan Jin Daat/Documents/Polytechnic Materials/Year 2/Semester 1/MAD/FreeFlow Assignment/app/src/main/res/layout/fragment_home.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Tan Jin Daat/Documents/Polytechnic Materials/Year 2/Semester 1/MAD/FreeFlow Assignment/app/src/main/res/layout/fragment_home_empty_state.xml" value="0.36302083333333335" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_account.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_new_workspace.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_sign_in.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_workspace.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/activity_workspace_setting.xml" value="0.4" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/fragment_error.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/fragment_home_empty_state.xml" value="0.3625" />
-        <entry key="..\:/Users/ryany/Documents/Year 2/MAD/Freeflow/app/src/main/res/layout/workspace_card.xml" value="0.3625" />
         <entry key="app/src/main/res/drawable/freeflow_logo2.xml" value="0.219" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3115" />
         <entry key="app/src/main/res/drawable/ic_freeflow.xml" value="0.219" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.219" />
         <entry key="app/src/main/res/drawable/plus.xml" value="0.3115" />
+        <entry key="app/src/main/res/drawable/shape.xml" value="0.2835" />
+        <entry key="app/src/main/res/drawable/share_rounded_corner_with_border.xml" value="0.3115" />
         <entry key="app/src/main/res/font/inter.xml" value="0.40625" />
         <entry key="app/src/main/res/layout/activity_account.xml" value="0.2825732687245244" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21564636230468753" />
-        <entry key="app/src/main/res/layout/activity_new_workspace.xml" value="0.2020843505859376" />
+        <entry key="app/src/main/res/layout/activity_new_workspace.xml" value="0.3230010986328126" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.21306971797236707" />
-        <entry key="app/src/main/res/layout/fragment_home_empty_state.xml" value="0.4849315068493151" />
+        <entry key="app/src/main/res/layout/activity_workspace_setting.xml" value="0.39333048311244123" />
+        <entry key="app/src/main/res/layout/fragment_error.xml" value="0.3937580162462591" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.31513423781050415" />
+        <entry key="app/src/main/res/layout/fragment_home_empty_state.xml" value="0.4470899470899471" />
+        <entry key="app/src/main/res/layout/workspace_card.xml" value="0.7712418300653595" />
         <entry key="app/src/main/res/menu/workspace_menu.xml" value="0.49375" />
       </map>
     </option>

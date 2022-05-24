@@ -147,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.content_fragment, homeFragment);
         ft.commit();
 
-        workspaces = new ArrayList<>();
-
         for (int i = 0; i < workspaceIDs.size(); i++) {
             String workspaceID = workspaceIDs.get(i);
 
