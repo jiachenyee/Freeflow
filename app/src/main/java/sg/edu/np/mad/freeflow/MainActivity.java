@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.content_fragment, homeFragment);
         ft.commit();
 
+        workspaces = new ArrayList<>();
+
         for (int i = 0; i < workspaceIDs.size(); i++) {
             String workspaceID = workspaceIDs.get(i);
 
@@ -159,10 +161,18 @@ public class MainActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Map<String, Object> data = document.getData();
 
-                            Workspace workspace = new Workspace(data);
+                            Workspace workspace = new Workspace(data).setImageLoadHandler(new Workspace.OnImageLoadHandler() {
+                                @Override
+                                public void onImageLoad() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            homeFragment.reloadData();
+                                        }
+                                    });
+                                }
+                            });
                             workspaces.add(workspace);
-
-                            System.out.println("HELLO");
 
                             homeFragment.reloadData();
                         }

@@ -36,11 +36,13 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceCardViewHolder holder, int position) {
+
+        Workspace workspace = workspaces.get(position);
+
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
                 RecyclerView.LayoutParams.WRAP_CONTENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT
         );
-
 
         if (position == 0) {
             params.setMargins(convertDpToPixels(16), 0, convertDpToPixels(4), 0);
@@ -51,6 +53,9 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
         }
 
         holder.rootView.setLayoutParams(params);
+
+        holder.workspaceNameTextView.setText(workspace.name);
+        holder.workspaceInformationTextView.setText(workspace.users.size() + " members");
     }
 
     public int convertDpToPixels(float dips) {
