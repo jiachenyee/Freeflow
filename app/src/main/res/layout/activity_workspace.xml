@@ -6,4 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".WorkspaceActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/workspace_activity_header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/workspace_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/workspace_image"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/WorkspaceIcon"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/workspace_name_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/interbold"
+            android:text="OverFLow"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/workspace_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/interregular"
+            android:text="10 members"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task"
+            app:layout_constraintTop_toBottomOf="@+id/workspace_name_show" />
+
+        <TextView
+            android:id="@+id/task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/interregular"
+            android:text="8 tasks"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workspace_image"
+            app:layout_constraintTop_toBottomOf="@+id/workspace_name_show"
+            app:layout_constraintVertical_bias="0.50
+" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="37dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/settings_gear_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
