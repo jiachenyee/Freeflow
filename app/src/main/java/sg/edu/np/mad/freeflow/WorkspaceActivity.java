@@ -2,6 +2,7 @@ package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,17 @@ public class WorkspaceActivity extends AppCompatActivity {
 
         setUpImageView(extras);
         setUpWorkspaceTitle(extras);
+
+        ImageView settingsImageView = findViewById(R.id.settings_image_view);
+
+        settingsImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent workspaceSettingsActivity = new Intent(WorkspaceActivity.this, WorkspaceSettingsActivity.class);
+
+                startActivity(workspaceSettingsActivity);
+            }
+        });
     }
 
     private void setUpImageView(Bundle extras) {
