@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> workspaceIDs;
     ArrayList<Workspace> workspaces = new ArrayList<>();
 
+    HomeFragment homeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
             Intent signInActivity = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(signInActivity);
         } else {
-            // User is signed in, set `user` to the current user
-            user = mAuth.getCurrentUser();
+            if (user == null) {
+                // User is signed in, set `user` to the current user
+                user = mAuth.getCurrentUser();
 
-            // Set up the interface for the user
-            setUpUser();
+                // Set up the interface for the user
+                setUpUser();
+            }
         }
     }
 
@@ -139,7 +143,10 @@ public class MainActivity extends AppCompatActivity {
         if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_fragment, HomeFragment.newInstance(this));
+
+        homeFragment = HomeFragment.newInstance(this).setWorkspaces(workspaces);
+
+        ft.replace(R.id.content_fragment, homeFragment);
         ft.commit();
 
         for (int i = 0; i < workspaceIDs.size(); i++) {
@@ -154,8 +161,20 @@ public class MainActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Map<String, Object> data = document.getData();
 
-                            Workspace workspace = new Workspace(data);
+                            Workspace workspace = new Workspace(data).setImageLoadHandler(new Workspace.OnImageLoadHandler() {
+                                @Override
+                                public void onImageLoad() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            homeFragment.reloadData();
+                                        }
+                                    });
+                                }
+                            });
                             workspaces.add(workspace);
+
+                            homeFragment.reloadData();
                         }
                     } else {
 
@@ -180,9 +199,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
+        if (resultCode == 200 && data.getStringExtra("workspaceID") != null) {
             // Returned from new workspace activity
             workspaceIDs.add(data.getStringExtra("workspaceID"));
+
+            workspaces = new ArrayList<>();
 
             setUpWorkspaces();
         }

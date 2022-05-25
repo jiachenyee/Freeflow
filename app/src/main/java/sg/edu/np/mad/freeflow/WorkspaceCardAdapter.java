@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -36,11 +37,13 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceCardViewHolder holder, int position) {
+
+        Workspace workspace = workspaces.get(position);
+
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
                 RecyclerView.LayoutParams.WRAP_CONTENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT
         );
-
 
         if (position == 0) {
             params.setMargins(convertDpToPixels(16), 0, convertDpToPixels(4), 0);
@@ -51,6 +54,18 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
         }
 
         holder.rootView.setLayoutParams(params);
+
+        holder.workspaceNameTextView.setText(workspace.name);
+        holder.workspaceInformationTextView.setText(workspace.users.size() + " members");
+
+        holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor]));
+
+        if (workspace.workspaceIcon != null) {
+            holder.workspaceIconImageView.setVisibility(View.VISIBLE);
+            holder.workspaceIconImageView.setImageBitmap(workspace.workspaceIcon);
+        } else {
+            holder.workspaceIconImageView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public int convertDpToPixels(float dips) {
@@ -59,7 +74,6 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
     @Override
     public int getItemCount() {
-//        return workspaces.size();
-        return 10;
+        return workspaces.size();
     }
 }
