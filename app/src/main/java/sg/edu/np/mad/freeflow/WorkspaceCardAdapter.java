@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,23 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
                 parent,
                 false);
 
-        return new WorkspaceCardViewHolder(item);
+        return new WorkspaceCardViewHolder(item).setOnWorkspaceOpenHandler(new WorkspaceCardViewHolder.OnWorkspaceOpenHandler() {
+            @Override
+            public void onWorkspaceOpen(int index) {
+                Intent workspaceActivity = new Intent(activity, WorkspaceActivity.class);
+
+                Workspace workspace = workspaces.get(index);
+
+                workspaceActivity.putExtra("workspaceIcon", workspace.workspaceIcon);
+                workspaceActivity.putExtra("workspaceAccentColor", workspace.accentColor);
+                workspaceActivity.putExtra("workspaceName", workspace.name);
+                workspaceActivity.putExtra("workspaceInviteCode", workspace.inviteCode);
+                workspaceActivity.putExtra("workspaceUsers", workspace.users);
+                workspaceActivity.putExtra("workspaceAdmins", workspace.admins);
+
+                activity.startActivity(workspaceActivity);
+            }
+        });
     }
 
     @Override
@@ -56,7 +73,12 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
         holder.rootView.setLayoutParams(params);
 
         holder.workspaceNameTextView.setText(workspace.name);
-        holder.workspaceInformationTextView.setText(workspace.users.size() + " members");
+
+        int userCount = workspace.users.size();
+
+        holder.workspaceInformationTextView.setText(userCount + (userCount == 1 ? " member" : " members"));
+
+        holder.index = position;
 
         holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor]));
 
