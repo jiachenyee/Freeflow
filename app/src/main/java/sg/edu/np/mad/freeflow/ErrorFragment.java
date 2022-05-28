@@ -34,6 +34,7 @@ public class ErrorFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -41,7 +42,7 @@ public class ErrorFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_error, container, false);
 
-        retryButton = v.findViewById(R.id.retry_button);
+
 
         return v;
     }
