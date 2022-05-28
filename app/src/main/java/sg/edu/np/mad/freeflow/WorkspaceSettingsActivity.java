@@ -18,5 +18,12 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        setUp();
+    }
+
+    private void setUp() {
+        Bundle extras = this.getIntent().getExtras();
+
     }
 }

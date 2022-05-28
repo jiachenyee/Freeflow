@@ -37,6 +37,13 @@ public class WorkspaceActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent workspaceSettingsActivity = new Intent(WorkspaceActivity.this, WorkspaceSettingsActivity.class);
 
+                workspaceSettingsActivity.putExtra("workspaceIcon", (Bitmap) extras.getParcelable("workspaceIcon"));
+                workspaceSettingsActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                workspaceSettingsActivity.putExtra("workspaceName", extras.getString("workspaceName"));
+                workspaceSettingsActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
+                workspaceSettingsActivity.putExtra("workspaceUsers", extras.getStringArray("workspaceUsers"));
+                workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArray("workspaceAdmins"));
+
                 startActivity(workspaceSettingsActivity);
             }
         });
