@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,6 +28,9 @@ public class WorkspaceActivity extends AppCompatActivity {
         setUpWorkspaceTitle(extras);
 
         ImageView settingsImageView = findViewById(R.id.settings_image_view);
+
+        ConstraintLayout workspaceActivityHeader = findViewById(R.id.workspace_activity_header);
+        workspaceActivityHeader.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
 
         settingsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
