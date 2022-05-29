@@ -2,4 +2,9 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
     </array>
+    <string name="list">
+  <li>1) Check that you have a stable internet connection</li>\n
+  <li>2) Press Retry</li>\n
+  <li>3) Restart the app</li>\n
+</string>
 </resources>
