@@ -154,7 +154,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/interregular"
                 android:layout_marginHorizontal="16dp"
-                android:text="1. Visit example.com/aaaa \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set"/>
+                android:text="1. Visit example.com/aaaa \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set!"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
