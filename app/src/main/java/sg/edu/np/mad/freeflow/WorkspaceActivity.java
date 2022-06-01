@@ -1,9 +1,11 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,10 +30,20 @@ public class WorkspaceActivity extends AppCompatActivity {
 
         ImageView settingsImageView = findViewById(R.id.settings_image_view);
 
+        ConstraintLayout workspaceActivityHeader = findViewById(R.id.workspace_activity_header);
+        workspaceActivityHeader.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
+
         settingsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent workspaceSettingsActivity = new Intent(WorkspaceActivity.this, WorkspaceSettingsActivity.class);
+
+                workspaceSettingsActivity.putExtra("workspaceIcon", (Bitmap) extras.getParcelable("workspaceIcon"));
+                workspaceSettingsActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                workspaceSettingsActivity.putExtra("workspaceName", extras.getString("workspaceName"));
+                workspaceSettingsActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
+                workspaceSettingsActivity.putExtra("workspaceUsers", extras.getStringArray("workspaceUsers"));
+                workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArray("workspaceAdmins"));
 
                 startActivity(workspaceSettingsActivity);
             }
@@ -41,7 +53,11 @@ public class WorkspaceActivity extends AppCompatActivity {
     private void setUpImageView(Bundle extras) {
         Bitmap image = extras.getParcelable("workspaceIcon");
 
-        workspaceImageView.setImageBitmap(image);
+        if (image != null) {
+            workspaceImageView.setImageBitmap(image);
+        } else {
+            workspaceImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
+        }
 
         workspaceImageView.setOnClickListener(new View.OnClickListener() {
             @Override

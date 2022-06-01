@@ -47,6 +47,8 @@ public class WorkspaceBuilder {
     Uri workspaceInviteURI;
     Uri workspaceIconURI;
 
+    Boolean isImageSetUp = false;
+
     public static WorkspaceBuilder newInstance()
     {
         return new WorkspaceBuilder();
@@ -91,6 +93,12 @@ public class WorkspaceBuilder {
     }
 
     private void uploadBitmap(Bitmap bitmap) {
+        if (bitmap == null) {
+            isImageSetUp = true;
+            attemptWorkspaceCreation();
+            return;
+        }
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -128,7 +136,7 @@ public class WorkspaceBuilder {
                             Uri downloadUri = task.getResult();
 
                             workspaceIconURI = downloadUri;
-
+                            isImageSetUp = true;
                             attemptWorkspaceCreation();
                         } else {
                             throwError();
@@ -169,7 +177,7 @@ public class WorkspaceBuilder {
     }
 
     private void attemptWorkspaceCreation() {
-        if (workspaceInviteURI == null || workspaceIconURI == null) return;
+        if (workspaceInviteURI == null || !isImageSetUp) return;
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -179,7 +187,10 @@ public class WorkspaceBuilder {
         workspace.put("accentColor", workspaceColor);
         workspace.put("inviteCode", workspaceInviteURI.toString().substring(23));
         workspace.put("name", workspaceName);
-        workspace.put("workspaceIconURL", workspaceIconURI);
+
+        if (workspaceIconURI != null) {
+            workspace.put("workspaceIconURL", workspaceIconURI);
+        }
 
         String[] arr = {userID};
 
