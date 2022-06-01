@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +36,7 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         ImageButton closeButton = findViewById(R.id.close_button);
         Button copyInviteLinkButton = findViewById(R.id.copy_invite_link_button);
         ImageView workspaceImage = findViewById(R.id.workspace_image);
+        TextView instructionsTextView = findViewById(R.id.join_workspace_description);
 
         joinWorkspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
 
@@ -47,6 +49,8 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         String joinURL = "npff.page.link/" + workspaceInviteCode;
 
         joinWorkspaceURLTextView.setText(joinURL);
+
+        instructionsTextView.setText("1. Visit " + joinURL + " \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set!");
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,10 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Workspace Invite URL", joinURL);
                 clipboard.setPrimaryClip(clip);
+
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Copied to Clipboard", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
