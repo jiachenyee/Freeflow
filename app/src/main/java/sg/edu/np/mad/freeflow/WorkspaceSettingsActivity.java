@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +22,7 @@ import android.widget.LinearLayout;
 public class WorkspaceSettingsActivity extends AppCompatActivity {
 
     Button inviteButton;
+    RecyclerView settingsRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,9 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
 
         Bundle extras = this.getIntent().getExtras();
 
-        inviteButton = findViewById(R.id.invite_button);
+        settingsRecyclerView = findViewById(R.id.settings_recycler_view);
+
+//        inviteButton = findViewById(R.id.invite_button);
 
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,8 +42,23 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
             }
         });
 
-        setUp(extras);
+//        setUp(extras);
+        setUpRecyclerView();
     }
+
+    private void setUpRecyclerView() {
+        RecyclerView.Adapter mAdapter = new WorkspaceSettingsAdapter();
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL,
+                false);
+
+        settingsRecyclerView.setLayoutManager(mLayoutManager);
+        settingsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        settingsRecyclerView.setAdapter(mAdapter);
+    }
+
 
     private void setUp(Bundle extras) {
         int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
