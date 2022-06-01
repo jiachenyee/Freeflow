@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
         <activity
+            android:name=".JoinWorkspaceActivity"
+            android:exported="false" />
+        <activity
             android:name=".WorkspaceInviteActivity"
             android:exported="false" />
         <activity
