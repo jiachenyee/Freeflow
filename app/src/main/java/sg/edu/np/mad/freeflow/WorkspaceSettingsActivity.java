@@ -8,9 +8,11 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class WorkspaceSettingsActivity extends AppCompatActivity {
@@ -46,6 +48,14 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
 
         CardView workspaceNameCard = findViewById(R.id.workspace_name_edit_text_card);
         workspaceNameCard.setCardBackgroundColor(ContextCompat.getColor(this, color));
+
+        ImageView workspaceImage = findViewById(R.id.workspace_image);
+
+        if (extras.getParcelable("workspaceIcon") == null) {
+            workspaceImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
+        } else {
+            workspaceImage.setImageBitmap((Bitmap) extras.getParcelable("workspaceIcon"));
+        }
     }
 
     private void setUpInviteButton(Bundle extras) {
