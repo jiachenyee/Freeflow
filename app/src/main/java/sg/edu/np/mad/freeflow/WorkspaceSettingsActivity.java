@@ -39,12 +39,12 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
             }
         });
 
-        setUpRecyclerView();
+        setUpRecyclerView(extras);
         setUpTitleBar(extras);
     }
 
-    private void setUpRecyclerView() {
-        RecyclerView.Adapter mAdapter = new WorkspaceSettingsAdapter();
+    private void setUpRecyclerView(Bundle extras) {
+        RecyclerView.Adapter mAdapter = new WorkspaceSettingsAdapter(extras, this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(
                 this,
@@ -61,43 +61,5 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
 
         LinearLayout workspaceActivityHeader = findViewById(R.id.header_view);
         workspaceActivityHeader.setBackgroundResource(color);
-    }
-
-    private void setUp(Bundle extras) {
-        int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
-
-        setUpInviteButton(extras);
-
-        CardView workspaceNameCard = findViewById(R.id.workspace_name_edit_text_card);
-        workspaceNameCard.setCardBackgroundColor(ContextCompat.getColor(this, color));
-
-        ImageView workspaceImage = findViewById(R.id.workspace_image);
-
-        if (extras.getParcelable("workspaceIcon") == null) {
-            workspaceImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
-        } else {
-            workspaceImage.setImageBitmap((Bitmap) extras.getParcelable("workspaceIcon"));
-        }
-
-        EditText workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
-        workspaceNameEditText.setText(extras.getString("workspaceName"));
-    }
-
-    private void setUpInviteButton(Bundle extras) {
-        Button inviteButton = findViewById(R.id.invite_button);
-        inviteButton.setTextColor(getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
-        inviteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent workspaceInviteActivity = new Intent(WorkspaceSettingsActivity.this, WorkspaceInviteActivity.class);
-
-                workspaceInviteActivity.putExtra("workspaceIcon", (Bitmap) extras.getParcelable("workspaceIcon"));
-                workspaceInviteActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
-                workspaceInviteActivity.putExtra("workspaceName", extras.getString("workspaceName"));
-                workspaceInviteActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
-
-                startActivity(workspaceInviteActivity);
-            }
-        });
     }
 }
