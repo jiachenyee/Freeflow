@@ -1,17 +1,21 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,7 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         Bundle extras = this.getIntent().getExtras();
 
         Bitmap icon = extras.getParcelable("workspaceIcon");
-        int accentColor = extras.getInt("workspaceAccentColor");
+        int accentColor = Workspace.colors[extras.getInt("workspaceAccentColor")];
         String workspaceName = extras.getString("workspaceName");
         String workspaceInviteCode = extras.getString("workspaceInviteCode");
 
@@ -37,6 +41,8 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         Button copyInviteLinkButton = findViewById(R.id.copy_invite_link_button);
         ImageView workspaceImage = findViewById(R.id.workspace_image);
         TextView instructionsTextView = findViewById(R.id.join_workspace_description);
+        CardView joinWorkspaceURLCard = findViewById(R.id.join_workspace_url_card);
+        LinearLayout headerView = findViewById(R.id.header_view);
 
         joinWorkspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
 
@@ -51,6 +57,10 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         joinWorkspaceURLTextView.setText(joinURL);
 
         instructionsTextView.setText("1. Visit " + joinURL + " \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set!");
+
+        copyInviteLinkButton.setBackgroundResource(accentColor);
+        headerView.setBackgroundResource(accentColor);
+        joinWorkspaceURLCard.setCardBackgroundColor(ContextCompat.getColor(this, accentColor));
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
