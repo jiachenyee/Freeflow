@@ -71,6 +71,6 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
 
     @Override
     public int getItemCount() {
-        return 1 + 5;
+        return 1 + extras.getStringArrayList("workspaceUsers").size();
     }
 }

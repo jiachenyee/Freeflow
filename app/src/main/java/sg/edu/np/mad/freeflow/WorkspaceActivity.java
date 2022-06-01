@@ -42,8 +42,8 @@ public class WorkspaceActivity extends AppCompatActivity {
                 workspaceSettingsActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
                 workspaceSettingsActivity.putExtra("workspaceName", extras.getString("workspaceName"));
                 workspaceSettingsActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
-                workspaceSettingsActivity.putExtra("workspaceUsers", extras.getStringArray("workspaceUsers"));
-                workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArray("workspaceAdmins"));
+                workspaceSettingsActivity.putExtra("workspaceUsers", extras.getStringArrayList("workspaceUsers"));
+                workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArrayList("workspaceAdmins"));
 
                 startActivity(workspaceSettingsActivity);
             }
