@@ -23,6 +23,15 @@ import org.w3c.dom.Text;
 
 public class WorkspaceInviteActivity extends AppCompatActivity {
 
+    TextView joinWorkspaceTitleTextView;
+    TextView joinWorkspaceURLTextView;
+    ImageButton closeButton;
+    Button copyInviteLinkButton;
+    ImageView workspaceImage;
+    TextView instructionsTextView;
+    CardView joinWorkspaceURLCard;
+    LinearLayout headerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,22 +44,16 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         String workspaceName = extras.getString("workspaceName");
         String workspaceInviteCode = extras.getString("workspaceInviteCode");
 
-        TextView joinWorkspaceTitleTextView = findViewById(R.id.join_workspace_title_text_view);
-        TextView joinWorkspaceURLTextView = findViewById(R.id.join_workspace_url_text_view);
-        ImageButton closeButton = findViewById(R.id.close_button);
-        Button copyInviteLinkButton = findViewById(R.id.copy_invite_link_button);
-        ImageView workspaceImage = findViewById(R.id.workspace_image);
-        TextView instructionsTextView = findViewById(R.id.join_workspace_description);
-        CardView joinWorkspaceURLCard = findViewById(R.id.join_workspace_url_card);
-        LinearLayout headerView = findViewById(R.id.header_view);
+        joinWorkspaceTitleTextView = findViewById(R.id.join_workspace_title_text_view);
+        joinWorkspaceURLTextView = findViewById(R.id.join_workspace_url_text_view);
+        closeButton = findViewById(R.id.close_button);
+        copyInviteLinkButton = findViewById(R.id.copy_invite_link_button);
+        workspaceImage = findViewById(R.id.workspace_image);
+        instructionsTextView = findViewById(R.id.join_workspace_description);
+        joinWorkspaceURLCard = findViewById(R.id.join_workspace_url_card);
+        headerView = findViewById(R.id.header_view);
 
         joinWorkspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
-
-        if (icon != null) {
-            workspaceImage.setImageBitmap(icon);
-        } else {
-            workspaceImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
-        }
 
         String joinURL = "npff.page.link/" + workspaceInviteCode;
 
@@ -58,6 +61,12 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
 
         instructionsTextView.setText("1. Visit " + joinURL + " \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set!");
 
+        setUpImage(icon);
+        setUpHeader(accentColor);
+        setUpCopyButton(joinURL);
+    }
+
+    private void setUpHeader(int accentColor) {
         copyInviteLinkButton.setBackgroundResource(accentColor);
         headerView.setBackgroundResource(accentColor);
         joinWorkspaceURLCard.setCardBackgroundColor(ContextCompat.getColor(this, accentColor));
@@ -68,7 +77,17 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    private void setUpImage(Bitmap icon) {
+        if (icon != null) {
+            workspaceImage.setImageBitmap(icon);
+        } else {
+            workspaceImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
+        }
+    }
+
+    private void setUpCopyButton(String joinURL) {
         copyInviteLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
