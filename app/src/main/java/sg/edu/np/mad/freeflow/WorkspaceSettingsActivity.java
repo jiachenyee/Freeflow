@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -56,6 +57,9 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         } else {
             workspaceImage.setImageBitmap((Bitmap) extras.getParcelable("workspaceIcon"));
         }
+
+        EditText workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
+        workspaceNameEditText.setText(extras.getString("workspaceName"));
     }
 
     private void setUpInviteButton(Bundle extras) {
