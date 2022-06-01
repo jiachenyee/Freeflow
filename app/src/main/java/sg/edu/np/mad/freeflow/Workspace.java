@@ -26,7 +26,11 @@ public class Workspace {
 
     Workspace(Map<String, Object> workspaceData) {
         this.name = (String) workspaceData.get("name");
-        this.workspaceIconURI = Uri.parse((String) workspaceData.get("workspaceIconURL"));
+
+        if (workspaceData.get("workspaceIconURL") != null) {
+            this.workspaceIconURI = Uri.parse((String) workspaceData.get("workspaceIconURL"));
+        }
+
         this.accentColor = (int) (long) workspaceData.get("accentColor");
         this.inviteCode = (String) workspaceData.get("inviteCode");
 
@@ -37,6 +41,9 @@ public class Workspace {
     }
 
     private void loadImage() {
+
+        if (workspaceIconURI == null) { return; }
+
         new Thread(new Runnable() {
             @Override
             public void run() {

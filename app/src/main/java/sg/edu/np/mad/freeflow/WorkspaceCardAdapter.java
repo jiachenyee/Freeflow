@@ -3,6 +3,7 @@ package sg.edu.np.mad.freeflow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,10 +84,9 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
         holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor]));
 
         if (workspace.workspaceIcon != null) {
-            holder.workspaceIconImageView.setVisibility(View.VISIBLE);
             holder.workspaceIconImageView.setImageBitmap(workspace.workspaceIcon);
         } else {
-            holder.workspaceIconImageView.setVisibility(View.INVISIBLE);
+            holder.workspaceIconImageView.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.workspace_icon));
         }
     }
 
