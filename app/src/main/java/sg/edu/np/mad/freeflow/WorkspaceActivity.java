@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,7 +53,11 @@ public class WorkspaceActivity extends AppCompatActivity {
     private void setUpImageView(Bundle extras) {
         Bitmap image = extras.getParcelable("workspaceIcon");
 
-        workspaceImageView.setImageBitmap(image);
+        if (image != null) {
+            workspaceImageView.setImageBitmap(image);
+        } else {
+            workspaceImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.workspace_icon));
+        }
 
         workspaceImageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -177,9 +177,7 @@ public class WorkspaceBuilder {
     }
 
     private void attemptWorkspaceCreation() {
-        System.out.println("ATTEMPT WORKSPACE");
         if (workspaceInviteURI == null || !isImageSetUp) return;
-        System.out.println("Success");
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
