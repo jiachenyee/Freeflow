@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 
 public class WorkspaceSettingsActivity extends AppCompatActivity {
 
-    Button inviteButton;
     RecyclerView settingsRecyclerView;
 
     @Override
@@ -33,8 +32,6 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
 
         settingsRecyclerView = findViewById(R.id.settings_recycler_view);
 
-//        inviteButton = findViewById(R.id.invite_button);
-
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,8 +39,8 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
             }
         });
 
-//        setUp(extras);
         setUpRecyclerView();
+        setUpTitleBar(extras);
     }
 
     private void setUpRecyclerView() {
@@ -59,12 +56,15 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         settingsRecyclerView.setAdapter(mAdapter);
     }
 
-
-    private void setUp(Bundle extras) {
+    private void setUpTitleBar(Bundle extras) {
         int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
 
         LinearLayout workspaceActivityHeader = findViewById(R.id.header_view);
         workspaceActivityHeader.setBackgroundResource(color);
+    }
+
+    private void setUp(Bundle extras) {
+        int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
 
         setUpInviteButton(extras);
 
@@ -84,6 +84,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
     }
 
     private void setUpInviteButton(Bundle extras) {
+        Button inviteButton = findViewById(R.id.invite_button);
         inviteButton.setTextColor(getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
         inviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
