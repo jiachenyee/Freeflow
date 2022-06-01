@@ -1,7 +1,9 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,11 +37,15 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
     }
 
     private void setUp(Bundle extras) {
+        int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
 
         LinearLayout workspaceActivityHeader = findViewById(R.id.header_view);
-        workspaceActivityHeader.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
+        workspaceActivityHeader.setBackgroundResource(color);
 
         setUpInviteButton(extras);
+
+        CardView workspaceNameCard = findViewById(R.id.workspace_name_edit_text_card);
+        workspaceNameCard.setCardBackgroundColor(ContextCompat.getColor(this, color));
     }
 
     private void setUpInviteButton(Bundle extras) {
