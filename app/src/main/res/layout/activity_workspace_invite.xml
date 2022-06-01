@@ -61,7 +61,7 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/join_workspace_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Join Overflow"
@@ -105,7 +105,7 @@
                     app:cardBackgroundColor="@color/workspace_orange"
                     app:cardCornerRadius="7dp">
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/join_workspace_url_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="example.com/aaaa"
@@ -120,7 +120,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button5"
+                android:id="@+id/copy_invite_link_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
 
@@ -149,6 +149,7 @@
                 android:textSize="16sp"/>
 
             <TextView
+                android:id="@+id/join_workspace_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
