@@ -8,11 +8,9 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -88,7 +86,7 @@ public class NewWorkspaceActivity extends AppCompatActivity {
 
         headerView = findViewById(R.id.header_view);
         doneButton = findViewById(R.id.done_button);
-        workspaceNameEditTextCard = findViewById(R.id.workspace_name_edit_text_card);
+        workspaceNameEditTextCard = findViewById(R.id.today_task);
         workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
 
         doneButton.setOnClickListener(new View.OnClickListener() {

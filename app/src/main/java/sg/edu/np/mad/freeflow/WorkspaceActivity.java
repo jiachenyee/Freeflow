@@ -1,11 +1,13 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +18,30 @@ public class WorkspaceActivity extends AppCompatActivity {
     ImageView workspaceImageView;
     TextView workspaceNameTextView;
 
+    TextView todayTaskTextView;
+    CardView todayTaskCardView;
+
+    TextView allTasksTextView;
+    CardView allTasksCardView;
+
+    TextView forMeTextView;
+    CardView forMeCardView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspace);
 
         workspaceImageView = findViewById(R.id.workspace_image);
+
+        todayTaskTextView = findViewById(R.id.today_task_textView);
+        todayTaskCardView = findViewById(R.id.today_task);
+
+        allTasksTextView = findViewById(R.id.all_task_textView);
+        todayTaskCardView = findViewById(R.id.all_task);
+
+        forMeTextView = findViewById(R.id.for_me_textView);
+        todayTaskCardView = findViewById(R.id.for_me);
 
         Bundle extras = this.getIntent().getExtras();
 
@@ -48,6 +68,40 @@ public class WorkspaceActivity extends AppCompatActivity {
                 startActivity(workspaceSettingsActivity);
             }
         });
+
+        //User click on "Today"
+        todayTaskCardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){ changeActiveTab(todayTaskTextView, todayTaskCardView); }
+        });
+
+        //User click on "All Tasks"
+        allTasksCardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                changeActiveTab(allTasksTextView, allTasksCardView);
+            }
+        });
+        //User click on "For Me"
+        forMeCardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                changeActiveTab(forMeTextView, forMeCardView);
+            }
+        });
+    }
+
+    private void changeActiveTab(TextView textview, CardView cardview){
+        if(textview.getCurrentTextColor() == 0xFF6746){
+            textview.setTextColor(Color.BLACK);
+            textview.setBackgroundColor(Color.TRANSPARENT);
+            cardview.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+        else{
+            textview.setTextColor(Color.parseColor("#FF6746"));
+            textview.setBackgroundColor(Color.parseColor("#CCFFFFFF"));
+            cardview.setCardBackgroundColor(Color.parseColor("#FF6746"));
+        }
     }
 
     private void setUpImageView(Bundle extras) {

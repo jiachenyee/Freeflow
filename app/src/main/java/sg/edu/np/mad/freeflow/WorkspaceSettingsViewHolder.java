@@ -24,7 +24,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         inviteButton = view.findViewById(R.id.invite_button);
         workspaceNameEditText = view.findViewById(R.id.workspace_name_edit_text);
         workspaceImage = view.findViewById(R.id.workspace_image);
-        workspaceNameCard = view.findViewById(R.id.workspace_name_edit_text_card);
+        workspaceNameCard = view.findViewById(R.id.today_task);
 
         if (inviteButton != null) {
             inviteButton.setTextColor(activity.getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
