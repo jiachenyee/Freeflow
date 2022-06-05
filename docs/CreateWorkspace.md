@@ -1,4 +1,11 @@
 # Creating a Workspace
+The workspace creation algorithm should:
+- Get input from user on accent color, icon, name
+- Compresss workspace icon and convert to JPEG for storage
+- Upload workspace icon to Cloud Firestore
+- Create Firebase Dynamic Link to use as an invite link
+- Handle a case when a user does not submit a workspace icon and use a default icon
+- Present a toast to the user should any error occur
 
 ```mermaid
 flowchart
