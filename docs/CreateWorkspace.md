@@ -38,9 +38,12 @@ flowchart
   U --> V{Is the database write successful?}
   
   V -- Yes --> W["Create userReference to get user document from Cloud Firestore using users/userID"]
+  W --> AC[Set workspaceID to the auto-generated ID from Firestore]
+  AC --> AD["Async: Append workspaceID to users/userID workspaces property in Cloud Firestore"]
+  
   V -- No --> X[Present error toast to user]
   
-  W --> Y{Is the database write successful?}
+  AD --> Y{Is the database write successful?}
   
   Y -- Yes --> Z[Reload workspace list data]
   Y -- No --> X
@@ -48,5 +51,4 @@ flowchart
   X --> Z
   
   Z --> stop([STOP])
-
 ```
