@@ -53,7 +53,7 @@
             android:textColor="@color/white"
 
             app:layout_constraintStart_toEndOf="@+id/workspace_image"
-            app:layout_constraintTop_toBottomOf="@+id/workspace_name_show"/>
+            app:layout_constraintTop_toBottomOf="@+id/workspace_name_show" />
 
         <ImageView
             android:id="@+id/settings_image_view"
@@ -67,5 +67,98 @@
             app:srcCompat="@drawable/settings_gear_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/new_workspace_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="19dp"
+
+        android:background="#00000000"
+        android:src="@drawable/plus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workspace_activity_header"
+        app:tint="@color/workspace_orange" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintStart_toEndOf="@+id/new_workspace_button"
+        app:layout_constraintTop_toBottomOf="@+id/workspace_activity_header">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/today_task"
+                android:layout_width="90dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/workspace_orange"
+                app:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/today_task_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#CCFFFFFF"
+                    android:fontFamily="@font/interbold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="Today"
+                    android:textColor="#FF6746"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/all_task"
+                android:layout_width="90dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/fui_transparent"
+                app:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/all_task_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#CCFFFFFF"
+                    android:fontFamily="@font/interbold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="All Tasks"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/for_me"
+                android:layout_width="90dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/fui_transparent"
+                app:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/for_me_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#CCFFFFFF"
+                    android:fontFamily="@font/interbold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="For Me"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

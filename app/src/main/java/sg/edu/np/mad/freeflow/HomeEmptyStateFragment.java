@@ -5,12 +5,10 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
@@ -41,7 +39,7 @@ public class HomeEmptyStateFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_empty_state, container, false);
 
-        addWorkspaceButton = v.findViewById(R.id.add_workspace_button);
+        addWorkspaceButton = v.findViewById(R.id.new_workspace_button);
 
         return v;
     }

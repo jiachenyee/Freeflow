@@ -75,7 +75,7 @@
             android:textColor="@color/black" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/workspace_name_edit_text_card"
+            android:id="@+id/today_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
