@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,9 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
     ImageView workspaceImage;
     CardView workspaceNameCard;
 
+    TextView usernameTextView;
+    TextView emailTextView;
+
     public WorkspaceSettingsViewHolder(View view, WorkspaceSettingsActivity activity, Bundle extras) {
         super(view);
 
@@ -25,6 +29,9 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         workspaceNameEditText = view.findViewById(R.id.workspace_name_edit_text);
         workspaceImage = view.findViewById(R.id.workspace_image);
         workspaceNameCard = view.findViewById(R.id.workspace_name_edit_text_card);
+
+        usernameTextView = view.findViewById(R.id.username_text_view);
+        emailTextView = view.findViewById(R.id.email_text_view);
 
         if (inviteButton != null) {
             inviteButton.setTextColor(activity.getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));

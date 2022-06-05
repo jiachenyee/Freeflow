@@ -16,14 +16,22 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSettingsViewHolder> {
 
     Bundle extras;
     WorkspaceSettingsActivity activity;
 
+    ArrayList<String> users;
+    ArrayList<String> admins;
+
     public WorkspaceSettingsAdapter(Bundle extras, WorkspaceSettingsActivity activity) {
         this.extras = extras;
         this.activity = activity;
+
+        users = extras.getStringArrayList("workspaceUsers");
+        admins = extras.getStringArrayList("workspaceUsers");
     }
 
     @Override
@@ -66,11 +74,20 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
             }
 
             holder.workspaceNameEditText.setText(extras.getString("workspaceName"));
+        } else {
+            String currentUserID = users.get(position - 1);
+
+            if (admins.contains(currentUserID)) {
+                // this user is an admin
+
+            }
+
+            holder.usernameTextView.setText(currentUserID);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 1 + extras.getStringArrayList("workspaceUsers").size();
+        return 1 + users.size();
     }
 }
