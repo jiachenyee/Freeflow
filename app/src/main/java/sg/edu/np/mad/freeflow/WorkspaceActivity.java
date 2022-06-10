@@ -38,10 +38,10 @@ public class WorkspaceActivity extends AppCompatActivity {
         todayTaskCardView = findViewById(R.id.today_task);
 
         allTasksTextView = findViewById(R.id.all_task_textView);
-        todayTaskCardView = findViewById(R.id.all_task);
+        allTasksCardView = findViewById(R.id.all_task);
 
         forMeTextView = findViewById(R.id.for_me_textView);
-        todayTaskCardView = findViewById(R.id.for_me);
+        forMeCardView = findViewById(R.id.for_me);
 
         Bundle extras = this.getIntent().getExtras();
 
