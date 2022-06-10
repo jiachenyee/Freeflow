@@ -22,6 +22,8 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
     TextView usernameTextView;
     TextView emailTextView;
 
+    CardView adminCardView;
+
     public WorkspaceSettingsViewHolder(View view, WorkspaceSettingsActivity activity, Bundle extras) {
         super(view);
 
@@ -32,6 +34,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
 
         usernameTextView = view.findViewById(R.id.username_text_view);
         emailTextView = view.findViewById(R.id.email_text_view);
+        adminCardView = view.findViewById(R.id.admin_card_view);
 
         if (inviteButton != null) {
             inviteButton.setTextColor(activity.getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));

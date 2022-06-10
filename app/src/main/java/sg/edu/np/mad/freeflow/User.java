@@ -10,6 +10,8 @@ public class User {
     public String profilePictureURL;
     public String emailAddress;
 
+    public String userID;
+
     public User(String name, String profilePictureURL) {
         this.name = name;
         this.profilePictureURL = profilePictureURL;
@@ -19,6 +21,15 @@ public class User {
         this.name = user.getDisplayName();
         this.profilePictureURL = user.getPhotoUrl().toString();
         this.emailAddress = user.getEmail();
+        this.userID = user.getUid();
+    }
+
+    public User(Map<String, Object> hashMap, String userID) {
+        this.name = (String) hashMap.get("name");
+        this.profilePictureURL = (String) hashMap.get("profilePictureURL");
+        this.emailAddress = (String) hashMap.get("emailAddress");
+
+        this.userID = userID;
     }
 
     public Map<String, Object> toHashMap() {

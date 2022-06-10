@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSettingsViewHolder> {
@@ -26,12 +33,41 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
     ArrayList<String> users;
     ArrayList<String> admins;
 
+    ArrayList<User> decodedUsers = new ArrayList<>();
+
     public WorkspaceSettingsAdapter(Bundle extras, WorkspaceSettingsActivity activity) {
         this.extras = extras;
         this.activity = activity;
 
         users = extras.getStringArrayList("workspaceUsers");
         admins = extras.getStringArrayList("workspaceUsers");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        for (String userID: users) {
+            DocumentReference userRef = db.collection("users").document(userID);
+
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d("Firestore", "DocumentSnapshot data: " + document.getData());
+                            User user = new User(document.getData(), userID);
+
+                            decodedUsers.add(user);
+                            notifyDataSetChanged();
+                        } else {
+                            Log.d("Firestore", "No such document");
+                        }
+                    } else {
+                        Log.d("Firestore", "get failed with ", task.getException());
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -75,19 +111,17 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
 
             holder.workspaceNameEditText.setText(extras.getString("workspaceName"));
         } else {
-            String currentUserID = users.get(position - 1);
+            User currentUser = decodedUsers.get(position - 1);
 
-            if (admins.contains(currentUserID)) {
-                // this user is an admin
+            holder.adminCardView.setVisibility(admins.contains(currentUser.userID) ? View.VISIBLE : View.INVISIBLE);
 
-            }
-
-            holder.usernameTextView.setText(currentUserID);
+            holder.usernameTextView.setText(currentUser.name);
+            holder.emailTextView.setText(currentUser.emailAddress);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 1 + users.size();
+        return 1 + decodedUsers.size();
     }
 }
