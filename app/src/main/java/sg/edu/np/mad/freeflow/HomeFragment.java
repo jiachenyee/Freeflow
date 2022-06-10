@@ -89,7 +89,8 @@ public class HomeFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem menuItem) {
 
                         if (menuItem.getItemId() == R.id.join_workspace_menu) {
-                            // TODO: Link with join workspace interface
+                            Intent joinWorkspaceActivity = new Intent(activity, JoinWorkspaceActivity.class);
+                            startActivity(joinWorkspaceActivity);
                         } else {
                             Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
                             startActivityForResult(newWorkspaceActivity, 1);
