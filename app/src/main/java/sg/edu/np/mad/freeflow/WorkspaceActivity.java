@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +29,9 @@ public class WorkspaceActivity extends AppCompatActivity {
     TextView forMeTextView;
     CardView forMeCardView;
 
+    TaskFilter taskFilter = TaskFilter.TODAY;
+    Bundle extras;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,7 @@ public class WorkspaceActivity extends AppCompatActivity {
         forMeTextView = findViewById(R.id.for_me_textView);
         forMeCardView = findViewById(R.id.for_me);
 
-        Bundle extras = this.getIntent().getExtras();
+        extras = this.getIntent().getExtras();
 
         setUpImageView(extras);
         setUpWorkspaceTitle(extras);
@@ -72,36 +77,68 @@ public class WorkspaceActivity extends AppCompatActivity {
         //User click on "Today"
         todayTaskCardView.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view){ changeActiveTab(todayTaskTextView, todayTaskCardView); }
+            public void onClick(View view){
+                setTaskFilter(TaskFilter.TODAY);
+            }
         });
 
         //User click on "All Tasks"
         allTasksCardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                changeActiveTab(allTasksTextView, allTasksCardView);
+                setTaskFilter(TaskFilter.ALL_TASK);
             }
         });
         //User click on "For Me"
         forMeCardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                changeActiveTab(forMeTextView, forMeCardView);
+                System.out.println("HELLO");
+                setTaskFilter(TaskFilter.FOR_ME);
             }
         });
+
+        setTaskFilter(TaskFilter.TODAY);
     }
 
-    private void changeActiveTab(TextView textview, CardView cardview){
-        if(textview.getCurrentTextColor() == 0xFF6746){
-            textview.setTextColor(Color.BLACK);
-            textview.setBackgroundColor(Color.TRANSPARENT);
-            cardview.setCardBackgroundColor(Color.TRANSPARENT);
+    private void setTaskFilter(TaskFilter newValue) {
+        switch (taskFilter) {
+            case TODAY:
+                setInactiveTab(todayTaskTextView, todayTaskCardView);
+                break;
+            case ALL_TASK:
+                setInactiveTab(allTasksTextView, allTasksCardView);
+                break;
+            case FOR_ME:
+                setInactiveTab(forMeTextView, forMeCardView);
+                break;
         }
-        else{
-            textview.setTextColor(Color.parseColor("#FF6746"));
-            textview.setBackgroundColor(Color.parseColor("#CCFFFFFF"));
-            cardview.setCardBackgroundColor(Color.parseColor("#FF6746"));
+
+        switch (newValue) {
+            case TODAY:
+                setActiveTab(todayTaskTextView, todayTaskCardView);
+                break;
+            case ALL_TASK:
+                setActiveTab(allTasksTextView, allTasksCardView);
+                break;
+            case FOR_ME:
+                setActiveTab(forMeTextView, forMeCardView);
+                break;
         }
+
+        taskFilter = newValue;
+    }
+
+    private void setActiveTab(TextView textview, CardView cardview) {
+        textview.setTextColor(getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
+        textview.setBackgroundColor(Color.parseColor("#CCFFFFFF"));
+        cardview.setCardBackgroundColor(getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
+    }
+
+    private void setInactiveTab(TextView textview, CardView cardview) {
+        textview.setTextColor(Color.BLACK);
+        textview.setBackgroundColor(Color.TRANSPARENT);
+        cardview.setCardBackgroundColor(getResources().getColor(R.color.white));
     }
 
     private void setUpImageView(Bundle extras) {
@@ -128,9 +165,9 @@ public class WorkspaceActivity extends AppCompatActivity {
         workspaceNameTextView.setText(workspaceName);
     }
 
-    private void setUpWorkspaceAccentColor(Bundle extras) {
-        String workspaceName = extras.getString("workspaceName");
-
-        workspaceNameTextView.setText(workspaceName);
+    enum TaskFilter {
+        TODAY,
+        ALL_TASK,
+        FOR_ME
     }
 }
