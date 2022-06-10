@@ -11,9 +11,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 public class WorkspaceActivity extends AppCompatActivity {
@@ -84,9 +86,27 @@ public class WorkspaceActivity extends AppCompatActivity {
         newTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
+                PopupMenu popupMenu = new PopupMenu(WorkspaceActivity.this, newTaskButton);
+                popupMenu.getMenuInflater().inflate(R.menu.category_task_menu, popupMenu.getMenu());
 
-                startActivityForResult(newTaskActivity, 20);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        if (menuItem.getItemId() == R.id.new_task_menu) {
+                            // TODO: Link new task activity
+                            Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
+                            startActivityForResult(newTaskActivity, 10);
+                        } else {
+                            // TODO: Link new category activity
+
+                        }
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
             }
         });
 
