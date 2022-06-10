@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class WorkspaceActivity extends AppCompatActivity {
     TaskFilter taskFilter = TaskFilter.TODAY;
     Bundle extras;
 
+    ImageButton newTaskButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class WorkspaceActivity extends AppCompatActivity {
         forMeTextView = findViewById(R.id.for_me_textView);
         forMeCardView = findViewById(R.id.for_me);
 
+        newTaskButton = findViewById(R.id.new_task_button);
+
         extras = this.getIntent().getExtras();
 
         setUpImageView(extras);
@@ -57,6 +62,8 @@ public class WorkspaceActivity extends AppCompatActivity {
 
         ConstraintLayout workspaceActivityHeader = findViewById(R.id.workspace_activity_header);
         workspaceActivityHeader.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
+
+        newTaskButton.setColorFilter(getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
 
         settingsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +78,15 @@ public class WorkspaceActivity extends AppCompatActivity {
                 workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArrayList("workspaceAdmins"));
 
                 startActivity(workspaceSettingsActivity);
+            }
+        });
+
+        newTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
+
+                startActivityForResult(newTaskActivity, 20);
             }
         });
 
