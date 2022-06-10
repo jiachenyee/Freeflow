@@ -94,7 +94,6 @@ public class WorkspaceActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
 
                         if (menuItem.getItemId() == R.id.new_task_menu) {
-                            // TODO: Link new task activity
                             Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
                             startActivityForResult(newTaskActivity, 10);
                         } else {
