@@ -126,7 +126,8 @@
 
                             android:backgroundTint="@color/fui_transparent"
                             android:inputType="textUri"
-                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="4dp"
 
                             android:hint="xyz"
                             android:text="" />
