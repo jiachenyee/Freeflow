@@ -172,6 +172,15 @@ public class SignInActivity extends AppCompatActivity {
                     .set(data, SetOptions.merge());
         }
 
+        if (!user.getEmail().equals(encodedUser.get("emailAddress"))) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("emailAddress", user.getEmail());
+
+            db.collection("users")
+                    .document(user.getUid())
+                    .set(data, SetOptions.merge());
+        }
+
         finish();
     }
 
