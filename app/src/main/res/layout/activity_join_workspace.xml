@@ -116,7 +116,7 @@
                         app:cardBackgroundColor="#ccffffff">
 
                         <EditText
-                            android:id="@+id/editTextTextPersonName"
+                            android:id="@+id/workspace_invite_code_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -138,7 +138,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button5"
+                android:id="@+id/join_workspace_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
