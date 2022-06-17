@@ -64,7 +64,7 @@ public class JoinWorkspaceActivity extends AppCompatActivity {
                             if (workspaceSnapshot == null) {
                                 showErrorToast("Invalid invite code");
                             } else {
-                                
+
                             }
                         } else {
                             showErrorToast("Error getting workspaces");

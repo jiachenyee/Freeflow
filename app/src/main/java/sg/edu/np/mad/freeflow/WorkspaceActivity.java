@@ -97,8 +97,8 @@ public class WorkspaceActivity extends AppCompatActivity {
                             Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
                             startActivityForResult(newTaskActivity, 10);
                         } else {
-                            // TODO: Link new category activity
-
+                            Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);
+                            startActivityForResult(newTaskActivity, 20);
                         }
 
                         return true;
