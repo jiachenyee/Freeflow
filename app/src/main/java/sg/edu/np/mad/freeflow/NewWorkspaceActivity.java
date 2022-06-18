@@ -86,8 +86,8 @@ public class NewWorkspaceActivity extends AppCompatActivity {
 
         headerView = findViewById(R.id.header_view);
         doneButton = findViewById(R.id.done_button);
-        workspaceNameEditTextCard = findViewById(R.id.today_task);
-        workspaceNameEditText = findViewById(R.id.workspace_name_edit_text);
+        workspaceNameEditTextCard = findViewById(R.id.category_name_card);
+        workspaceNameEditText = findViewById(R.id.category_name_edit_text);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override

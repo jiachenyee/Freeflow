@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +43,7 @@ public class WorkspaceActivity extends AppCompatActivity {
         workspaceImageView = findViewById(R.id.workspace_image);
 
         todayTaskTextView = findViewById(R.id.today_task_textView);
-        todayTaskCardView = findViewById(R.id.today_task);
+        todayTaskCardView = findViewById(R.id.category_name_card);
 
         allTasksTextView = findViewById(R.id.all_task_textView);
         allTasksCardView = findViewById(R.id.all_task);
@@ -97,8 +95,9 @@ public class WorkspaceActivity extends AppCompatActivity {
                             Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
                             startActivityForResult(newTaskActivity, 10);
                         } else {
-                            Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);
-                            startActivityForResult(newTaskActivity, 20);
+                            Intent newCategoryActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);
+                            newCategoryActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                            startActivityForResult(newCategoryActivity, 20);
                         }
 
                         return true;

@@ -28,9 +28,9 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         inviteButton = view.findViewById(R.id.invite_button);
-        workspaceNameEditText = view.findViewById(R.id.workspace_name_edit_text);
+        workspaceNameEditText = view.findViewById(R.id.category_name_edit_text);
         workspaceImage = view.findViewById(R.id.workspace_image);
-        workspaceNameCard = view.findViewById(R.id.today_task);
+        workspaceNameCard = view.findViewById(R.id.category_name_card);
 
         usernameTextView = view.findViewById(R.id.username_text_view);
         emailTextView = view.findViewById(R.id.email_text_view);

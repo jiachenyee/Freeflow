@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -60,11 +61,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/interregular"
+            android:textSize="14sp"
             android:text="Name"
             android:textColor="@color/black" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/today_task"
+            android:id="@+id/category_name_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -73,12 +75,13 @@
             app:cardCornerRadius="8dp">
 
             <EditText
-                android:id="@+id/workspace_name_edit_text"
+                android:id="@+id/category_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
                 android:background="#ccffffff"
                 android:fontFamily="@font/interbold"
+
                 android:hint="Add category name"
                 android:inputType="text"
                 android:minHeight="48dp"
@@ -94,27 +97,27 @@
         android:layout_height="60dp"
 
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
 
-        app:cardCornerRadius="16dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/done_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/done_button"
 
+            android:background="@color/workspace_orange"
+
+            android:fontFamily="@font/interbold"
             android:text="Create"
 
             android:textAllCaps="false"
             android:textColor="@color/white"
-
-            android:background="@color/workspace_orange"
-            android:fontFamily="@font/interbold"
             android:textSize="16dp" />
     </androidx.cardview.widget.CardView>
 
