@@ -9,9 +9,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class NewCategoryActivity extends AppCompatActivity {
 
     ImageButton closeButton;
+    Button doneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +25,19 @@ public class NewCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_category);
 
         closeButton = findViewById(R.id.close_button);
+        doneButton = findViewById(R.id.done_button);
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
