@@ -60,8 +60,6 @@ public class NewCategoryActivity extends AppCompatActivity {
 
                 Map<String, Object> object = category.toMap();
 
-                System.out.println(object);
-                System.out.println("AAAAA");
                 db.collection("workspaces").document(workspaceID)
                         .update("categories", FieldValue.arrayUnion(object))
                 .addOnFailureListener(new OnFailureListener() {
