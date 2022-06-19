@@ -3,6 +3,9 @@ package sg.edu.np.mad.freeflow;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -135,6 +138,8 @@ public class WorkspaceActivity extends AppCompatActivity {
         });
 
         setTaskFilter(TaskFilter.TODAY);
+
+        setUpRecyclerView();
     }
 
     private void setTaskFilter(TaskFilter newValue) {
@@ -199,6 +204,20 @@ public class WorkspaceActivity extends AppCompatActivity {
         String workspaceName = extras.getString("workspaceName");
 
         workspaceNameTextView.setText(workspaceName);
+    }
+
+    private void setUpRecyclerView() {
+        RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
+        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter();
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL,
+                false);
+
+        tasksRecyclerView.setLayoutManager(mLayoutManager);
+        tasksRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        tasksRecyclerView.setAdapter(mAdapter);
     }
 
     enum TaskFilter {

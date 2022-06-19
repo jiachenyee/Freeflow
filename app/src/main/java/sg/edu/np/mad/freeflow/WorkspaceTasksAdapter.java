@@ -27,6 +27,6 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 2;
     }
 }
