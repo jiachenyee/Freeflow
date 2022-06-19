@@ -19,7 +19,7 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setUpCategory(String name, int taskCount) {
-        taskCountTextView.setText(taskCount.toString());
+        taskCountTextView.setText(String.valueOf(taskCount));
         categoryTitleTextView.setText(name);
     }
 }

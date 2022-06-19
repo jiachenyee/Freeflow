@@ -16,6 +16,7 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 R.layout.task_header,
                 parent,
                 false);
+
         return new WorkspaceTasksViewHolder(v);
     }
 
