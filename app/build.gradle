@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:23.0.2'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.firebase:firebase-dynamic-links:21.0.1'
+    implementation 'com.google.firebase:firebase-database:20.0.5'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -73,6 +73,7 @@ public class WorkspaceActivity extends AppCompatActivity {
                 workspaceSettingsActivity.putExtra("workspaceIcon", (Bitmap) extras.getParcelable("workspaceIcon"));
                 workspaceSettingsActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
                 workspaceSettingsActivity.putExtra("workspaceName", extras.getString("workspaceName"));
+                workspaceSettingsActivity.putExtra("workspaceID", extras.getString("workspaceID"));
                 workspaceSettingsActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
                 workspaceSettingsActivity.putExtra("workspaceUsers", extras.getStringArrayList("workspaceUsers"));
                 workspaceSettingsActivity.putExtra("workspaceAdmins", extras.getStringArrayList("workspaceAdmins"));
@@ -97,6 +98,7 @@ public class WorkspaceActivity extends AppCompatActivity {
                         } else {
                             Intent newCategoryActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);
                             newCategoryActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                            newCategoryActivity.putExtra("workspaceID", extras.getString("workspaceID"));
                             startActivityForResult(newCategoryActivity, 20);
                         }
 

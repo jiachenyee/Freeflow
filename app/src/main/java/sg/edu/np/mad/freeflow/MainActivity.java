@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Map<String, Object> data = document.getData();
 
-                            Workspace workspace = new Workspace(data).setImageLoadHandler(new Workspace.OnImageLoadHandler() {
+                            Workspace workspace = new Workspace(data, document.getId()).setImageLoadHandler(new Workspace.OnImageLoadHandler() {
                                 @Override
                                 public void onImageLoad() {
                                     runOnUiThread(new Runnable() {

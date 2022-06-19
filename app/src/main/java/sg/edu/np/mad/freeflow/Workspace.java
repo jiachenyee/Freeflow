@@ -13,6 +13,8 @@ import java.util.Map;
 public class Workspace {
     public String name;
 
+    public String id;
+
     public Uri workspaceIconURI;
 
     public int accentColor;
@@ -24,7 +26,7 @@ public class Workspace {
     public Bitmap workspaceIcon;
     public OnImageLoadHandler onImageLoadHandler;
 
-    Workspace(Map<String, Object> workspaceData) {
+    Workspace(Map<String, Object> workspaceData, String id) {
         this.name = (String) workspaceData.get("name");
 
         if (workspaceData.get("workspaceIconURL") != null) {
@@ -33,6 +35,7 @@ public class Workspace {
 
         this.accentColor = (int) (long) workspaceData.get("accentColor");
         this.inviteCode = (String) workspaceData.get("inviteCode");
+        this.id = id;
 
         this.users = (ArrayList<String>) workspaceData.get("users");
         this.admins = (ArrayList<String>) workspaceData.get("admin");

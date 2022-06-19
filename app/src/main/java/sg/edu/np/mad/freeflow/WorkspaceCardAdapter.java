@@ -41,6 +41,7 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
                 Workspace workspace = workspaces.get(index);
 
+                workspaceActivity.putExtra("workspaceID", workspace.id);
                 workspaceActivity.putExtra("workspaceIcon", workspace.workspaceIcon);
                 workspaceActivity.putExtra("workspaceAccentColor", workspace.accentColor);
                 workspaceActivity.putExtra("workspaceName", workspace.name);
