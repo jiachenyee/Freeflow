@@ -18,9 +18,6 @@
             android:name=".NewTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".TaskFragment"
-            android:exported="false" />
-        <activity
             android:name=".JoinWorkspaceActivity"
             android:exported="false" />
         <activity
