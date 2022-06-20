@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -15,6 +17,8 @@ public class NewTaskActivity extends AppCompatActivity {
 
     Spinner categorySpinner;
     Button createButton;
+    EditText taskNameEditText;
+    EditText taskDescriptionEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,8 @@ public class NewTaskActivity extends AppCompatActivity {
 
         categorySpinner = findViewById(R.id.category_spinner);
         createButton = findViewById(R.id.create_button);
+        taskNameEditText = findViewById(R.id.task_title_edit_text);
+        taskDescriptionEditText = findViewById(R.id.task_description_edit_text);
 
         Bundle extras = getIntent().getExtras();
         ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
@@ -35,6 +41,16 @@ public class NewTaskActivity extends AppCompatActivity {
         categorySpinner.setAdapter(adapter);
 
         setUpAccentColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = taskNameEditText.getText().toString();
+                String description = taskDescriptionEditText.getText().toString();
+
+                Task newTask = new Task(title, description);
+            }
+        });
     }
 
     private void setUpAccentColor(int colorResource) {
