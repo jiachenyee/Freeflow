@@ -9,6 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksViewHolder> {
 
+    Workspace workspace;
+
+    public WorkspaceTasksAdapter(Workspace workspace) {
+        this.workspace = workspace;
+    }
+
     @NonNull
     @Override
     public WorkspaceTasksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,11 +28,11 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceTasksViewHolder holder, int position) {
-
+        holder.categoryTitleTextView.setText(workspace.categories.get(position).name);
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return workspace.categories.size();
     }
 }

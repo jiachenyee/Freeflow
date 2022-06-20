@@ -17,20 +17,15 @@ public class Category {
         subtasks = new ArrayList<>();
     }
 
+    public Category(String name, List<String> subtasks) {
+        this.name = name;
+        this.subtasks = subtasks;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
-
-        String encodedTasks = "";
-        for (int i = 0; i < subtasks.size(); i++) {
-            if (i > 0) {
-                encodedTasks += ", ";
-            }
-
-            encodedTasks += subtasks.get(i);
-        }
-
-        result.put("subtasks", encodedTasks);
+        result.put("subtasks", subtasks);
 
         return result;
     }

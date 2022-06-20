@@ -23,6 +23,8 @@ public class Workspace {
     public ArrayList<String> users;
     public ArrayList<String> admins;
 
+    public ArrayList<Category> categories;
+
     public Bitmap workspaceIcon;
     public OnImageLoadHandler onImageLoadHandler;
 
@@ -31,6 +33,21 @@ public class Workspace {
 
         if (workspaceData.get("workspaceIconURL") != null) {
             this.workspaceIconURI = Uri.parse((String) workspaceData.get("workspaceIconURL"));
+        }
+
+        ArrayList<Map<String, Object>> rawCategories = (ArrayList<Map<String, Object>>) workspaceData.get("categories");
+
+        this.categories = new ArrayList<>();
+
+        if (rawCategories != null) {
+            for (int i = 0; i < rawCategories.size(); i++) {
+                Map<String, Object> rawCategory = rawCategories.get(i);
+
+                String name = (String) rawCategory.get("name");
+                ArrayList<String> taskIDs = (ArrayList<String>) rawCategory.get("tasks");
+
+                categories.add(new Category(name, taskIDs));
+            }
         }
 
         this.accentColor = (int) (long) workspaceData.get("accentColor");

@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +20,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class WorkspaceActivity extends AppCompatActivity {
 
     ImageView workspaceImageView;
@@ -37,6 +44,8 @@ public class WorkspaceActivity extends AppCompatActivity {
     Bundle extras;
 
     ImageButton newTaskButton;
+
+    Workspace workspace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +148,31 @@ public class WorkspaceActivity extends AppCompatActivity {
 
         setTaskFilter(TaskFilter.TODAY);
 
-        setUpRecyclerView();
+        loadWorkspace();
+    }
+
+    private void loadWorkspace() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String workspaceID = extras.getString("workspaceID");
+
+        DocumentReference docRef = db.collection("workspaces").document(workspaceID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        workspace = new Workspace(document.getData(), workspaceID);
+                        setUpRecyclerView();
+                    } else {
+                        System.out.println("workspace not found");
+                    }
+                } else {
+                    System.out.println("error while getting workspace");
+                }
+            }
+        });
     }
 
     private void setTaskFilter(TaskFilter newValue) {
@@ -208,7 +241,7 @@ public class WorkspaceActivity extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
-        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter();
+        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter(workspace);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(
                 this,
