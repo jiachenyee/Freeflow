@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksViewHolder> {
 
     Workspace workspace;
+    WorkspaceActivity activity;
 
-    public WorkspaceTasksAdapter(Workspace workspace) {
+    public WorkspaceTasksAdapter(Workspace workspace, WorkspaceActivity activity) {
         this.workspace = workspace;
+        this.activity = activity;
     }
 
     @NonNull
@@ -23,12 +25,16 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 parent,
                 false);
 
-        return new WorkspaceTasksViewHolder(v);
+        WorkspaceTasksViewHolder workspaceTasksViewHolder = new WorkspaceTasksViewHolder(v);
+        workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+
+        return workspaceTasksViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceTasksViewHolder holder, int position) {
         holder.categoryTitleTextView.setText(workspace.categories.get(position).name);
+
     }
 
     @Override

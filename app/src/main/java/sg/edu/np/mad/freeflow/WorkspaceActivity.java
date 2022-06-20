@@ -241,7 +241,7 @@ public class WorkspaceActivity extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
-        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter(workspace);
+        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter(workspace, this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(
                 this,
