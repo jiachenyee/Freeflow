@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -10,6 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -49,6 +57,27 @@ public class NewTaskActivity extends AppCompatActivity {
                 String description = taskDescriptionEditText.getText().toString();
 
                 Task newTask = new Task(title, description);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String workspaceID = extras.getString("workspaceID");
+
+                db.collection("workspaces")
+                        .document(workspaceID)
+                        .collection("tasks")
+                        .add(newTask.toMap())
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                String id = documentReference.getId();
+                                // TODO: Push id to categories
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
             }
         });
     }
