@@ -26,6 +26,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class WorkspaceActivity extends AppCompatActivity {
 
     ImageView workspaceImageView;
@@ -106,6 +108,18 @@ public class WorkspaceActivity extends AppCompatActivity {
 
                         if (menuItem.getItemId() == R.id.new_task_menu) {
                             Intent newTaskActivity = new Intent(WorkspaceActivity.this, NewTaskActivity.class);
+
+                            newTaskActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                            newTaskActivity.putExtra("workspaceID", extras.getString("workspaceID"));
+
+                            ArrayList<String> categoryNames = new ArrayList<>();
+
+                            for (int i = 0; i < workspace.categories.size(); i++) {
+                                categoryNames.add(workspace.categories.get(i).name);
+                            }
+
+                            newTaskActivity.putExtra("workspaceCategories", categoryNames);
+
                             startActivityForResult(newTaskActivity, 10);
                         } else {
                             Intent newCategoryActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);

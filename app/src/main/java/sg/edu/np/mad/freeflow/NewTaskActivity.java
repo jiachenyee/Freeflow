@@ -19,10 +19,12 @@ public class NewTaskActivity extends AppCompatActivity {
 
         categorySpinner = findViewById(R.id.category_spinner);
 
-        ArrayList<String> categories = new ArrayList<>();
+//        newTaskActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+//        newTaskActivity.putExtra("workspaceID", extras.getString("workspaceID"));
+//        newTaskActivity.putExtra("workspaceCategories", workspace.categories);
 
-        categories.add("Hello");
-        categories.add("Potato");
+        Bundle extras = getIntent().getExtras();
+        ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 

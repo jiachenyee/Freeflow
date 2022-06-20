@@ -36,7 +36,11 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
         Category category = workspace.categories.get(position);
 
         holder.categoryTitleTextView.setText(category.name);
-        holder.taskCountTextView.setText(category.subtasks.size());
+        if (category.subtasks == null) {
+            holder.taskCountTextView.setText("0");
+        } else {
+            holder.taskCountTextView.setText(category.subtasks.size());
+        }
     }
 
     @Override
