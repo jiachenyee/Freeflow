@@ -33,8 +33,10 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceTasksViewHolder holder, int position) {
-        holder.categoryTitleTextView.setText(workspace.categories.get(position).name);
+        Category category = workspace.categories.get(position);
 
+        holder.categoryTitleTextView.setText(category.name);
+        holder.taskCountTextView.setText(category.subtasks.size());
     }
 
     @Override

@@ -10,8 +10,6 @@ public class Category {
     public String name;
     public List<String> subtasks;
 
-    public Map<String, Object> tasks;
-
     public Category(String name) {
         this.name = name;
         subtasks = new ArrayList<>();
