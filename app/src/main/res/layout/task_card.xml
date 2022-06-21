@@ -5,17 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.cardview.widget.CardView
+        android:id="@+id/tasks_background_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="6dp"
         app:cardBackgroundColor="@color/workspace_orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#D0ffffff">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,12 +33,12 @@
                 android:layout_marginBottom="8dp">
 
                 <TextView
-                    android:id="@+id/workspace_title"
+                    android:id="@+id/task_title_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/interextrabold"
                     android:text="Linux Session"
-                    android:textColor="@color/white"
+                    android:textColor="@color/workspace_orange"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -48,7 +52,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/interbold"
                         android:text="Overdue:"
-                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
 
                     <TextView
@@ -57,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Yesterday, 1pm"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -71,6 +76,7 @@
                         android:id="@+id/workspace_icon"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/fui_ic_anonymous_white_24dp" />
 
                     <TextView
@@ -78,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Overflow/Lessons/Git Session"
-                        android:textColor="@color/white"
+                        android:textColor="#88000000"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -90,6 +96,7 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
