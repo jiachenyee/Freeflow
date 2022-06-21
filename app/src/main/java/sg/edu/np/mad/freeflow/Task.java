@@ -6,6 +6,13 @@ import java.util.Map;
 public class Task {
     String title;
     String description;
+    String taskID;
+
+    public Task(String title, String description, String taskID) {
+        this.title = title;
+        this.description = description;
+        this.taskID = taskID;
+    }
 
     public Task(String title, String description) {
         this.title = title;

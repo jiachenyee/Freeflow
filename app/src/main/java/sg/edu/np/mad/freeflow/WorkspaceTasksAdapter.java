@@ -7,14 +7,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksViewHolder> {
 
     Workspace workspace;
     WorkspaceActivity activity;
+    ArrayList<sg.edu.np.mad.freeflow.Task> tasks;
 
-    public WorkspaceTasksAdapter(Workspace workspace, WorkspaceActivity activity) {
+    public WorkspaceTasksAdapter(Workspace workspace, ArrayList<sg.edu.np.mad.freeflow.Task> tasks, WorkspaceActivity activity) {
         this.workspace = workspace;
         this.activity = activity;
+        this.tasks = tasks;
     }
 
     @NonNull
@@ -83,8 +87,14 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
             } else if (position < rowCount + subtaskCount) {
                 String taskID = category.subtasks.get(position - rowCount);
 
-//                holder.taskCountTextView.setText(taskID);
-                // TODO: Load actual task info
+                for (Task task: tasks) {
+                    System.out.println("HELLOaaa222");
+                    if (task.taskID.equals(taskID)) {
+                        System.out.println("HELLOaaa");
+                        holder.taskTitleTextView.setText(task.title);
+                        break;
+                    }
+                }
                 break;
             }
             rowCount += subtaskCount;

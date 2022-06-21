@@ -51,6 +51,7 @@ public class WorkspaceActivity extends AppCompatActivity {
     ImageButton newTaskButton;
 
     Workspace workspace;
+    ArrayList<sg.edu.np.mad.freeflow.Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +182,7 @@ public class WorkspaceActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) { ;
                         workspace = new Workspace(document.getData(), workspaceID);
+                        loadTaskCategories(docRef);
                         loadTasks(docRef);
                     } else {
                         System.out.println("workspace not found");
@@ -192,7 +194,7 @@ public class WorkspaceActivity extends AppCompatActivity {
         });
     }
 
-    private void loadTasks(DocumentReference docRef) {
+    private void loadTaskCategories(DocumentReference docRef) {
         docRef.collection("categories").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -208,6 +210,33 @@ public class WorkspaceActivity extends AppCompatActivity {
 
                         System.out.println(name);
                         workspace.categories.add(new Category(name, subtasks));
+                    }
+
+                    setUpRecyclerView();
+                } else {
+                    System.out.println("error while getting workspace");
+                }
+            }
+        });
+    }
+
+    private void loadTasks(DocumentReference docRef) {
+        docRef.collection("tasks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<DocumentSnapshot> documentSnapshots = task.getResult().getDocuments();
+
+                    tasks = new ArrayList<sg.edu.np.mad.freeflow.Task>();
+
+                    for (int i = 0; i < documentSnapshots.size(); i++) {
+                        DocumentSnapshot snapshot = documentSnapshots.get(i);
+                        Map<String, Object> snapshotData = snapshot.getData();
+
+                        String title = (String) snapshotData.get("title");
+                        String description = (String) snapshotData.get("description");
+
+                        tasks.add(new sg.edu.np.mad.freeflow.Task(title, description, snapshot.getId()));
                     }
 
                     setUpRecyclerView();
@@ -283,8 +312,10 @@ public class WorkspaceActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        if (tasks == null || workspace == null || workspace.categories.isEmpty() ) { return; }
+
         RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
-        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter(workspace, this);
+        RecyclerView.Adapter mAdapter = new WorkspaceTasksAdapter(workspace, tasks, this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(
                 this,
