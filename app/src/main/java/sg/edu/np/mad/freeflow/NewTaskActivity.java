@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,8 @@ public class NewTaskActivity extends AppCompatActivity {
     Button createButton;
     EditText taskNameEditText;
     EditText taskDescriptionEditText;
+
+    String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,18 @@ public class NewTaskActivity extends AppCompatActivity {
 
         setUpAccentColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
 
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItem = (String) adapterView.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +76,16 @@ public class NewTaskActivity extends AppCompatActivity {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String workspaceID = extras.getString("workspaceID");
 
+                if (selectedItem == null) {
+                    Toast.makeText(getApplicationContext(), "Select a category", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (title.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Task needs a title", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 db.collection("workspaces")
                         .document(workspaceID)
                         .collection("tasks")
@@ -69,13 +94,30 @@ public class NewTaskActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 String id = documentReference.getId();
-                                // TODO: Push id to categories
+
+                                db.collection("workspaces")
+                                        .document(workspaceID)
+                                        .collection("categories")
+                                        .document(selectedItem)
+                                        .update("subtasks", FieldValue.arrayUnion(id))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(), "Task created successfully", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Failed to create task", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
+                                Toast.makeText(getApplicationContext(), "Failed to create task", Toast.LENGTH_LONG).show();
                             }
                         });
             }

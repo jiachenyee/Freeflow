@@ -33,20 +33,37 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
     @Override
     public void onBindViewHolder(@NonNull WorkspaceTasksViewHolder holder, int position) {
-        Category category = workspace.categories.get(position);
 
-        holder.categoryTitleTextView.setText(category.name);
-        if (category.subtasks == null) {
-            holder.taskCountTextView.setText("0");
-        } else {
-            int size = category.subtasks.size();
+        int rowCount = 0;
 
-            holder.taskCountTextView.setText(Integer.toString(size));
+        for (Category category: workspace.categories) {
+            int subtaskCount = category.subtasks.size();
+            rowCount += 1;
+            if (position < rowCount) {
+                holder.categoryTitleTextView.setText(category.name);
+                if (category.subtasks == null) {
+                    holder.taskCountTextView.setText("0");
+                } else {
+                    int size = category.subtasks.size();
+                    holder.taskCountTextView.setText(Integer.toString(size));
+                }
+                break;
+            } else if (position < rowCount + subtaskCount) {
+                String taskID = category.subtasks.get(position - rowCount);
+
+                holder.taskCountTextView.setText(taskID);
+                break;
+            }
+            rowCount += subtaskCount;
         }
     }
 
     @Override
     public int getItemCount() {
-        return workspace.categories.size();
+        int count = workspace.categories.size();
+        for (Category category: workspace.categories) {
+            count += category.subtasks.size();
+        }
+        return count;
     }
 }
