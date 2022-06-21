@@ -150,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/fui_transparent"
                 android:outlineAmbientShadowColor="@color/fui_transparent"
                 android:outlineSpotShadowColor="@color/fui_transparent"
