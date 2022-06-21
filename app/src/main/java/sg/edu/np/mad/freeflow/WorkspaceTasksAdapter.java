@@ -88,9 +88,7 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 String taskID = category.subtasks.get(position - rowCount);
 
                 for (Task task: tasks) {
-                    System.out.println("HELLOaaa222");
                     if (task.taskID.equals(taskID)) {
-                        System.out.println("HELLOaaa");
                         holder.taskTitleTextView.setText(task.title);
                         break;
                     }
