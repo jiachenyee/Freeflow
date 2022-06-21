@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -60,8 +61,9 @@ public class NewCategoryActivity extends AppCompatActivity {
 
                 Map<String, Object> object = category.toMap();
 
-                db.collection("workspaces").document(workspaceID)
-                        .update("categories", FieldValue.arrayUnion(object))
+                db.collection("workspaces")
+                        .document(workspaceID).collection("categories")
+                        .document(category.name).set(object)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

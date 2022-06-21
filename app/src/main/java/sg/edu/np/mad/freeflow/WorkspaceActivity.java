@@ -25,8 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class WorkspaceActivity extends AppCompatActivity {
 
@@ -176,12 +179,38 @@ public class WorkspaceActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
+                    if (document.exists()) { ;
                         workspace = new Workspace(document.getData(), workspaceID);
-                        setUpRecyclerView();
+                        loadTasks(docRef);
                     } else {
                         System.out.println("workspace not found");
                     }
+                } else {
+                    System.out.println("error while getting workspace");
+                }
+            }
+        });
+    }
+
+    private void loadTasks(DocumentReference docRef) {
+        docRef.collection("categories").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<DocumentSnapshot> documentSnapshots = task.getResult().getDocuments();
+
+                    for (int i = 0; i < documentSnapshots.size(); i++) {
+                        DocumentSnapshot snapshot = documentSnapshots.get(i);
+                        Map<String, Object> snapshotData = snapshot.getData();
+
+                        String name = (String) snapshotData.get("name");
+                        ArrayList<String> subtasks = (ArrayList<String>) snapshotData.get("subtasks");
+
+                        System.out.println(name);
+                        workspace.categories.add(new Category(name, subtasks));
+                    }
+
+                    setUpRecyclerView();
                 } else {
                     System.out.println("error while getting workspace");
                 }
