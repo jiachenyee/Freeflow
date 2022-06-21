@@ -20,15 +20,45 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
     @NonNull
     @Override
     public WorkspaceTasksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.task_header,
-                parent,
-                false);
+        View v;
+
+        if (viewType == 0) {
+            v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.task_header,
+                    parent,
+                    false);
+        } else {
+            v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.task_card,
+                    parent,
+                    false);
+        }
 
         WorkspaceTasksViewHolder workspaceTasksViewHolder = new WorkspaceTasksViewHolder(v);
-        workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+
+        if (viewType == 0) {
+            workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+        }
 
         return workspaceTasksViewHolder;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        int rowCount = 0;
+
+        for (Category category: workspace.categories) {
+            int subtaskCount = category.subtasks.size();
+            rowCount += 1;
+            if (position < rowCount) {
+                return 0;
+            } else if (position < rowCount + subtaskCount) {
+                return 1;
+            }
+            rowCount += subtaskCount;
+        }
+
+        return 0;
     }
 
     @Override
@@ -51,7 +81,8 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
             } else if (position < rowCount + subtaskCount) {
                 String taskID = category.subtasks.get(position - rowCount);
 
-                holder.taskCountTextView.setText(taskID);
+//                holder.taskCountTextView.setText(taskID);
+                // TODO: Load actual task info
                 break;
             }
             rowCount += subtaskCount;
