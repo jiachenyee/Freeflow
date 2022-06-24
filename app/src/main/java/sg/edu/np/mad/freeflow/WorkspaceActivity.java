@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -165,6 +166,13 @@ public class WorkspaceActivity extends AppCompatActivity {
         });
 
         setTaskFilter(TaskFilter.TODAY);
+
+        loadWorkspace();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         loadWorkspace();
     }

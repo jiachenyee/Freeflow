@@ -51,6 +51,13 @@ public class NewTaskActivity extends AppCompatActivity {
 
         categorySpinner.setAdapter(adapter);
 
+        findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         setUpAccentColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
