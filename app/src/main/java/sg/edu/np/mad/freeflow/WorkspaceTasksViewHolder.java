@@ -13,6 +13,7 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
     TextView categoryTitleTextView;
 
     TextView taskTitleTextView;
+    TextView taskSubtitleTextView;
 
     View superview;
     public WorkspaceTasksViewHolder(@NonNull View itemView) {
@@ -22,6 +23,7 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
         categoryTitleTextView = itemView.findViewById(R.id.category_title_text_view);
 
         taskTitleTextView = itemView.findViewById(R.id.task_title_text_view);
+        taskSubtitleTextView = itemView.findViewById(R.id.task_subtitle_text_view);
 
         superview = itemView;
     }

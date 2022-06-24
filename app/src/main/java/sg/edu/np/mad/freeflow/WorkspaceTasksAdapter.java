@@ -90,6 +90,7 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 for (Task task: tasks) {
                     if (task.taskID.equals(taskID)) {
                         holder.taskTitleTextView.setText(task.title);
+                        holder.taskSubtitleTextView.setText(task.description);
                         break;
                     }
                 }
