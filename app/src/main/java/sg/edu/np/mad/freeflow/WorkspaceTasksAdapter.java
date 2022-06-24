@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,15 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
             workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
         } else {
             workspaceTasksViewHolder.setUpTasks(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+
+            workspaceTasksViewHolder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
+                @Override
+                public void onTaskOpenHandler(String taskID) {
+                    Intent workspaceTaskActivity = new Intent(activity, TaskActivity.class);
+
+                    activity.startActivity(workspaceTaskActivity);
+                }
+            });
         }
 
         return workspaceTasksViewHolder;
@@ -91,6 +101,8 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                     if (task.taskID.equals(taskID)) {
                         holder.taskTitleTextView.setText(task.title);
                         holder.taskSubtitleTextView.setText(task.description);
+
+                        holder.taskID = taskID;
                         break;
                     }
                 }

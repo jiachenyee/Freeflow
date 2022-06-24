@@ -16,6 +16,10 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
     TextView taskSubtitleTextView;
 
     View superview;
+
+    OnTaskOpenHandler onTaskOpenHandler;
+    String taskID;
+
     public WorkspaceTasksViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -26,6 +30,14 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
         taskSubtitleTextView = itemView.findViewById(R.id.task_subtitle_text_view);
 
         superview = itemView;
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onTaskOpenHandler != null) {
+                    onTaskOpenHandler.onTaskOpenHandler(taskID);
+                }
+            }
+        });
     }
 
     public void setUpCategory(String name, int taskCount) {
@@ -33,9 +45,17 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
         categoryTitleTextView.setText(name);
     }
 
+    public void setOnClickHandler(OnTaskOpenHandler handler) {
+        this.onTaskOpenHandler = handler;
+    }
+
     public void setUpTasks(int color) {
         CardView tasksBackgroundCard = superview.findViewById(R.id.tasks_background_card);
         tasksBackgroundCard.setCardBackgroundColor(color);
         taskTitleTextView.setTextColor(color);
+    }
+
+    public interface OnTaskOpenHandler {
+        void onTaskOpenHandler(String taskID);
     }
 }
