@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -36,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     TextView usernameTextView;
     ImageView profileImageView;
+    TextView subtitleTextView;
 
     FirebaseFirestore db;
 
     ArrayList<String> workspaceIDs;
     ArrayList<Workspace> workspaces = new ArrayList<>();
+
+    ArrayList<sg.edu.np.mad.freeflow.Task> tasks = new ArrayList<sg.edu.np.mad.freeflow.Task>();
 
     HomeFragment homeFragment;
 
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.profile_image_view);
+        subtitleTextView = findViewById(R.id.subtitle_text_view);
 
         db = FirebaseFirestore.getInstance();
 
@@ -178,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                             workspaces.add(workspace);
+                            loadAllTasks();
 
                             homeFragment.reloadData();
                         }
@@ -214,6 +222,40 @@ public class MainActivity extends AppCompatActivity {
             workspaces = new ArrayList<>();
 
             setUpWorkspaces();
+        }
+    }
+
+    private void loadAllTasks() {
+        tasks = new ArrayList<>();
+
+        for (Workspace workspace: workspaces) {
+            db.collection("workspaces").document(workspace.id).collection("tasks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            String taskName = (String) document.getData().get("title");
+                            String taskDescription = (String) document.getData().get("description");
+
+                            tasks.add(new sg.edu.np.mad.freeflow.Task(taskName, taskDescription, document.getId()));
+                            refreshTasksRecyclerView();
+                        }
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed to load some tasks", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    void refreshTasksRecyclerView() {
+        //TODO: Implement
+        int taskCount = tasks.size();
+        if (taskCount == 1) {
+            subtitleTextView.setText(Integer.toString(taskCount) + " task remaining");
+        } else {
+            subtitleTextView.setText(Integer.toString(taskCount) + " tasks remaining");
         }
     }
 }
