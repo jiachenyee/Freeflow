@@ -120,8 +120,13 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        workspaceIDs = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
-                        setUpWorkspaces();
+                        if (documentSnapshot.getData() != null) {
+                            workspaceIDs = (ArrayList<String>) documentSnapshot.getData().get("workspaces");
+                            setUpWorkspaces();
+                        } else {
+                            System.out.println("Error");
+                            System.out.println(user.getUid());
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -201,6 +206,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultCode == 200 && data.getStringExtra("workspaceID") != null) {
             // Returned from new workspace activity
+            if (workspaceIDs == null) {
+                workspaceIDs = new ArrayList<>();
+            }
             workspaceIDs.add(data.getStringExtra("workspaceID"));
 
             workspaces = new ArrayList<>();

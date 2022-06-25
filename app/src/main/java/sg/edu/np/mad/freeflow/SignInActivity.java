@@ -137,14 +137,15 @@ public class SignInActivity extends AppCompatActivity {
                     if (newAccount) {
                         Map<String, Object> encodedUser = new User(user).toHashMap();
                         db.collection("users")
-                                .add(encodedUser)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d("Firestore", "Uploaded to DB");
-                                finish();
-                            }
-                        });
+                                .document(user.getUid())
+                                .set(encodedUser)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d("Firestore", "Uploaded to DB");
+                                        finish();
+                                    }
+                                });
                     }
                 } else {
                     Log.w("TAG", "Error getting documents.", task.getException());

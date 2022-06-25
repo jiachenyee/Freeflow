@@ -2,6 +2,7 @@ package sg.edu.np.mad.freeflow;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,7 @@ public class User {
         encodedUser.put("name", name);
         encodedUser.put("profilePictureURL", profilePictureURL);
         encodedUser.put("emailAddress", emailAddress);
+        encodedUser.put("workspaces", new ArrayList<String>());
 
         return encodedUser;
     }
