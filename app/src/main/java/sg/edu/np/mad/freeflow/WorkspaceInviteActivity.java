@@ -55,15 +55,13 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
 
         joinWorkspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
 
-        String joinURL = "npff.page.link/" + workspaceInviteCode;
+        joinWorkspaceURLTextView.setText(workspaceInviteCode);
 
-        joinWorkspaceURLTextView.setText(joinURL);
-
-        instructionsTextView.setText("1. Visit " + joinURL + " \n2. If you do not have Freeflow installed, install it from the Play Store \n3. Accept the invite \n4. You're all set!");
+        instructionsTextView.setText("1. Download Freeeflow from the Play Store \n2. Click the + beside Workspaces\n3. Select Join Workspace\n4. Type in the invite code and join\n5. Accept the invite \n6. You're all set!");
 
         setUpImage(icon);
         setUpHeader(accentColor);
-        setUpCopyButton(joinURL);
+        setUpCopyButton(workspaceInviteCode);
     }
 
     private void setUpHeader(int accentColor) {
