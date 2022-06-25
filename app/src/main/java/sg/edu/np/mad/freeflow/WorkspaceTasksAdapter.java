@@ -95,10 +95,9 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
                         holder.taskID = taskID;
 
-
                         holder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
                             @Override
-                            public void onTaskOpenHandler(String taskID) {
+                            public void onTaskOpenHandler() {
                                 Intent workspaceTaskActivity = new Intent(activity, TaskActivity.class);
 
                                 workspaceTaskActivity.putExtra("workspaceID", activity.extras.getString("workspaceID"));

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> workspaceIDs;
     ArrayList<Workspace> workspaces = new ArrayList<>();
 
-    ArrayList<sg.edu.np.mad.freeflow.Task> tasks = new ArrayList<sg.edu.np.mad.freeflow.Task>();
+    ArrayList<TaskWorkspaceWrapper> tasks = new ArrayList<>();
 
     HomeFragment homeFragment;
 
@@ -151,15 +154,19 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    private void setUpWorkspaces() {
-        if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
-
+    private void setUpHomeFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        homeFragment = HomeFragment.newInstance(this).setWorkspaces(workspaces);
+        homeFragment = HomeFragment.newInstance(this).setWorkspaces(workspaces, tasks);
 
         ft.replace(R.id.content_fragment, homeFragment);
         ft.commit();
+    }
+
+    private void setUpWorkspaces() {
+        if (workspaceIDs == null || workspaceIDs.isEmpty()) { setUpEmptyState(); return; }
+
+        setUpHomeFragment();
 
         for (int i = 0; i < workspaceIDs.size(); i++) {
             String workspaceID = workspaceIDs.get(i);
@@ -185,9 +192,11 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                             workspaces.add(workspace);
-                            loadAllTasks();
-
                             homeFragment.reloadData();
+
+                            if (workspaceIDs.size() == workspaces.size()) {
+                                loadAllTasks();
+                            }
                         }
                     } else {
 
@@ -238,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                             String taskName = (String) document.getData().get("title");
                             String taskDescription = (String) document.getData().get("description");
 
-                            tasks.add(new sg.edu.np.mad.freeflow.Task(taskName, taskDescription, document.getId()));
+                            tasks.add(new TaskWorkspaceWrapper(new sg.edu.np.mad.freeflow.Task(taskName, taskDescription, document.getId()), workspace.id, workspace.accentColor - 1));
                             refreshTasksRecyclerView();
                         }
                     } else {
@@ -256,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             subtitleTextView.setText(Integer.toString(taskCount) + " tasks remaining");
         }
-        // TODO: Refresh task rows
+
+        setUpHomeFragment();
     }
 }

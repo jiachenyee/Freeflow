@@ -34,7 +34,7 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 if (onTaskOpenHandler != null) {
-                    onTaskOpenHandler.onTaskOpenHandler(taskID);
+                    onTaskOpenHandler.onTaskOpenHandler();
                 }
             }
         });
@@ -56,6 +56,6 @@ public class WorkspaceTasksViewHolder extends RecyclerView.ViewHolder {
     }
 
     public interface OnTaskOpenHandler {
-        void onTaskOpenHandler(String taskID);
+        void onTaskOpenHandler();
     }
 }

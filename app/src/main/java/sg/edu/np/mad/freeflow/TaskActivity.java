@@ -48,6 +48,11 @@ public class TaskActivity extends AppCompatActivity {
         loadFromFirestore(extras);
         setUpAccentColor(extras);
         setUpMarkAsCompleteButton(extras);
+
+        if (extras.getString("categoryName") == null) {
+            markAsCompleteButton.setVisibility(View.GONE);
+            findViewById(R.id.mark_as_complete_card).setVisibility(View.GONE);
+        }
     }
 
     private void loadFromFirestore(Bundle extras) {

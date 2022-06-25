@@ -26,10 +26,16 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private List<Workspace> workspaces;
+    private List<TaskWorkspaceWrapper> taskWorkspaceWrapperList;
+
     private MainActivity activity;
+
     private WorkspaceCardAdapter mAdapter;
 
+    private TaskAdapter taskAdapter;
+
     private RecyclerView workspaceRecyclerView;
+    private RecyclerView tasksRecyclerView;
 
     private ImageButton addWorkspaceButton;
 
@@ -59,6 +65,7 @@ public class HomeFragment extends Fragment {
 
         workspaceRecyclerView = v.findViewById(R.id.workspace_recycler_view);
         addWorkspaceButton = v.findViewById(R.id.new_workspace_button);
+        tasksRecyclerView = v.findViewById(R.id.tasks_recycler_view);
 
         return v;
     }
@@ -103,15 +110,33 @@ public class HomeFragment extends Fragment {
                 popupMenu.show();
             }
         });
+
+        setUpRecyclerView();
     }
 
     public void reloadData() {
         mAdapter.notifyDataSetChanged();
+        taskAdapter.notifyDataSetChanged();
     }
 
-    public HomeFragment setWorkspaces(ArrayList<Workspace> workspaces) {
+    public HomeFragment setWorkspaces(ArrayList<Workspace> workspaces, ArrayList<TaskWorkspaceWrapper> taskWorkspaceWrapperList) {
         this.workspaces = workspaces;
+        this.taskWorkspaceWrapperList = taskWorkspaceWrapperList;
 
         return this;
+    }
+
+
+    void setUpRecyclerView() {
+        taskAdapter = new TaskAdapter(taskWorkspaceWrapperList, activity);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                activity,
+                LinearLayoutManager.VERTICAL,
+                false);
+
+        tasksRecyclerView.setLayoutManager(layoutManager);
+        tasksRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        tasksRecyclerView.setAdapter(taskAdapter);
     }
 }
