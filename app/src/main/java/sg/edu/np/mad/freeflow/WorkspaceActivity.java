@@ -36,6 +36,7 @@ public class WorkspaceActivity extends AppCompatActivity {
 
     ImageView workspaceImageView;
     TextView workspaceNameTextView;
+    TextView workspaceSubtitleTextView;
 
     TextView todayTaskTextView;
     CardView todayTaskCardView;
@@ -60,6 +61,7 @@ public class WorkspaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workspace);
 
         workspaceImageView = findViewById(R.id.workspace_image);
+        workspaceSubtitleTextView = findViewById(R.id.workspace_subtitle_text_view);
 
         todayTaskTextView = findViewById(R.id.today_task_textView);
         todayTaskCardView = findViewById(R.id.category_name_card);
@@ -192,6 +194,7 @@ public class WorkspaceActivity extends AppCompatActivity {
                         workspace = new Workspace(document.getData(), workspaceID);
                         loadTaskCategories(docRef);
                         loadTasks(docRef);
+                        workspaceSubtitleTextView.setText(Integer.toString(+ workspace.users.size()) + " members");
                     } else {
                         System.out.println("workspace not found");
                     }
@@ -246,6 +249,8 @@ public class WorkspaceActivity extends AppCompatActivity {
 
                         tasks.add(new sg.edu.np.mad.freeflow.Task(title, description, snapshot.getId()));
                     }
+
+                    workspaceSubtitleTextView.setText(Integer.toString(tasks.size()) + " tasks • " + Integer.toString(+ workspace.users.size()) + " members");
 
                     setUpRecyclerView();
                 } else {
