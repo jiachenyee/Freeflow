@@ -15,12 +15,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
         >
 
         <ImageView
             android:id="@+id/profile_image_view"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:visibility="gone"
             tools:srcCompat="@tools:sample/avatars"
             android:layout_marginRight="8dp"/>
 
@@ -49,6 +52,7 @@
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/workspace_orange"
                     app:cardCornerRadius="4dp"
+                    android:visibility="gone"
                     app:contentPadding="1dp"
                     android:layout_marginLeft="4dp">
 

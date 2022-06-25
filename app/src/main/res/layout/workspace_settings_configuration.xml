@@ -52,6 +52,7 @@
                 android:background="#ccffffff"
                 android:fontFamily="@font/interbold"
                 android:hint="My Amazing Workspace"
+                android:enabled="false"
                 android:inputType="text"
                 android:minHeight="48dp"
 
@@ -67,10 +68,12 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/interregular"
             android:text="Accent Colour"
+            android:visibility="gone"
             android:textColor="@color/black" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <LinearLayout
