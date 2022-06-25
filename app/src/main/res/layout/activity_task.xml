@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/task_header"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@color/workspace_orange">
@@ -81,10 +82,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/task_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text=""
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="16dp" />
 

@@ -51,6 +51,10 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 public void onTaskOpenHandler(String taskID) {
                     Intent workspaceTaskActivity = new Intent(activity, TaskActivity.class);
 
+                    workspaceTaskActivity.putExtra("workspaceID", activity.extras.getString("workspaceID"));
+                    workspaceTaskActivity.putExtra("taskID", taskID);
+                    workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+
                     activity.startActivity(workspaceTaskActivity);
                 }
             });
