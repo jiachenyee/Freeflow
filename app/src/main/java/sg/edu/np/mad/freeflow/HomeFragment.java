@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
 
                         if (menuItem.getItemId() == R.id.join_workspace_menu) {
                             Intent joinWorkspaceActivity = new Intent(activity, JoinWorkspaceActivity.class);
-                            startActivity(joinWorkspaceActivity);
+                            startActivityForResult(joinWorkspaceActivity, 1);
                         } else {
                             Intent newWorkspaceActivity = new Intent(activity, NewWorkspaceActivity.class);
                             startActivityForResult(newWorkspaceActivity, 1);

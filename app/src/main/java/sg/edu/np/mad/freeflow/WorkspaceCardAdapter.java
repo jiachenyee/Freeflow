@@ -43,7 +43,7 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
                 workspaceActivity.putExtra("workspaceID", workspace.id);
                 workspaceActivity.putExtra("workspaceIcon", workspace.workspaceIcon);
-                workspaceActivity.putExtra("workspaceAccentColor", workspace.accentColor);
+                workspaceActivity.putExtra("workspaceAccentColor", workspace.accentColor - 1);
                 workspaceActivity.putExtra("workspaceName", workspace.name);
                 workspaceActivity.putExtra("workspaceInviteCode", workspace.inviteCode);
                 workspaceActivity.putExtra("workspaceUsers", workspace.users);
@@ -82,7 +82,7 @@ public class WorkspaceCardAdapter extends RecyclerView.Adapter<WorkspaceCardView
 
         holder.index = position;
 
-        holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor]));
+        holder.rootView.setCardBackgroundColor(ContextCompat.getColor(activity, Workspace.colors[workspace.accentColor - 1]));
 
         if (workspace.workspaceIcon != null) {
             holder.workspaceIconImageView.setImageBitmap(workspace.workspaceIcon);

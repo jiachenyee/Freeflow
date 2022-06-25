@@ -148,8 +148,10 @@ public class WorkspaceBuilder {
     }
 
     private void createDynamicLink() {
+        UUID uuid = UUID.randomUUID();
+
         Task<ShortDynamicLink> dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://www.example.com/"))
+                .setLink(Uri.parse("https://jiachen.app/" + uuid.toString().toLowerCase()))
                 .setDomainUriPrefix("https://npff.page.link")
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT);
