@@ -85,8 +85,7 @@
                 android:text="ryan@example.com"
                 android:fontFamily="@font/interregular"
                 android:textSize="8sp"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/workspace_orange"/>
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
     </LinearLayout>
