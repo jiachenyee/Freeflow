@@ -45,19 +45,6 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
             workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
         } else {
             workspaceTasksViewHolder.setUpTasks(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
-
-            workspaceTasksViewHolder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
-                @Override
-                public void onTaskOpenHandler(String taskID) {
-                    Intent workspaceTaskActivity = new Intent(activity, TaskActivity.class);
-
-                    workspaceTaskActivity.putExtra("workspaceID", activity.extras.getString("workspaceID"));
-                    workspaceTaskActivity.putExtra("taskID", taskID);
-                    workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
-
-                    activity.startActivity(workspaceTaskActivity);
-                }
-            });
         }
 
         return workspaceTasksViewHolder;
@@ -107,6 +94,21 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                         holder.taskSubtitleTextView.setText(task.description);
 
                         holder.taskID = taskID;
+
+
+                        holder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
+                            @Override
+                            public void onTaskOpenHandler(String taskID) {
+                                Intent workspaceTaskActivity = new Intent(activity, TaskActivity.class);
+
+                                workspaceTaskActivity.putExtra("workspaceID", activity.extras.getString("workspaceID"));
+                                workspaceTaskActivity.putExtra("taskID", taskID);
+                                workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+                                workspaceTaskActivity.putExtra("categoryName", category.name);
+
+                                activity.startActivityForResult(workspaceTaskActivity, 100);
+                            }
+                        });
                         break;
                     }
                 }

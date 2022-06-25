@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -22,6 +25,8 @@ public class TaskActivity extends AppCompatActivity {
 
     TextView taskTitleTextView;
     TextView taskDescriptionTextView;
+
+    Button markAsCompleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +42,12 @@ public class TaskActivity extends AppCompatActivity {
 
         taskTitleTextView = findViewById(R.id.task_title_text_view);
         taskDescriptionTextView = findViewById(R.id.task_description_text_view);
+        markAsCompleteButton = findViewById(R.id.mark_as_complete_button);
 
         Bundle extras = this.getIntent().getExtras();
         loadFromFirestore(extras);
         setUpAccentColor(extras);
+        setUpMarkAsCompleteButton(extras);
     }
 
     private void loadFromFirestore(Bundle extras) {
@@ -63,5 +70,32 @@ public class TaskActivity extends AppCompatActivity {
     private void setUpAccentColor(Bundle extras) {
         int color = extras.getInt("accentColor");
         findViewById(R.id.task_header).setBackgroundColor(color);
+
+        markAsCompleteButton.setBackgroundColor(color);
+    }
+
+    private void setUpMarkAsCompleteButton(Bundle extras) {
+        markAsCompleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                String workspaceID = extras.getString("workspaceID");
+                String taskID = extras.getString("taskID");
+
+
+                DocumentReference catRef = db.collection("workspaces").document(workspaceID).collection("categories").document(extras.getString("categoryName"));
+                catRef.update("subtasks", FieldValue.arrayRemove(taskID)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+                        docRef.delete();
+                        Toast.makeText(TaskActivity.this, "Marked as complete", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+            }
+        });
     }
 }

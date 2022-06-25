@@ -110,7 +110,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/done_button"
+            android:id="@+id/mark_as_complete_button"
 
             android:text="Mark as Complete"
 
