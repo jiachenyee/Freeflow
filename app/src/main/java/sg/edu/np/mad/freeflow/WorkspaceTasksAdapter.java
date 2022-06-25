@@ -42,9 +42,9 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
         WorkspaceTasksViewHolder workspaceTasksViewHolder = new WorkspaceTasksViewHolder(v);
 
         if (viewType == 0) {
-            workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+             workspaceTasksViewHolder.taskCountTextView.setTextColor(activity.getResources().getColor(Workspace.colors[workspace.accentColor - 1]));
         } else {
-            workspaceTasksViewHolder.setUpTasks(activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+            workspaceTasksViewHolder.setUpTasks(activity.getResources().getColor(Workspace.colors[workspace.accentColor - 1]));
         }
 
         return workspaceTasksViewHolder;
@@ -103,7 +103,7 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
 
                                 workspaceTaskActivity.putExtra("workspaceID", activity.extras.getString("workspaceID"));
                                 workspaceTaskActivity.putExtra("taskID", taskID);
-                                workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor]));
+                                workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor - 1]));
                                 workspaceTaskActivity.putExtra("categoryName", category.name);
 
                                 activity.startActivityForResult(workspaceTaskActivity, 100);

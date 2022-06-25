@@ -250,12 +250,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void refreshTasksRecyclerView() {
-        //TODO: Implement
         int taskCount = tasks.size();
         if (taskCount == 1) {
             subtitleTextView.setText(Integer.toString(taskCount) + " task remaining");
         } else {
             subtitleTextView.setText(Integer.toString(taskCount) + " tasks remaining");
         }
+        // TODO: Refresh task rows
     }
 }
