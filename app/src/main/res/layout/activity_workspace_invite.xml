@@ -93,7 +93,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Go to "
+                    android:text="Use the code "
                     android:textAlignment="center"
                     android:fontFamily="@font/interregular"
                     android:textSize="16sp"
