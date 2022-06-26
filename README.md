@@ -7,10 +7,10 @@
 <!-- ABOUT THE PROJECT -->
 <h2><img src="assets/appicon.png" alt="App Logo" width="27" height="27"> About Freeflow</h2>
 
-For this MAD Assignment, my team decided to create a productivity app, named Freeflow. ✌️
-Freeflow aims to achieve maximum productivity and collaboration among users anytime and anywhere. 
-Whether users are doing an assignment with your peers or if you're working with external organisations,
-you can do it all on Freeflow. 
+For this MAD Assignment, our team decided to create a productivity app, named Freeflow✌️
+Freeflow aims to achieve maximum productivity and collaboration among users anytime, anywhere. 
+Whether users are doing an assignment with their peers or if they're working with external organisations,
+they can do it all on Freeflow. 
 
 
 🤩 Work more efficiently by: 
@@ -174,11 +174,11 @@ This app was done up by the following students:
         * Implement Task Preview Fragment 
         * Implement Workspace Settings Activity (XML)
         * Implement Login Interface Layout
-        * Implement New Cateogry Activity 
+        * Implement New Category Activity 
     * Google Play Store
-        * Design app feature graphic
+        * Design app feature graphics
   
-* Isabelle - S102
+* Isabelle - S10222456J
     * Figma 
         * Design Home Empty State 
     * Android
@@ -187,7 +187,7 @@ This app was done up by the following students:
         * Implement Join Workspace Activity 
         * Implement Workspace Invite Activity
     * Google Play Store
-        * Write app descriptions
+        * Write app description
     
 * Koh En Yang - S10222282K
     * Figma 
@@ -197,9 +197,6 @@ This app was done up by the following students:
     * Android
         * Implement Task Fragment Activity
         * Implement Error State Fragment
-
-    * Google Play Store
-        * Write app descriptions
   
 <p align="right">(<a href="#top">back to top</a>)</p>
   
@@ -212,7 +209,7 @@ Tan Jin Daat - s10222867@connect.np.edu.sg
 
 Yong Zong Han Ryan - s10219317@connect.np.edu.sg
 
-Isabelle - s10@connect.np.edu.sg
+Isabelle Pak Yi Shan - s10222456@connect.np.edu.sg
 
 Koh En Yang - s10222282@connect.np.edu.sg
 
