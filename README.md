@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="https://www.figma.com/file/Z0WaF42tzMcwXGviUsRSH3/MAD-App?node-id=134%3A3" alt="App Logo" width="80" height="80">
+  <img src="assets/appicon.png" alt="App Logo" width="80" height="80">
 
   <h1 align="center">Freeflow</h1>
 </div>
@@ -10,7 +10,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
---> insert banner
+<img src="assets/featuregraphic.png" alt="App Feature Graphic" width="100%">
 
 For this MAD Assignment, my team decided to create a productivity app, named Freeflow. ✌️
 Freeflow aims to achieve maximum productivity and collaboration among users anytime and anywhere. 
@@ -23,7 +23,6 @@ This enable teams/individuals to be more productive and efficient through: 🤩
 * Creation of mulitple to-do taks within the workspace to achieve your goal.
 * Categorization tasks for easier search and better productivity.
 * Addition of collaborators to workspaces to work group projects.
-
 
 Benefits of using Freeflow: 😎
 * Handy productivity tool for everyone, no matter if you’re a busy student or a teacher with packed schedules!
@@ -43,7 +42,10 @@ This project is built using the following tools and softwares:
 
 * [Android Studio](https://developer.android.com/studio)
 * [Figma](https://www.figma.com/)
-* Firebase()
+* [Firebase](https://firebase.google.com)
+  * Firebase Authentication
+  * Cloud Firestore
+  * Firebase Storage
 
 Other references about the app: 
 --> insert flowchart
@@ -126,9 +128,21 @@ This app was done up by the following students:
 
 * Yee Jia Chen - S10219344C
     * Figma 
-        * too much to add liao hahahahaha
+        * Design Home Activity
+        * Design Workspace Activity
+        * Design Task Activity
+        * Design Workspace Settings Activity
+        * Design Invite Members Activity
+        * Design empty state icons
     * Android
-        * too much to add liao hahahahaha
+        * Connect interface to Database
+        * Implement account management activities (Login, User Profile)
+        * Implement Create Workspace and Join Workspace
+        * Implement tasks creation and deletion
+    * Firebase
+        * Authentication setup
+        * Storage setup
+        * Database setup
     * Google Play Store
         * Submission to Google Play Store
   
@@ -137,12 +151,13 @@ This app was done up by the following students:
         * Design New Task Interface
         * Design New Workspace Interface
     * Android
-        * Implement Selector Fragment ????
+        * Implement Selector Fragment
         * Implement Workspace Activity
+    * Google Play Store
+        * Design screenshot assets
   
 * Yong Zong Han Ryan - S10219317A
     * Figma 
-        * Design Banner Image
         * Design Screenshot Images
         * Design Login Interface 
     * Android
@@ -150,6 +165,8 @@ This app was done up by the following students:
         * Implement Workspace Settings Activity (XML)
         * Implement Login Interface Layout
         * Implement New Cateogry Activity 
+    * Google Play Store
+        * Design app feature graphic
   
 * Isabelle - S102
     * Figma 
@@ -159,6 +176,8 @@ This app was done up by the following students:
         * Implement New Category Activity
         * Implement Join Workspace Activity 
         * Implement Workspace Invite Activity
+    * Google Play Store
+        * Write app descriptions
     
 * Koh En Yang - S012
     * Figma 
@@ -168,9 +187,6 @@ This app was done up by the following students:
     * Android
         * Implement Task Fragment Activity
         * Implement Error State Fragment
-  
-  
-  
   
 - other possible things to add
   * design on figma
