@@ -1,40 +1,66 @@
-# Freeflow Firebase Setup
+# Freeflow Firebase Firestore Setup
 
-- Real-time Database (RTDB) 
-  - Data is stored in Firebase Real-time Database, main advantage is that all users can listen to changes in the real-time database and update instantly.
-- Cloud Firestore (Firestore)
-  - Data is stored in Firebase Cloud Firestore, main advantage is that data is stored in the form of documents.
-
+## ER Model
 ```mermaid
 erDiagram 
-    User-Firestore {
+    User {
         string name
         string profilePictureURI
         string emailAddress
     }
-    User-Firestore }o--|{ Workspace-Firestore: joins
-    User-Firestore ||--}o Workspace-Firestore: administers
+    User }o--|{ Workspace: joins
+    User ||--}o Workspace: administers
     
-    Workspace-Firestore {
+    Workspace {
         string name
         int accentColor
         string inviteCode
     }
     
-    Workspace-Firestore ||--|{ Category-RTDB: manages
+    Workspace ||--|{ Category: manages
     
-    Category-RTDB {
+    Category {
         string name
     }
    
    
-    Task-RTDB ||--}o User-Firestore: assignedTo
-    Task-RTDB ||--}o Task-RTDB: contains
+    Task ||--}o User: assignedTo
+    Task ||--}o Task: contains
     
-    Category-RTDB ||--}o Task-RTDB: contains
-    Task-RTDB {
+    Category ||--}o Task: contains
+    Task {
         string name
-        DateTime deadline
-        string links
+        string description
     }
 ```
+
+## Database Setup
+- Collection `users`
+    - Document IDs based on User ID
+    - Each document represents one user
+    - Document Fields
+        - emailAddress: Int
+        - name: String
+        - profilePictureURL: String
+        - workspaces: Array\<String\> *(Workspace IDs)*
+- Collection `workspaces`
+    - Document IDs based on Workspace ID
+    - Each document represents one workspace
+    - Document Fields
+        - accentColor: Int
+        - inviteCode: String
+        - name: String
+        - admin: Array\<String\> *(User IDs)*
+        - users: Array\<String\> *(User IDs)*
+    - Collection `categories`
+        - Document IDs based on category name
+        - Each document represents a category
+        - Document Fields
+            - name: String
+            - subtasks: Array<String> *(Task ID)*
+    - Collection `tasks`
+        - Document IDs based on task ID
+        - Each document represents a category
+        - Document Fields
+            - title: String
+            - description: String
