@@ -75,7 +75,7 @@ Other references about the app:
   
 2. Sign out from your account
   
-   Ta[ on the profile picture found on the top right corner of the main page. Tap the "Log Out" button once redirected to the account page. 
+   Tap [ on the profile picture found on the top right corner of the main page. Tap the "Log Out" button once redirected to the account page. 
 
    <img src="assets/screenshots/profile.png" alt="Profile" width="200">
   
@@ -197,6 +197,9 @@ This app was done up by the following students:
     * Android
         * Implement Task Fragment Activity
         * Implement Error State Fragment
+    
+     * Google Play Store
+        * Edit app description
   
 <p align="right">(<a href="#top">back to top</a>)</p>
   
