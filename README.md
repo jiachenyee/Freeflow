@@ -1,18 +1,11 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <img src="assets/appicon.png" alt="App Logo" width="80" height="80">
+<img id="top" src="assets/featuregraphic.png" alt="App Feature Graphic" width="100%">
 
-  <h1 align="center">Freeflow</h1>  
-  <a href='https://play.google.com/store/apps/details?id=sg.edu.np.mad.freeflow&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
+<a href='https://play.google.com/store/apps/details?id=sg.edu.np.mad.freeflow&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
 
-</div>
-
+# Freeflow
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
-
-<img src="assets/featuregraphic.png" alt="App Feature Graphic" width="100%">
+<h2><img src="assets/appicon.png" alt="App Logo" width="27" height="27"> About Freeflow</h2>
 
 For this MAD Assignment, my team decided to create a productivity app, named Freeflow. ✌️
 Freeflow aims to achieve maximum productivity and collaboration among users anytime and anywhere. 
@@ -20,28 +13,21 @@ Whether users are doing an assignment with your peers or if you're working with 
 you can do it all on Freeflow. 
 
 
-This enable teams/individuals to be more productive and efficient through: 🤩
-* Creation of different workspaces to accomodate to the nature of the projects. 
-* Creation of mulitple to-do taks within the workspace to achieve your goal.
-* Categorization tasks for easier search and better productivity.
-* Addition of collaborators to workspaces to work group projects.
+🤩 Work more efficiently by: 
+* Dividing tasks into different workspaces to accomodate to the nature of the projects. 
+* Adding mulitple tasks within the workspace to achieve your goal.
+* Sorting tasks into categories for easier search and better productivity.
+* Adding collaborators into workspaces to work together on projects.
 
-Benefits of using Freeflow: 😎
+😎 Why Freeflow:
 * Handy productivity tool for everyone, no matter if you’re a busy student or a teacher with packed schedules!
 * Users can automate routine yet necessary tasks such as project organisation and task deadline reminders.
 * Helps users get objectives done with greater efficiency and less hassle.
 * Takes stress off user’s minds when tracking tasks and important goals due for each project. 
 
-
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-### Built With
-
-This project is built using the following tools and softwares:
-
+### 🛠 Built With
 * [Android Studio](https://developer.android.com/studio)
 * [Figma](https://www.figma.com/)
 * [Firebase](https://firebase.google.com)
@@ -55,16 +41,25 @@ Other references about the app:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## 📲 Installation
+### From the Play Store
 
-## Installation
+<a href='https://play.google.com/store/apps/details?id=sg.edu.np.mad.freeflow&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80"/></a>
 
-Install Freeflow in Google Play Store: <insert link> 
-
-In the event where the app does not display in the play store, you can clone the repository from Github through the following link: 
+### Compiling from Source
+1. Clone this repository
+2. Create a new Firebase project 
+    1. Set up Firebase Google authentication,
+    2. Set up Cloud Firestore.
+    > Minimally, the database rules should allow any signed in user to read and write
+    3. Set up Firebase Storage,
+    > Minimally, the database rules should allow everyone to read and any signed in user to read and write.
+3. Register the app in Firebase and download the `google-services.json` file.
+4. Add the google-services.json file into the project in `Freeflow/app`.
+5. Generate a `SHA-1` or `SHA-256` fingerprint and add it to the Firebase project settings (in the Firebase console)
+6. Run the app!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-  
-  
   
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -194,8 +189,6 @@ This app was done up by the following students:
   * design on figma
 <p align="right">(<a href="#top">back to top</a>)</p>
   
-  
-  
 <!-- CONTACT -->
 ## Contact
 
@@ -222,6 +215,7 @@ Resources which have assisted us throughout the project from creation to publica
 * [Material Design](https://material.io/)
 * [Apple's Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
 * [Dribbble](https://dribbble.com/)
+* [Mermaid.js](http://mermaid-js.github.io)
 
 #### Code Resources and References
 * [Firebase Documentation](http://firebase.google.com/docs/firestore/manage-data/add-data)
