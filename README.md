@@ -75,7 +75,7 @@ Other references about the app:
   
 2. Sign out from your account
   
-   Tap [ on the profile picture found on the top right corner of the main page. Tap the "Log Out" button once redirected to the account page. 
+   Tap on the profile picture found on the top right corner of the main page. Tap the "Log Out" button once redirected to the account page. 
 
    <img src="assets/screenshots/profile.png" alt="Profile" width="200">
   
