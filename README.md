@@ -143,7 +143,7 @@ This app was done up by the following students:
     * Google Play Store
         * Submission to Google Play Store
   
-* Tan Jin Daat - S102
+* Tan Jin Daat - S10222867E
     * Figma 
         * Design New Task Interface
         * Design New Workspace Interface
