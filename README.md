@@ -35,6 +35,9 @@ you can do it all on Freeflow.
   * Cloud Firestore
   * Firebase Storage
 
+Figma Design:
+https://www.figma.com/file/Z0WaF42tzMcwXGviUsRSH3/MAD-App?node-id=101%3A2
+
 Other references about the app: 
 --> https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e86158/docs/Database.md
 
@@ -68,7 +71,7 @@ Other references about the app:
   
      If you are a first time user of the app, you can just sign in using any google account available and the same particulars used during this process will be retrieved 
   during your next usage, saving the need to log in or sign up again (unless user is log out)
-     ![screenshot1](https://github.com/jiachenyee/Freeflow/blob/main/assets/screenshot1.png)
+    > add screenshot
   
   
   2. Sign out from your account
@@ -186,7 +189,7 @@ This app was done up by the following students:
     * Google Play Store
         * Write app descriptions
     
-* Koh En Yang - S012
+* Koh En Yang - S10222282K
     * Figma 
         * Design Home Empty State 
         * Design Join Workspace Interface
@@ -195,19 +198,24 @@ This app was done up by the following students:
         * Implement Task Fragment Activity
         * Implement Error State Fragment
 
- * Google Play Store
+    * Google Play Store
         * Write app descriptions
   
-- other possible things to add
-  * design on figma
 <p align="right">(<a href="#top">back to top</a>)</p>
   
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Yee Jia Chen - s10219344@connect.np.edu.sg
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Tan Jin Daat - s10222867@connect.np.edu.sg
+
+Yong Zong Han Ryan - s10219317@connect.np.edu.sg
+
+Isabelle - s10@connect.np.edu.sg
+
+Koh En Yang - s10222282@connect.np.edu.sg
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
