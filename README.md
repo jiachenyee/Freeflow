@@ -67,69 +67,67 @@ Other references about the app:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-  1. Sign in using your google account
+1. Sign in using your google account
+
+   If you are a first time user of the app, you can just sign in using any google account available and the same particulars used during this process will be retrieved during your next usage, saving the need to log in or sign up again (unless user is log out).
+     
+   <img src="assets/screenshots/login.png" alt="Login" width="200">
   
-     If you are a first time user of the app, you can just sign in using any google account available and the same particulars used during this process will be retrieved 
-  during your next usage, saving the need to log in or sign up again (unless user is log out)
-    > add screenshot
+2. Sign out from your account
+  
+   Click on the profile picture found on the top right corner of the main page. Click the "Log Out" button once redirected to the account page. 
+   <img src="assets/screenshots/profile.png" alt="Profile" width="200">
   
   
-  2. Sign out from your account
+3. Create a new `Workspace`
   
-     Click on your google profile picture found on the top right corner of the main page. Click the "Log Out" button once redirected to the account page. 
-     > add screenshot
-  
-  
-  3. Create a new `Workspace`
-  
-     Start by clicking the "+" icon at the home page and select "New Workspace", you will then be redirected to "New Workspace" page. Input the `Workspace` name, choose the accent colour (color using throughout this `Workspace`) and insert an image to represent the `Workspace`. If no image is added, the 
+   Start by clicking the "+" icon at the home page and select "New Workspace", you will then be redirected to "New Workspace" page. Input the `Workspace` name, choose the accent colour (color using throughout this `Workspace`) and insert an image to represent the `Workspace`. If no image is added, the 
   default image will be used.
-     > add screenshot
-     
-  4. Join a `Workspace` 
   
-     Start by clicking the "+" icon at the home page and select "Join Workspace", you will then be redirected to "Join Workspace" page. Here you insert the code of the `Workspace` shared and click "Join".
-     > add screenshot
+   <img src="assets/screenshots/new_workspace.png" alt="New Workspace" width="200">
      
-  5. Invite collaborators to your `Workspace`
+4. Join a `Workspace` 
   
-     Start by selecting the `Workspace` you wish to share, then navigate to the `Workspace` settings by clicking on the gear icon located at the top right hand corner of the selected `Workspace`. Under the `Workspace` settings, click "Invite". A code of the `Workspace` will be shown. Share this code with your intended collaborators or click "Copy Link" to copy the `Workspace` code.
-     > add screenshot
+   Start by clicking the "+" icon at the home page and select "Join Workspace", you will then be redirected to "Join Workspace" page. Here you insert the code of the `Workspace` shared and click "Join".
+
+  <img src="assets/screenshots/join_workspace.png" alt="Join Workspace" width="200">
+     
+5. Invite collaborators to your `Workspace`
+  
+   Start by selecting the `Workspace` you wish to share, then navigate to the `Workspace` settings by clicking on the gear icon located at the top right hand corner of the selected `Workspace`. Under the `Workspace` settings, click "Invite". A code of the `Workspace` will be shown. Share this code with your intended collaborators or click "Copy Link" to copy the `Workspace` code.
+   <img src="assets/screenshots/workspace_invite.png" alt="Workspace Invite" width="200">
 
  6. Create new `Category`
   
-     In the selected `Workspace`, click the "+" icon and select "New Category", you will then be redirected to the "New Category". Here you enter the name of the `Category` and click "Create". 
-     > add screenshot
-  
-  7. Create a new `Task` in a `Workspace`
-  
-     Start by selecting the `Workspace` you wish to create a new `Task` in. Click the "+" icon and select "New Task", you will then be redirected to "New Task" page. Here you fill in the `Task` name, description and select the category you want the `Task` to be placed in. Once done, click "Create".
-     > add screenshot
-
- 8. View all `Members` of a `Workspace`
-  
-     You can view all `Members` of a `Workspace` by navigating to the `Workspace` settings.
-     > add screenshot
-
-  9. View all `Workspaces` and `Tasks`
-  
-     You can view all your `Workspaces` and `Tasks` when you open the app. All `Workspaces` are under "Workspaces" and all `Tasks` are under "Tasks".
-     > add screenshot
-  
-  9. View details of your `Task`
+    In the selected `Workspace`, click the "+" icon and select "New Category", you will then be redirected to the "New Category". Here you enter the name of the `Category` and click "Create". 
      
-     Details of your `Task` can be seen either by selecting a `Task` from the home page of the app, or selecting a `Task` from a workspace. The name and description of the `Task` will be shown.
+    <img src="assets/screenshots/new_category.png" alt="New Category" width="200">
+  
+7. Create a new `Task` in a `Workspace`
+  
+   Start by selecting the `Workspace` you wish to create a new `Task` in. Click the "+" icon and select "New Task", you will then be redirected to "New Task" page. Here you fill in the `Task` name, description and select the category you want the `Task` to be placed in. Once done, click "Create".
+
+   <img src="assets/screenshots/new_task.png" alt="New Task" width="200">
+
+8. View all `Members` of a `Workspace`
+  
+   You can view all `Members` of a `Workspace` by navigating to the `Workspace` settings.
+
+   <img src="assets/screenshots/settings.png" alt="Workspace Settings" width="200">
+
+9. View all `Workspaces` and `Tasks`
+  
+   You can view all your `Workspaces` and `Tasks` when you open the app. All `Workspaces` are under "Workspaces" and all `Tasks` are under "Tasks".
+
+   <img src="assets/screenshots/home.png" alt="Home" width="200">  
+   
+9. View details of your `Task`
      
-     > add screenshot
-  
-  10. Complete a `Task`
-      
-      A `Task` can be completed by selecting a `Task` you wish to complete from the `Workspace` and then clicking on "Mark as Complete". `Task` will then be completed.
-     > add screenshot
-  
+   Details of your `Task` can be seen either by selecting a `Task` from the home page of the app, or selecting a `Task` from a workspace. The name and description of the `Task` will be shown. From here, you can tap on `Mark as Complete` to mark the task as complete and remove it.
+   
+   <img src="assets/screenshots/task.png" alt="Task" width="200">
+    
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributions
