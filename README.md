@@ -76,6 +76,7 @@ Other references about the app:
 2. Sign out from your account
   
    Click on the profile picture found on the top right corner of the main page. Click the "Log Out" button once redirected to the account page. 
+
    <img src="assets/screenshots/profile.png" alt="Profile" width="200">
   
   
@@ -90,11 +91,12 @@ Other references about the app:
   
    Start by clicking the "+" icon at the home page and select "Join Workspace", you will then be redirected to "Join Workspace" page. Here you insert the code of the `Workspace` shared and click "Join".
 
-  <img src="assets/screenshots/join_workspace.png" alt="Join Workspace" width="200">
+   <img src="assets/screenshots/join_workspace.png" alt="Join Workspace" width="200">
      
 5. Invite collaborators to your `Workspace`
   
    Start by selecting the `Workspace` you wish to share, then navigate to the `Workspace` settings by clicking on the gear icon located at the top right hand corner of the selected `Workspace`. Under the `Workspace` settings, click "Invite". A code of the `Workspace` will be shown. Share this code with your intended collaborators or click "Copy Link" to copy the `Workspace` code.
+   
    <img src="assets/screenshots/workspace_invite.png" alt="Workspace Invite" width="200">
 
  6. Create new `Category`
