@@ -36,7 +36,7 @@ you can do it all on Freeflow.
   * Firebase Storage
 
 Other references about the app: 
---> insert flowchart
+--> https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e86158/docs/Database.md
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -68,7 +68,7 @@ Other references about the app:
   
      If you are a first time user of the app, you can just sign in using any google account available and the same particulars used during this process will be retrieved 
   during your next usage, saving the need to log in or sign up again (unless user is log out)
-     > add screenshot
+     ![screenshot1](https://github.com/jiachenyee/Freeflow/blob/main/assets/screenshot1.png)
   
   
   2. Sign out from your account
@@ -194,6 +194,9 @@ This app was done up by the following students:
     * Android
         * Implement Task Fragment Activity
         * Implement Error State Fragment
+
+ * Google Play Store
+        * Write app descriptions
   
 - other possible things to add
   * design on figma
