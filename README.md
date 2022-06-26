@@ -212,9 +212,28 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 Resources which have assisted us throughout the project from creation to publication of the app: 
 
-* [StackOverflow]()
+### Tools
+* Design: [Figma](https://figma.com)
+* IDE: [Android Studio](https://developer.android.com/studio/)
+* Project Management: [Notion](https://notion.so)
+  
+### Resources  
+#### Design Resources and References
+* [Material Design](https://material.io/)
+* [Apple's Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
+* [Dribbble](https://dribbble.com/)
 
+#### Code Resources and References
+* [Firebase Documentation](http://firebase.google.com/docs/firestore/manage-data/add-data)
+* [Geeks for Geeks](https://www.geeksforgeeks.org/)
+* [Android Developer Documentation](https://developer.android.com/)
+* [Firebase Android Snippets](https://github.com/firebase/snippets-android)
+  
+### Assets
+* Google Play and the Google Play logo are trademarks of Google LLC.
+* [Inter - Google Fonts](https://fonts.google.com/specimen/Inter)
+* [Material Symbols](https://fonts.google.com/icons)
+  
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-  
 #### Thanks for reading! 😉
