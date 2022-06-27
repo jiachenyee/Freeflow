@@ -39,7 +39,7 @@ Figma Design:
 https://www.figma.com/file/Z0WaF42tzMcwXGviUsRSH3/MAD-App?node-id=101%3A2
 
 Other references about the app: 
---> https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e86158/docs/Database.md
+https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e86158/docs/Database.md
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -178,7 +178,7 @@ This app was done up by the following students:
     * Google Play Store
         * Design app feature graphics
   
-* Isabelle - S10222456J
+* Isabelle Pak Yi Shan- S10222456J
     * Figma 
         * Design Home Empty State 
     * Android
