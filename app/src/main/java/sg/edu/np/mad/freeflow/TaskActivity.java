@@ -3,6 +3,7 @@ package sg.edu.np.mad.freeflow;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,14 @@ public class TaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        findViewById(R.id.message_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent messageIntent = new Intent(getApplicationContext(), MessageChat.class);
+                startActivity(messageIntent);
             }
         });
 
