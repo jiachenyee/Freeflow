@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".JoinWorkspaceActivity">
 
     <LinearLayout
@@ -66,6 +67,7 @@
         android:id="@+id/layout_chatbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -76,21 +78,20 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_toStartOf="@+id/button_send"
+            android:layout_toStartOf="@id/button_chat_send"
             android:background="@android:color/transparent"
             android:hint="Enter Message"
             android:inputType="text"
             android:maxLines="6"
             tools:ignore="Autofill" />
 
-        <Button
-            android:id="@+id/button_send"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
+        <ImageButton
+            android:id="@+id/button_chat_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
-            android:text="Send"
-            android:textColor="@color/colorPrimary" />
+            android:background="#FFFFFF"
+            app:srcCompat="@drawable/ic_send_svg" />
 
     </RelativeLayout>
 
