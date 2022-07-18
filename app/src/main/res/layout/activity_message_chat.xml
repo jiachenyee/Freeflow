@@ -8,7 +8,7 @@
     tools:context=".JoinWorkspaceActivity">
 
     <LinearLayout
-        android:id="@+id/header_view"
+        android:id="@+id/msg_header_view"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:background="@color/workspace_blue"
@@ -47,52 +47,64 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_messages"
+        android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/layout_chatbox"
-        app:layout_constraintTop_toBottomOf="@id/header_view" />
+        app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/msg_header_view">
 
+    </androidx.recyclerview.widget.RecyclerView>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#e0e0e0"
-        app:layout_constraintBottom_toTopOf="@id/layout_chatbox" />
 
     <RelativeLayout
         android:id="@+id/layout_chatbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
-        <EditText
-            android:id="@+id/edit_message"
-            android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:layout_toStartOf="@id/send_button"
-            android:background="@android:color/transparent"
-            android:hint="Enter Message"
-            android:inputType="text"
-            android:maxLines="6"
-            tools:ignore="Autofill" />
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@+id/send_button"
+            app:cardBackgroundColor="#ECECEC"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="0dp">
+
+            <EditText
+                android:id="@+id/edit_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
+                android:hint="Type a message"
+                android:inputType="text"
+                android:maxLines="6"
+                tools:ignore="Autofill" />
+
+        </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
             android:background="#FFFFFF"
-            app:srcCompat="@drawable/ic_send_svg" />
+            app:srcCompat="@drawable/ic_send" />
 
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

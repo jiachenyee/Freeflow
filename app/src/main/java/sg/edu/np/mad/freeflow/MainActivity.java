@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         usernameTextView = findViewById(R.id.username_text_view);
-        profileImageView = findViewById(R.id.profile_image_view);
+        profileImageView = findViewById(R.id.their_message_profilepic);
         subtitleTextView = findViewById(R.id.subtitle_text_view);
 
         db = FirebaseFirestore.getInstance();

@@ -41,7 +41,7 @@ public class AccountActivity extends AppCompatActivity {
 
         // Grab the text views from the XML.
         usernameTextView = findViewById(R.id.name_text_view);
-        profileImageView = findViewById(R.id.profile_image_view);
+        profileImageView = findViewById(R.id.their_message_profilepic);
         emailTextView = findViewById(R.id.email_text_view);
 
         closeButton = findViewById(R.id.close_button);

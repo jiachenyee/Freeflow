@@ -133,7 +133,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     private void setUpAccentColor(int colorResource) {
 
-        LinearLayout headerView = findViewById(R.id.header_view);
+        LinearLayout headerView = findViewById(R.id.msg_header_view);
 
         headerView.setBackgroundResource(colorResource);
 

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MessageChatViewHolder extends RecyclerView.ViewHolder {
@@ -20,9 +21,17 @@ public class MessageChatViewHolder extends RecyclerView.ViewHolder {
 
     TextView messageDate;
 
+    ConstraintLayout messageHolder_My;
+    ConstraintLayout messageHolder_Their;
+    ConstraintLayout detailsHolder_Their;
+
+    CardView messageContainer_My;
+
 
     public MessageChatViewHolder(@NonNull View itemView) {
         super(itemView);
+
+        messageContainer_My = itemView.findViewById(R.id.my_message_container);
 
         messageContent_My = itemView.findViewById(R.id.my_message_text);
         messageTime_My = itemView.findViewById(R.id.my_message_timestamp);
@@ -34,5 +43,8 @@ public class MessageChatViewHolder extends RecyclerView.ViewHolder {
 
         messageDate = itemView.findViewById(R.id.message_date);
 
+        messageHolder_My = itemView.findViewById(R.id.my_message_holder);
+        messageHolder_Their = itemView.findViewById(R.id.their_message_holder);
+        detailsHolder_Their = itemView.findViewById(R.id.their_details_holder);
     }
 }

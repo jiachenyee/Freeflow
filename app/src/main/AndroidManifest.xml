@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
         <activity
-            android:name=".MessageChat"
+            android:name=".MessageChatActivity"
             android:exported="false" />
         <activity
             android:name=".TaskActivity"

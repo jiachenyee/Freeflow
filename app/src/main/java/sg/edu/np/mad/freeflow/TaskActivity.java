@@ -1,6 +1,5 @@
 package sg.edu.np.mad.freeflow;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,8 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -41,14 +48,6 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.message_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent messageIntent = new Intent(getApplicationContext(), MessageChat.class);
-                startActivity(messageIntent);
-            }
-        });
-
         taskTitleTextView = findViewById(R.id.task_title_text_view);
         taskDescriptionTextView = findViewById(R.id.task_description_text_view);
         markAsCompleteButton = findViewById(R.id.mark_as_complete_button);
@@ -62,6 +61,20 @@ public class TaskActivity extends AppCompatActivity {
             markAsCompleteButton.setVisibility(View.GONE);
             findViewById(R.id.mark_as_complete_card).setVisibility(View.GONE);
         }
+
+        findViewById(R.id.message_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent messageIntent = new Intent(getApplicationContext(), MessageChatActivity.class);
+                messageIntent.putExtra("accentColor", extras.getInt("accentColor"));
+                messageIntent.putExtra("workspaceID", extras.getString("workspaceID"));
+                messageIntent.putExtra("taskID", extras.getString("taskID"));
+                System.out.println("hiiiiii" + extras.getInt("accentColor"));
+                System.out.println("hiiiiiiiii" + extras.getInt("workspaceID"));
+                System.out.println("hiiiiiiiiiiiii" + extras.getInt("taskID"));
+                startActivity(messageIntent);
+            }
+        });
     }
 
     private void loadFromFirestore(Bundle extras) {
