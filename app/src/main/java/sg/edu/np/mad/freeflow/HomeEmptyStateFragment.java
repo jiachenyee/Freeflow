@@ -39,7 +39,7 @@ public class HomeEmptyStateFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_empty_state, container, false);
 
-        addWorkspaceButton = v.findViewById(R.id.new_workspace_button);
+        addWorkspaceButton = v.findViewById(R.id.new_assignee_button);
 
         return v;
     }

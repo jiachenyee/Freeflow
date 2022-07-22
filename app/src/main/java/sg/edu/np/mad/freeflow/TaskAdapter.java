@@ -21,6 +21,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.activity = activity;
     }
 
+    public void setFilteredList(List<TaskWorkspaceWrapper> filteredList){
+        this.taskWorkspaceWrappers = filteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

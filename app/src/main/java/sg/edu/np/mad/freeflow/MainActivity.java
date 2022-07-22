@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     TextView usernameTextView;
     ImageView profileImageView;
     TextView subtitleTextView;
+    //Create SearchView Variable
+    SearchView taskSearchView;
 
     FirebaseFirestore db;
 
@@ -268,4 +272,5 @@ public class MainActivity extends AppCompatActivity {
 
         setUpHomeFragment();
     }
+
 }

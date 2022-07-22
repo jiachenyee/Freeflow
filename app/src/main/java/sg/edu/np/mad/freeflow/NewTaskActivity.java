@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,9 +38,10 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         categorySpinner = findViewById(R.id.category_spinner);
-        createButton = findViewById(R.id.create_button);
+        createButton = findViewById(R.id.assign_button);
         taskNameEditText = findViewById(R.id.task_title_edit_text);
         taskDescriptionEditText = findViewById(R.id.task_description_edit_text);
+
 
         Bundle extras = getIntent().getExtras();
         ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
@@ -71,6 +73,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
+
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override

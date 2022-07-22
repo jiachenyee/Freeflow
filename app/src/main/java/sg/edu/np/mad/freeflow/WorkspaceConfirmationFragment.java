@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 public class WorkspaceConfirmationFragment extends Fragment {
@@ -59,7 +58,7 @@ public class WorkspaceConfirmationFragment extends Fragment {
 
         confirmButton = v.findViewById(R.id.confirm_button);
         workspaceImageView = v.findViewById(R.id.workspace_image);
-        workspaceTitleTextView = v.findViewById(R.id.workspace_title_text_view);
+        workspaceTitleTextView = v.findViewById(R.id.manage_assignee_title_text_view);
         cancelButton = v.findViewById(R.id.cancel_button);
 
         workspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
