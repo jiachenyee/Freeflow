@@ -1,57 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/their_message_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/their_message_container"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#DEDEDE"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/their_message_profilepic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black"
+            app:shapeAppearance="@style/Circle"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <LinearLayout
-            android:id="@+id/their_message_bubble"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingTop="8dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="8dp">
+            android:layout_marginLeft="4dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/their_message_text"
+                android:id="@+id/their_message_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/intermedium"
-                android:maxWidth="260dp"
-                android:text="Message"
-                android:textColor="#000000"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/interbold"
+                android:text="Jia Chen"
                 android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/their_next_message_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#DEDEDE"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:id="@+id/their_next_message_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/their_next_message_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/intermedium"
+                            android:maxWidth="260dp"
+                            android:text="Message"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/their_next_message_timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="8:00"
+                    android:textColor="#555555"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/their_message_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8:00"
-        android:textColor="#555555"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/their_message_container"
-        app:layout_constraintStart_toEndOf="@+id/their_message_container" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

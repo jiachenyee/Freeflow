@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,49 +9,102 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+
+import com.squareup.picasso.Picasso;
 
 public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHolder> {
 
     int color;
     ArrayList<Message> messageArrayList;
+    ArrayList<User> userArrayList;
+    String currentUserId;
     MessageChatActivity activity;
-    //Context context;
+    Context context;
+    User theirSender;
 
-    public MessageChatAdapter(ArrayList<Message> messageArrayList, int color, Context context){
+    public MessageChatActivity getActivity() {
+        return activity;
+    }
+
+    public static final int VIEW_TYPE_DATE = 0;
+    public static final int VIEW_TYPE_SENT = 1;
+    public static final int VIEW_TYPE_RECEIVED = 2;
+    public static final int VIEW_TYPE_SECOND_RECEIVED = 3;
+
+    public MessageChatAdapter(ArrayList<Message> messageArrayList, ArrayList<User> userArrayList, String currentUserId, int color, Context context){
         this.messageArrayList = messageArrayList;
         this.color = color;
-        this.activity = activity;
+        this.userArrayList = userArrayList;
+        this.currentUserId = currentUserId;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public MessageChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MessageChatViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_message_card, null));
+        if (viewType == VIEW_TYPE_SENT)
+        {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_message_card, parent, false);
+            return new MessageChatViewHolder(v);
+        }
+        else if (viewType == VIEW_TYPE_SECOND_RECEIVED){
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.their_second_message_card, parent, false);
+            return new MessageChatViewHolder(v);
+        }
+        else
+        {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.their_message_card, parent, false);
+            return new MessageChatViewHolder(v);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull MessageChatViewHolder holder, int position) {
         Message msg = messageArrayList.get(position);
 
-
-        //Timestamp timestamp = new Timestamp(msg.messageDateTime);
-        //Date date = new Date(timestamp.getTime());
-        //SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("MMM d", Locale.getDefault());
-        //SimpleDateFormat simpleTimeFormat =  new SimpleDateFormat("hh:mm", Locale.getDefault());
-
         // do a if loop to check if the sender of the message is the current user
-        holder.messageContainer_My.setCardBackgroundColor(color);
-        holder.messageHolder_My.setVisibility(View.VISIBLE);
-        holder.messageContent_My.setText(msg.msgContent);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-        holder.messageTime_My.setText(sdf1.format(msg.msgTimeStamp));
-        System.out.println("time now: " + msg.msgTimeStamp);
+        if (getItemViewType(position) == VIEW_TYPE_SENT){
+            holder.messageCard_My.setCardBackgroundColor(color);
+            holder.messageContent_My.setText(msg.msgContent);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+            holder.messageTime_My.setText(sdf1.format(msg.msgTimeStamp));
+            System.out.println("time now: " + msg.msgTimeStamp);
+        }
+        else if (getItemViewType(position) == VIEW_TYPE_SECOND_RECEIVED){
+            for(int u = 0; u < userArrayList.size(); u++){
+                System.out.println("yes sir: " + messageArrayList.get(position).msgUserID);
+                System.out.println("ryan: " + userArrayList.get(u).userID);
+                if (userArrayList.get(u).userID.equals(messageArrayList.get(position).msgUserID)){
+                    theirSender = userArrayList.get(u);
+                    break;
+                }
+            }
+
+            holder.messageContent_TheirNext.setText(msg.msgContent);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+            holder.messageTime_TheirNext.setText(sdf1.format(msg.msgTimeStamp));
+        }
+        else{
+            for(int u = 0; u < userArrayList.size(); u++){
+                System.out.println("yes sir: " + messageArrayList.get(position).msgUserID);
+                System.out.println("ryan: " + userArrayList.get(u).userID);
+                if (userArrayList.get(u).userID.equals(messageArrayList.get(position).msgUserID)){
+                    theirSender = userArrayList.get(u);
+                    break;
+                }
+            }
+
+            holder.messageContent_Their.setText(msg.msgContent);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+            holder.messageTime_Their.setText(sdf1.format(msg.msgTimeStamp));
+            holder.messageUsername_Their.setText(theirSender.name);
+            Picasso.with(context).load(Uri.parse(theirSender.profilePictureURL)).fit().centerCrop().into(holder.messageProfile_Their);
+            //Picasso.with(context).load(Uri.parse(theirSender.profilePictureURL)).into(holder.messageProfile_Their);
+
+            System.out.println("time now: " + msg.msgTimeStamp);
+        }
 
 
     }
@@ -60,7 +114,17 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
         return messageArrayList.size();
     }
 
-    public void updateChatList(ArrayList<Message> messageArrayList){
-        this.messageArrayList = messageArrayList;
+    @Override
+    public int getItemViewType(int position){
+        if (messageArrayList.get(position).msgUserID.equals(currentUserId)){
+            return VIEW_TYPE_SENT;
+        } else if (messageArrayList.get(position).msgUserID != (currentUserId) && position != 0 && messageArrayList.get(position).msgUserID.equals(messageArrayList.get(position - 1).msgUserID) ){
+            System.out.println("Now" + messageArrayList.get(position).msgUserID);
+            System.out.println("Before" + messageArrayList.get(position - 1).msgUserID);
+            return VIEW_TYPE_SECOND_RECEIVED;
+        } else {
+            return VIEW_TYPE_RECEIVED;
+        }
     }
 }
+

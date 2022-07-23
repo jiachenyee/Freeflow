@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,14 @@ public class Task {
     String title;
     String description;
     String taskID;
+    ArrayList<Message> messages;
+
+    public Task(String title, String description, String taskID, ArrayList<Message> messages) {
+        this.title = title;
+        this.description = description;
+        this.taskID = taskID;
+        this.messages = messages;
+    }
 
     public Task(String title, String description, String taskID) {
         this.title = title;

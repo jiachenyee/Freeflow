@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
                     URL url = new URL(user.getPhotoUrl().toString());
-
                     Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 
                     runOnUiThread(()->{

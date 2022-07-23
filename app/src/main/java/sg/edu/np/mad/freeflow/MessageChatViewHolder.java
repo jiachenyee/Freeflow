@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MessageChatViewHolder extends RecyclerView.ViewHolder {
@@ -21,30 +20,33 @@ public class MessageChatViewHolder extends RecyclerView.ViewHolder {
 
     TextView messageDate;
 
-    ConstraintLayout messageHolder_My;
-    ConstraintLayout messageHolder_Their;
-    ConstraintLayout detailsHolder_Their;
+    TextView messageContent_TheirNext;
+    TextView messageTime_TheirNext;
 
-    CardView messageContainer_My;
+    CardView messageCard_My;
+    CardView messageCard_Their;
+    CardView messageCard_TheirNext;
 
 
     public MessageChatViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        messageContainer_My = itemView.findViewById(R.id.my_message_container);
+        messageCard_My = itemView.findViewById(R.id.my_message_container);
+        messageCard_Their = itemView.findViewById(R.id.their_next_message_card);
+
 
         messageContent_My = itemView.findViewById(R.id.my_message_text);
         messageTime_My = itemView.findViewById(R.id.my_message_timestamp);
 
-        messageContent_Their = itemView.findViewById(R.id.their_message_text);
-        messageTime_Their = itemView.findViewById(R.id.their_message_timestamp);
+        messageContent_Their = itemView.findViewById(R.id.their_next_message_text);
+        messageTime_Their = itemView.findViewById(R.id.their_next_message_timestamp);
         messageUsername_Their = itemView.findViewById(R.id.their_message_username);
         messageProfile_Their = itemView.findViewById(R.id.their_message_profilepic);
 
         messageDate = itemView.findViewById(R.id.message_date);
 
-        messageHolder_My = itemView.findViewById(R.id.my_message_holder);
-        messageHolder_Their = itemView.findViewById(R.id.their_message_holder);
-        detailsHolder_Their = itemView.findViewById(R.id.their_details_holder);
+        messageContent_TheirNext = itemView.findViewById(R.id.their_next_message_text);
+        messageTime_TheirNext = itemView.findViewById(R.id.their_next_message_timestamp);
+        messageCard_TheirNext = itemView.findViewById(R.id.their_next_message_card);
     }
 }
