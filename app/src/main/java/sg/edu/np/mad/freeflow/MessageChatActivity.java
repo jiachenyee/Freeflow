@@ -59,12 +59,6 @@ public class MessageChatActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
 
-    private Calendar calendar;
-    private SimpleDateFormat dateFormat;
-    private SimpleDateFormat timeFormat;
-    private Date date;
-    private Time time;
-
     private RecyclerView chatRecyclerView;
     private MessageChatAdapter chatAdapter;
 
@@ -78,9 +72,6 @@ public class MessageChatActivity extends AppCompatActivity {
         closeButton = findViewById(R.id.close_button);
         sendButton = findViewById(R.id.send_button);
         messageEditText = findViewById(R.id.edit_message);
-
-        ArrayList<Message> messagesList = new ArrayList<Message>();
-        ArrayList<User> usersList = new ArrayList<User>();
 
         Bundle extras = this.getIntent().getExtras();
         if (extras == null) { System.out.println("invalid");}
@@ -97,6 +88,30 @@ public class MessageChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         String currentId = user.getUid();
+
+        ArrayList<Message> messagesList = new ArrayList<Message>();
+        ArrayList<User> usersList = new ArrayList<User>();
+
+
+        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        User allUsers = new User();
+                        allUsers.userID = document.getId();
+                        Map<String, Object> userMap = document.getData();
+                        allUsers.name = userMap.get("name").toString();
+                        allUsers.emailAddress = userMap.get("emailAddress").toString();
+                        allUsers.profilePictureURL = userMap.get("profilePictureURL").toString();
+                        usersList.add(allUsers);
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
 
         //getting data from cloud Firestore
@@ -124,6 +139,7 @@ public class MessageChatActivity extends AppCompatActivity {
                                         messagesList.add(msgDetails);
                                     }
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                    setUpRecyclerView(messagesList, usersList, currentId, color);
                                 }
                             } else {
                                 Log.d(TAG, "No such document");
@@ -134,29 +150,15 @@ public class MessageChatActivity extends AppCompatActivity {
                     }
                 });
 
-        //getting the list of users
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        User allUsers = new User();
-                        allUsers.userID = document.getId();
-                        Map<String, Object> userMap = document.getData();
-                        allUsers.name = userMap.get("name").toString();
-                        allUsers.emailAddress = userMap.get("emailAddress").toString();
-                        allUsers.profilePictureURL = userMap.get("profilePictureURL").toString();
-                        usersList.add(allUsers);
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
 
-        //display data in recycler view
-        setUpRecyclerView(messagesList, usersList, currentId, color);
+
+        /*display data in recycler view
+        if (chatAdapter.getItemCount() == 0){
+            setUpRecyclerView(messagesList, usersList, currentId, color);
+        }
+
+         */
+
 
         //ending the activity after close button is clicked
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -173,12 +175,17 @@ public class MessageChatActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (messageEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "No message inputted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No message input", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-
                 Message newMsg = new Message();
+                String inputMessage = messageEditText.getText().toString();
+
+                while (inputMessage.endsWith(" ")){
+                    inputMessage = inputMessage.substring(0, inputMessage.length() -1);
+                }
+
                 newMsg.msgContent = messageEditText.getText().toString();
                 newMsg.msgUserID = currentId;
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -225,18 +232,15 @@ public class MessageChatActivity extends AppCompatActivity {
 
 
 
-    protected void setUpRecyclerView(ArrayList<Message> msgList, ArrayList<User> usersList, String currentId, int color){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                chatRecyclerView = findViewById(R.id.message_recycler_view);
-                chatRecyclerView.setHasFixedSize(true);
-                chatAdapter = new MessageChatAdapter(msgList, usersList, currentId, color, MessageChatActivity.this);
-                chatRecyclerView.setLayoutManager(new LinearLayoutManager(MessageChatActivity.this));
-                chatRecyclerView.scrollToPosition(msgList.size()-1);
-                chatRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                chatRecyclerView.setAdapter(chatAdapter);
-            }
-        }).start();
+    private void setUpRecyclerView(ArrayList<Message> msgList, ArrayList<User> usersList, String currentId, int color){
+        chatRecyclerView = findViewById(R.id.message_recycler_view);
+        chatRecyclerView.setHasFixedSize(true);
+        chatAdapter = new MessageChatAdapter(msgList, usersList, currentId, color, MessageChatActivity.this);
+        System.out.println("list size: " + usersList.size());
+        chatRecyclerView.setLayoutManager(new LinearLayoutManager(MessageChatActivity.this));
+        chatRecyclerView.scrollToPosition(msgList.size()-1);
+        chatRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        chatRecyclerView.setAdapter(chatAdapter);
     }
+
 }
