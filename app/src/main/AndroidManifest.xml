@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
         <activity
+            android:name=".assignee_card"
+            android:exported="false" />
+        <activity
+            android:name=".activity_manage_assignee"
+            android:exported="false" />
+        <activity
             android:name=".TaskActivity"
             android:exported="false" />
         <activity
@@ -40,6 +46,9 @@
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageAssigneeActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -32,7 +32,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         workspaceImage = view.findViewById(R.id.workspace_image);
         workspaceNameCard = view.findViewById(R.id.category_name_card);
 
-        usernameTextView = view.findViewById(R.id.username_text_view);
+        usernameTextView = view.findViewById(R.id.assignee_text_view);
         emailTextView = view.findViewById(R.id.email_text_view);
         adminCardView = view.findViewById(R.id.admin_card_view);
 

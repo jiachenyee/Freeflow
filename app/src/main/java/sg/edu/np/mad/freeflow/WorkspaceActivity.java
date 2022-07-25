@@ -127,6 +127,8 @@ public class WorkspaceActivity extends AppCompatActivity {
 
                             newTaskActivity.putExtra("workspaceCategories", categoryNames);
 
+                            newTaskActivity.putExtra("workspaceAdmins", extras.getStringArrayList("workspaceUsers"));
+
                             startActivityForResult(newTaskActivity, 10);
                         } else {
                             Intent newCategoryActivity = new Intent(WorkspaceActivity.this, NewCategoryActivity.class);

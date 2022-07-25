@@ -3,21 +3,29 @@ package sg.edu.np.mad.freeflow;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,7 +38,11 @@ public class NewTaskActivity extends AppCompatActivity {
     EditText taskNameEditText;
     EditText taskDescriptionEditText;
 
+    ImageButton addAssigneeButton;
+
     String selectedItem;
+
+    ArrayList<String> assigneeList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +50,16 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         categorySpinner = findViewById(R.id.category_spinner);
-        createButton = findViewById(R.id.assign_button);
+        createButton = findViewById(R.id.create_button);
         taskNameEditText = findViewById(R.id.task_title_edit_text);
         taskDescriptionEditText = findViewById(R.id.task_description_edit_text);
+
+        addAssigneeButton = findViewById(R.id.add_assignee);
 
 
         Bundle extras = getIntent().getExtras();
         ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
+        //ArrayList<String> assigneeIdList = extras.getStringArrayList("assigneeIdList");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
@@ -74,6 +89,17 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
+        addAssigneeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent manageAssigneeActivity = new Intent(NewTaskActivity.this, ManageAssigneeActivity.class);
+                manageAssigneeActivity.putExtra("workspaceUsers", extras.getStringArrayList("workspaceAdmins"));
+                manageAssigneeActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor",0));
+                manageAssigneeActivity.putExtra("assigneeList", assigneeList);
+                //manageAssigneeActivity.putExtra("workspaceCategories" ,extras.getStringArrayList("workspaceCategories"));
+                startActivityForResult(manageAssigneeActivity, 101);
+            }
+        });
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +158,69 @@ public class NewTaskActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101) {
+            if(resultCode == RESULT_OK){
+                // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
+                assigneeList = data.getStringArrayListExtra("assigneeIdList");
+                String msg = "Assignee list" + assigneeList.size();
+                Toast.makeText(NewTaskActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                decodeWorkSpaceUsers(assigneeList);
+                System.out.println("Loop not entered");
+            }
+        }
+    }
+
+    private void decodeWorkSpaceUsers(ArrayList<String> userIdList){
+        ArrayList<User> decodedUsers = new ArrayList<>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (userIdList.size() > 0){
+            for (String userId : userIdList){
+                DocumentReference docRef = db.collection("users").document(userId);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) { ;
+                                User user = new User(document.getData(), userId);
+                                decodedUsers.add(user);
+                                System.out.println(decodedUsers.get(0).name);
+                                System.out.println("Here" + decodedUsers.size());
+                                if (decodedUsers.size() == userIdList.size()){
+                                    System.out.println("Final list size: " + decodedUsers.size());
+                                    setUpAssigneeRecyclerView(decodedUsers);
+                                }
+                            } else {
+                                System.out.println("User not found");
+                            }
+                        } else {
+                            System.out.println("error while getting User");
+                        }
+                    }
+                });
+            }
+        }
+        setUpAssigneeRecyclerView(decodedUsers);
+    }
+
+    private void setUpAssigneeRecyclerView(ArrayList<User> decodedUsers){
+        RecyclerView rv = findViewById(R.id.assignee_recyclerView);
+        AssigneeAdapter adapter = new AssigneeAdapter(decodedUsers, NewTaskActivity.this);
+        LinearLayoutManager layout = new LinearLayoutManager(NewTaskActivity.this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+
+        rv.setLayoutManager(layout);
+        rv.setAdapter(adapter);
+
     }
 
     private void setUpAccentColor(int colorResource) {
