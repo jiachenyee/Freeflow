@@ -121,4 +121,20 @@
             android:fontFamily="@font/interbold"
             android:textSize="16dp" />
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+
+        app:tint="@color/white"
+        app:backgroundTint="@color/workspace_orange"
+
+        app:srcCompat="@drawable/plus"
+        app:layout_constraintBottom_toTopOf="@id/mark_as_complete_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
