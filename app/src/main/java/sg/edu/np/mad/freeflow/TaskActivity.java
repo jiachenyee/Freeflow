@@ -2,15 +2,22 @@ package sg.edu.np.mad.freeflow;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -27,6 +34,7 @@ public class TaskActivity extends AppCompatActivity {
     TextView taskDescriptionTextView;
 
     Button markAsCompleteButton;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +51,13 @@ public class TaskActivity extends AppCompatActivity {
         taskTitleTextView = findViewById(R.id.task_title_text_view);
         taskDescriptionTextView = findViewById(R.id.task_description_text_view);
         markAsCompleteButton = findViewById(R.id.mark_as_complete_button);
+        floatingActionButton = findViewById(R.id.floating_action_button);
 
         Bundle extras = this.getIntent().getExtras();
         loadFromFirestore(extras);
         setUpAccentColor(extras);
         setUpMarkAsCompleteButton(extras);
+        setUpFAB();
 
         if (extras.getString("categoryName") == null) {
             markAsCompleteButton.setVisibility(View.GONE);
@@ -77,6 +87,9 @@ public class TaskActivity extends AppCompatActivity {
         findViewById(R.id.task_header).setBackgroundColor(color);
 
         markAsCompleteButton.setBackgroundColor(color);
+
+
+        floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
     private void setUpMarkAsCompleteButton(Bundle extras) {
@@ -100,6 +113,27 @@ public class TaskActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+            }
+        });
+    }
+
+    private void setUpFAB() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(TaskActivity.this, floatingActionButton);
+                popupMenu.getMenuInflater().inflate(R.menu.task_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
             }
         });
     }
