@@ -128,7 +128,11 @@ public class TaskActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
 
+                        if (menuItem.getItemId() == R.id.add_attachments_menu) {
+                            Intent newLinkActivity = new Intent(TaskActivity.this, NewLinkActivity.class);
 
+                            startActivity(newLinkActivity);
+                        }
                         return true;
                     }
                 });
