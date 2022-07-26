@@ -57,7 +57,7 @@ public class TaskActivity extends AppCompatActivity {
         loadFromFirestore(extras);
         setUpAccentColor(extras);
         setUpMarkAsCompleteButton(extras);
-        setUpFAB();
+        setUpFAB(extras);
 
         if (extras.getString("categoryName") == null) {
             markAsCompleteButton.setVisibility(View.GONE);
@@ -117,7 +117,7 @@ public class TaskActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpFAB() {
+    private void setUpFAB(Bundle extras) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +130,8 @@ public class TaskActivity extends AppCompatActivity {
 
                         if (menuItem.getItemId() == R.id.add_attachments_menu) {
                             Intent newLinkActivity = new Intent(TaskActivity.this, NewLinkActivity.class);
+
+                            newLinkActivity.putExtra("workspaceAccentColor", extras.getInt("accentColor"));
 
                             startActivity(newLinkActivity);
                         } else {
