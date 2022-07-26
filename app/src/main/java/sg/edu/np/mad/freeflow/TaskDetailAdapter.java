@@ -1,5 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.circularreveal.CircularRevealWidget;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -75,7 +79,12 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
                 parent,
                 false);
 
-        return new TaskDetailViewHolder(item);
+        TaskDetailViewHolder viewHolder = new TaskDetailViewHolder(item);
+
+        int color = taskActivity.getIntent().getExtras().getInt("accentColor");
+
+        viewHolder.setAccentColor(color);
+        return viewHolder;
     }
 
     @Override
@@ -84,14 +93,32 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
 
         if (information.url != null) {
             holder.websiteURLTextView.setText(information.url);
+
+            holder.root.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(information.url));
+                    taskActivity.startActivity(i);
+                }
+            });
+            holder.websiteURLTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.websiteURLTextView.setVisibility(View.GONE);
         }
 
         if (information.name != null) {
             holder.websiteTitleTextView.setText(information.name);
+            holder.websiteTitleTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.websiteTitleTextView.setVisibility(View.GONE);
         }
 
         if (information.description != null) {
             holder.websiteDescriptionTextView.setText(information.description);
+            holder.websiteDescriptionTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.websiteDescriptionTextView.setVisibility(View.GONE);
         }
     }
 
