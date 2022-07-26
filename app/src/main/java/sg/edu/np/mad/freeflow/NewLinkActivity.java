@@ -2,10 +2,12 @@ package sg.edu.np.mad.freeflow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -15,6 +17,7 @@ import java.util.regex.Pattern;
 public class NewLinkActivity extends AppCompatActivity {
 
     EditText linkEditText;
+    Button createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +25,14 @@ public class NewLinkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_link);
 
         linkEditText = findViewById(R.id.link_edit_text);
+        createButton = findViewById(R.id.create_button);
 
         Bundle extras = getIntent().getExtras();
 
         setupAccentColor(extras);
         setUpDismiss();
         setUpEditText();
+        setUpButton();
     }
 
     private void setupAccentColor(Bundle extras) {
@@ -36,6 +41,7 @@ public class NewLinkActivity extends AppCompatActivity {
         LinearLayout headerView = findViewById(R.id.header_view);
 
         headerView.setBackgroundColor(color);
+        createButton.setBackgroundColor(color);
     }
 
     private void setUpDismiss() {
@@ -60,8 +66,25 @@ public class NewLinkActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // TODO: Enable or disable create button based on result
-                System.out.println(validateURL(linkEditText.getText().toString()));
+                Boolean isValid = validateURL(linkEditText.getText().toString());
+                createButton.setEnabled(isValid);
+                createButton.getBackground().setAlpha(isValid ? 255 : 128);
+            }
+        });
+    }
+
+    private void setUpButton() {
+        createButton.setEnabled(false);
+        createButton.getBackground().setAlpha(128);
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = getIntent();
+                i.putExtra("url", linkEditText.getText().toString());
+
+                setResult(200, i);
+                finish();
             }
         });
     }

@@ -161,7 +161,7 @@ public class TaskActivity extends AppCompatActivity {
 
         if (requestCode == 100) {
             // New link
-            if (data.getStringExtra("url") != null) {
+            if (data != null && data.getExtras().getString("url") != null) {
                 urls.add(data.getStringExtra("url"));
             }
         }
