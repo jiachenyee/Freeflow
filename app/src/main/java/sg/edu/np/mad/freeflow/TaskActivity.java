@@ -132,7 +132,14 @@ public class TaskActivity extends AppCompatActivity {
                             Intent newLinkActivity = new Intent(TaskActivity.this, NewLinkActivity.class);
 
                             startActivity(newLinkActivity);
+                        } else {
+                            Intent newTaskActivity = new Intent(TaskActivity.this, NewTaskActivity.class);
+
+                            // TODO: Pass in required intents
+
+                            startActivity(newTaskActivity);
                         }
+
                         return true;
                     }
                 });
