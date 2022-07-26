@@ -61,6 +61,7 @@ public class TaskActivity extends AppCompatActivity {
 
         if (extras.getString("categoryName") == null) {
             markAsCompleteButton.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
             findViewById(R.id.mark_as_complete_card).setVisibility(View.GONE);
         }
     }
