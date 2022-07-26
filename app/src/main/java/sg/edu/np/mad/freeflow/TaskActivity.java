@@ -98,6 +98,8 @@ public class TaskActivity extends AppCompatActivity {
                 } else {
                     urls = unsafeURLs;
                 }
+
+                setUpRecyclerView();
             }
         });
     }
@@ -193,7 +195,24 @@ public class TaskActivity extends AppCompatActivity {
         if (requestCode == 100) {
             // New link
             if (data != null && data.getExtras().getString("url") != null) {
-                urls.add(data.getStringExtra("url"));
+                String url = data.getStringExtra("url");
+
+                urls.add(url);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Bundle extras = this.getIntent().getExtras();
+
+                String workspaceID = extras.getString("workspaceID");
+                String taskID = extras.getString("taskID");
+
+                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+                if (urls.size() == 1) {
+                    docRef.update("urls", urls);
+                } else {
+                    docRef.update("urls", FieldValue.arrayUnion(url));
+                }
 
                 setUpRecyclerView();
             }
