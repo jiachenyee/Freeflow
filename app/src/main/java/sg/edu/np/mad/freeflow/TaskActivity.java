@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -35,6 +36,8 @@ public class TaskActivity extends AppCompatActivity {
 
     Button markAsCompleteButton;
     FloatingActionButton floatingActionButton;
+
+    ArrayList<String> urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +137,7 @@ public class TaskActivity extends AppCompatActivity {
 
                             newLinkActivity.putExtra("workspaceAccentColor", extras.getInt("accentColor"));
 
-                            startActivity(newLinkActivity);
+                            startActivityForResult(newLinkActivity, 100);
                         } else {
                             Intent newTaskActivity = new Intent(TaskActivity.this, NewTaskActivity.class);
 
@@ -150,5 +153,17 @@ public class TaskActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100) {
+            // New link
+            if (data.getStringExtra("url") != null) {
+                urls.add(data.getStringExtra("url"));
+            }
+        }
     }
 }
