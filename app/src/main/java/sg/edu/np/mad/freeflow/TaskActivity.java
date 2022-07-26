@@ -45,8 +45,6 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        urls.add("https://github.com/jiachenyee/freeflow");
-
         setContentView(R.layout.activity_task);
 
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
