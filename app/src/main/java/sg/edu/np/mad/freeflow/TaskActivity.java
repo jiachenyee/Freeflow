@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +40,7 @@ public class TaskActivity extends AppCompatActivity {
     Button markAsCompleteButton;
     FloatingActionButton floatingActionButton;
 
-    ArrayList<String> urls;
+    ArrayList<String> urls = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,8 @@ public class TaskActivity extends AppCompatActivity {
             floatingActionButton.setVisibility(View.GONE);
             findViewById(R.id.mark_as_complete_card).setVisibility(View.GONE);
         }
+
+        setUpRecyclerView();
     }
 
     private void loadFromFirestore(Bundle extras) {
@@ -82,6 +87,14 @@ public class TaskActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 taskTitleTextView.setText((String) documentSnapshot.get("title"));
                 taskDescriptionTextView.setText((String) documentSnapshot.get("description"));
+
+                ArrayList<String> unsafeURLs = (ArrayList<String>) documentSnapshot.get("urls");
+
+                if (unsafeURLs == null) {
+                    urls = new ArrayList<>();
+                } else {
+                    urls = unsafeURLs;
+                }
             }
         });
     }
@@ -155,6 +168,21 @@ public class TaskActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpRecyclerView() {
+        TaskDetailAdapter taskDetailAdapter = new TaskDetailAdapter(urls, this);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL,
+                false);
+
+        RecyclerView taskDetailRecyclerView = findViewById(R.id.task_detail_recycler_view);
+
+        taskDetailRecyclerView.setLayoutManager(layoutManager);
+        taskDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        taskDetailRecyclerView.setAdapter(taskDetailAdapter);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -163,6 +191,7 @@ public class TaskActivity extends AppCompatActivity {
             // New link
             if (data != null && data.getExtras().getString("url") != null) {
                 urls.add(data.getStringExtra("url"));
+
             }
         }
     }
