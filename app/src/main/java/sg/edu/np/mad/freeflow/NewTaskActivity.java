@@ -107,7 +107,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 String title = taskNameEditText.getText().toString();
                 String description = taskDescriptionEditText.getText().toString();
 
-                Task newTask = new Task(title, description);
+                Task newTask = new Task(title, description, assigneeList);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String workspaceID = extras.getString("workspaceID");
@@ -119,6 +119,11 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 if (title.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Task needs a title", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (assigneeList.size() == 0){
+                    Toast.makeText(getApplicationContext(), "Add an assignee to this task", Toast.LENGTH_LONG).show();
                     return;
                 }
 
