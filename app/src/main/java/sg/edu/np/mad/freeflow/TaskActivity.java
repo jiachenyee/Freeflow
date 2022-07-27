@@ -24,6 +24,7 @@ import java.util.Map;
 public class TaskActivity extends AppCompatActivity {
 
     TextView taskTitleTextView;
+    TextView taskDueDateTextView;
     TextView taskDescriptionTextView;
 
     Button markAsCompleteButton;
@@ -41,6 +42,7 @@ public class TaskActivity extends AppCompatActivity {
         });
 
         taskTitleTextView = findViewById(R.id.task_title_text_view);
+        taskDueDateTextView = findViewById(R.id.task_due_date_text_view);
         taskDescriptionTextView = findViewById(R.id.task_description_text_view);
         markAsCompleteButton = findViewById(R.id.mark_as_complete_button);
 
@@ -67,6 +69,7 @@ public class TaskActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 taskTitleTextView.setText((String) documentSnapshot.get("title"));
+                taskDueDateTextView.setText((String) documentSnapshot.get("dueDate"));
                 taskDescriptionTextView.setText((String) documentSnapshot.get("description"));
             }
         });
