@@ -277,8 +277,15 @@ public class MainActivity extends AppCompatActivity {
         return taskList.stream()
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
                     @Override
+                    public boolean test(TaskWorkspaceWrapper taskWorkspaceWrapper) {
+                        return taskWorkspaceWrapper.task.dueDate != null;
+                    }
+                })
+                .filter(new Predicate<TaskWorkspaceWrapper>() {
+                    @Override
                     public boolean test(TaskWorkspaceWrapper workspace) {
                         final LocalDate today = LocalDate.now();
+
                         final LocalDate date = LocalDate.parse(workspace.task.dueDate, DateTimeFormatter.ofPattern("d MMMM yyyy HH mm"));
 
                         return today.isEqual(date) || today.isAfter(date);
