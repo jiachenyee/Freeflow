@@ -11,6 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
+        
+        <activity
+             android:name=".NewTaskDueDateActivity"
+             android:exported="false" />
+        <activity
+            android:name=".NewSubtaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewLinkActivity"
+            android:exported="false" />
         <activity
             android:name=".MessageAccountActivity"
             android:exported="false" />

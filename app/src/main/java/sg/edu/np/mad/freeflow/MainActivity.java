@@ -2,12 +2,14 @@ package sg.edu.np.mad.freeflow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,8 +31,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -169,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
             DocumentReference workspaceDocumentReference = db.collection("workspaces").document(workspaceID);
             workspaceDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
@@ -230,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadAllTasks() {
         tasks = new ArrayList<>();
 
@@ -241,17 +251,53 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             String taskName = (String) document.getData().get("title");
+                            String taskDueDate_string = (String) document.getData().get("dueDate");
                             String taskDescription = (String) document.getData().get("description");
 
-                            tasks.add(new TaskWorkspaceWrapper(new sg.edu.np.mad.freeflow.Task(taskName, taskDescription, document.getId()), workspace.id, workspace.accentColor - 1));
-                            refreshTasksRecyclerView();
+                            tasks.add(new TaskWorkspaceWrapper(new sg.edu.np.mad.freeflow.Task(taskName, taskDueDate_string, taskDescription, document.getId()), workspace.id, workspace.accentColor - 1));
                         }
+
+                        tasks = filterByTaskDueDate(tasks);
+                        refreshTasksRecyclerView();
                     } else {
                         Toast.makeText(MainActivity.this, "Failed to load some tasks", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private ArrayList<TaskWorkspaceWrapper> filterByTaskDueDate(ArrayList<TaskWorkspaceWrapper> taskList) {
+        return taskList.stream()
+                .filter(new Predicate<TaskWorkspaceWrapper>() {
+                    @Override
+                    public boolean test(TaskWorkspaceWrapper taskWorkspaceWrapper) {
+                        return taskWorkspaceWrapper.task.dueDate != null;
+                    }
+                })
+                .filter(new Predicate<TaskWorkspaceWrapper>() {
+                    @Override
+                    public boolean test(TaskWorkspaceWrapper workspace) {
+                        final LocalDate today = LocalDate.now();
+
+                        final LocalDate date = LocalDate.parse(workspace.task.dueDate, DateTimeFormatter.ofPattern("d MMMM yyyy HH mm"));
+
+                        return today.isEqual(date) || today.isAfter(date);
+                    }
+                }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private ArrayList<TaskWorkspaceWrapper> sortAlphabetically(ArrayList<TaskWorkspaceWrapper> taskList) {
+        return taskList.stream()
+                .sorted(new Comparator<TaskWorkspaceWrapper>() {
+                    @Override
+                    public int compare(TaskWorkspaceWrapper o1, TaskWorkspaceWrapper o2) {
+                        return o1.task.title.compareTo(o2.task.title);
+                    }
+                }).collect(Collectors.toCollection(ArrayList::new));
     }
 
     void refreshTasksRecyclerView() {
