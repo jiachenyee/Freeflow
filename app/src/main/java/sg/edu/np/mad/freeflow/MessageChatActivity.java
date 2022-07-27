@@ -244,36 +244,40 @@ public class MessageChatActivity extends AppCompatActivity {
                                     setUpRecyclerView(messagesList, usersList, currentId, color);
                                     //chatAdapter.notifyDataSetChanged();
                                 }
-
-                                //checking if notification for user exist
-                                for(int uidd = 0; uidd < messagesList.size(); uidd ++){
-                                    System.out.println("AHHHHHHAHAHAHAHHA");
-                                    System.out.println("------" + currentId);
-                                    System.out.println(messagesList.get(uidd).msgUserID);
-                                    if (messagesList.get(uidd).msgUserID.equals(currentId)){
-                                        sentNotification = false;
-                                    }
-                                }
-                                //sending notification
-                                createNotificationChannel();
-                                if (sentNotification){
-                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(MessageChatActivity.this, "Message Notification")
-                                            .setSmallIcon(R.drawable.ic_freeflow_icon_logo)
-                                            .setContentTitle("Get started with Freeflow Messaging!")
-                                            .setContentText("Sent your first message today & stay updated with the latest messages.")
-                                            .setStyle(new NotificationCompat.BigTextStyle()
-                                                    .bigText("Sent your first message today & stay updated with the latest messages."))
-                                            .setAutoCancel(true)
-                                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-                                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MessageChatActivity.this);
-                                    notificationManager.notify(1001, builder.build());
-                                    sentNotification = false;
-                                }
                             }
                             Log.d(TAG, "Current data: " + snapshot.getData());
                         } else {
                             Log.d(TAG, "Current data: null");
+                        }
+
+                        //checking if notification for user exist
+                        if (messagesList.size() != 0){
+                            for(int uidd = 0; uidd < messagesList.size(); uidd ++){
+                                System.out.println("AHHHHHHAHAHAHAHHA");
+                                System.out.println("------" + currentId);
+                                System.out.println(messagesList.get(uidd).msgUserID);
+                                if (messagesList.get(uidd).msgUserID.equals(currentId)){
+                                    sentNotification = false;
+                                }
+                            }
+                        }
+
+                        System.out.println("Notification: " + sentNotification);
+                        //sending notification
+                        createNotificationChannel();
+                        if (sentNotification){
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(MessageChatActivity.this, "Message Notification")
+                                    .setSmallIcon(R.drawable.ic_freeflow_icon_logo)
+                                    .setContentTitle("Get started with Freeflow Messaging!")
+                                    .setContentText("Sent your first message today & stay updated with the latest messages.")
+                                    .setStyle(new NotificationCompat.BigTextStyle()
+                                            .bigText("Sent your first message today & stay updated with the latest messages."))
+                                    .setAutoCancel(true)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MessageChatActivity.this);
+                            notificationManager.notify(1001, builder.build());
+                            sentNotification = false;
                         }
                     }
                 });
@@ -390,6 +394,10 @@ public class MessageChatActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private void sentNotification(){
+
     }
 
     private void getMsgDataWithRealtimeUpdates(){
