@@ -157,9 +157,9 @@ public class TaskActivity extends AppCompatActivity {
 
                             startActivityForResult(newLinkActivity, 100);
                         } else {
-                            Intent newTaskActivity = new Intent(TaskActivity.this, NewTaskActivity.class);
+                            Intent newTaskActivity = new Intent(TaskActivity.this, NewSubtaskActivity.class);
 
-                            // TODO: Pass in required intents
+                            newTaskActivity.putExtra("workspaceAccentColor", extras.getInt("accentColor"));
 
                             startActivity(newTaskActivity);
                         }

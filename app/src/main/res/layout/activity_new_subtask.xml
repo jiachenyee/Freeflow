@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewSubtaskActivity">
+
+    <LinearLayout
+        android:id="@+id/header_view"
+        android:layout_width="0dp"
+        android:layout_height="85dp"
+        android:background="@color/workspace_orange"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:background="@color/fui_transparent"
+            app:srcCompat="@drawable/close"
+            app:tint="#FFFFFF"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="374dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="18dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/interbold"
+            android:text="New Subtask"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/task_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+
+        app:layout_constraintTop_toBottomOf="@id/header_view"
+
+        app:cardBackgroundColor="@color/workspace_orange"
+        app:cardCornerRadius="8dp">
+
+        <EditText
+            android:id="@+id/task_title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="#ccffffff"
+            android:fontFamily="@font/interbold"
+
+            android:hint="Task title"
+            android:inputType="textUri"
+            android:minHeight="48dp"
+
+            android:paddingStart="16dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+
+        android:layout_marginEnd="16dp"
+
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_card">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/create_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@color/workspace_orange"
+
+            android:fontFamily="@font/interbold"
+            android:text="Create"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

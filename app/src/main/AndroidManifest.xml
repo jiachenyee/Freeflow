@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
         <activity
+            android:name=".NewSubtaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewLinkActivity"
             android:exported="false" />
         <activity
