@@ -70,13 +70,13 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
 
         // do a if loop to check if the sender of the message is the current user
         if (getItemViewType(position) == VIEW_TYPE_SENT){
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd ,EEEE");
             if (position == 0){
                 holder.messageHolder.setVisibility(View.VISIBLE);
                 holder.messageSpace.setVisibility(View.GONE);
                 holder.messageDate.setText(sdf2.format(messageArrayList.get(position).msgTimeStamp));
             }
-            else if (position != 0 && !sdf2.format(messageArrayList.get(position).msgTimeStamp).equals(sdf2.format(messageArrayList.get(position-1).msgTimeStamp))){
+            else if (!sdf2.format(messageArrayList.get(position).msgTimeStamp).equals(sdf2.format(messageArrayList.get(position-1).msgTimeStamp))){
                 holder.messageHolder.setVisibility(View.VISIBLE);
                 holder.messageSpace.setVisibility(View.VISIBLE);
                 holder.messageDate.setText(sdf2.format(messageArrayList.get(position).msgTimeStamp));
@@ -88,7 +88,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
             holder.messageContent_My.setText(msg.msgContent);
             SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
             holder.messageTime_My.setText(sdf1.format(msg.msgTimeStamp));
-            if (messageArrayList.get(position).msgUserID.equals(messageArrayList.get(position - 1).msgUserID)){
+            if (position != 0 && messageArrayList.get(position).msgUserID.equals(messageArrayList.get(position - 1).msgUserID)){
                 holder.messageSpace_My.setVisibility(View.GONE);
             }
             System.out.println("time now: " + msg.msgTimeStamp);
@@ -115,13 +115,14 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
                 if (userArrayList.get(u).userID.equals(messageArrayList.get(position).msgUserID)) {
                     System.out.println("this is true lol");
                     theirSender = userArrayList.get(u);
+                    System.out.println(u + " " + theirSender.name);
                     break;
                 }
             }
 
             System.out.println(userArrayList.size());
 
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd ,EEEE");
             if (position == 0){
                 holder.message1Holder.setVisibility(View.VISIBLE);
                 holder.message1Space.setVisibility(View.GONE);
@@ -151,6 +152,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
 
             System.out.println("time now: " + msg.msgTimeStamp);
 
+            /*
             holder.messageProfile_Their.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -162,6 +164,16 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
                     accountActivity.putExtra("userEmail", theirSender.emailAddress);
                     accountActivity.putExtra("userPicture", theirSender.profilePictureURL);
 
+                    view.getContext().startActivity(accountActivity);
+                }
+            });
+
+             */
+            holder.messageProfile_Their.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent accountActivity = new Intent(view.getContext(), MessageAccountActivity.class);
+                    accountActivity.putExtra("userIDD", messageArrayList.get(position).msgUserID);
                     view.getContext().startActivity(accountActivity);
                 }
             });

@@ -70,8 +70,8 @@ public class TaskActivity extends AppCompatActivity {
                 messageIntent.putExtra("workspaceID", extras.getString("workspaceID"));
                 messageIntent.putExtra("taskID", extras.getString("taskID"));
                 System.out.println("hiiiiii" + extras.getInt("accentColor"));
-                System.out.println("hiiiiiiiii" + extras.getInt("workspaceID"));
-                System.out.println("hiiiiiiiiiiiii" + extras.getInt("taskID"));
+                System.out.println("hiiiiiiiii" + extras.getString("workspaceID"));
+                System.out.println("hiiiiiiiiiiiii" + extras.getString("taskID"));
                 startActivity(messageIntent);
             }
         });
