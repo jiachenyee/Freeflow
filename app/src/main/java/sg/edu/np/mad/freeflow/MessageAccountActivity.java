@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +43,7 @@ public class MessageAccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAnimation();
         setContentView(R.layout.activity_message_account);
 
         ArrayList<User> userArrayList = new ArrayList<>();
@@ -164,5 +168,16 @@ public class MessageAccountActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    public void setAnimation(){
+        if(Build.VERSION.SDK_INT>20) {
+            Explode explode = new Explode();
+            explode.setDuration(1500);
+            explode.setInterpolator(new DecelerateInterpolator());
+            getWindow().setExitTransition(explode);
+            getWindow().setEnterTransition(explode);
+        }
     }
 }

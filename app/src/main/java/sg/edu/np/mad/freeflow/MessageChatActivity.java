@@ -374,7 +374,7 @@ public class MessageChatActivity extends AppCompatActivity {
     private void setUpRecyclerView(ArrayList<Message> msgList, ArrayList<User> usersList, String currentId, int color){
         chatRecyclerView = findViewById(R.id.message_recycler_view);
         chatRecyclerView.setHasFixedSize(true);
-        chatAdapter = new MessageChatAdapter(msgList, usersList, currentId, color, MessageChatActivity.this);
+        chatAdapter = new MessageChatAdapter(msgList, usersList, currentId, color, MessageChatActivity.this, MessageChatActivity.this);
         System.out.println("list size: " + usersList.size());
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(MessageChatActivity.this));
         //chatRecyclerView.scrollToPosition(msgList.size()-1);

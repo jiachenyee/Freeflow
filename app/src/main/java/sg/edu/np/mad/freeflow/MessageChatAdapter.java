@@ -1,9 +1,12 @@
 package sg.edu.np.mad.freeflow;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,25 +27,29 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
     ArrayList<Message> messageArrayList;
     ArrayList<User> userArrayList;
     String currentUserId;
-    MessageChatActivity activity;
+    Activity activity;
     Context context;
     User theirSender;
 
+    /*
     public MessageChatActivity getActivity() {
         return activity;
     }
+
+     */
 
     public static final int VIEW_TYPE_DATE = 0;
     public static final int VIEW_TYPE_SENT = 1;
     public static final int VIEW_TYPE_RECEIVED = 2;
     public static final int VIEW_TYPE_SECOND_RECEIVED = 3;
 
-    public MessageChatAdapter(ArrayList<Message> messageArrayList, ArrayList<User> userArrayList, String currentUserId, int color, Context context){
+    public MessageChatAdapter(ArrayList<Message> messageArrayList, ArrayList<User> userArrayList, String currentUserId, int color, Context context, Activity activity){
         this.messageArrayList = messageArrayList;
         this.color = color;
         this.userArrayList = userArrayList;
         this.currentUserId = currentUserId;
         this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -174,7 +181,12 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
                 public void onClick(View view) {
                     Intent accountActivity = new Intent(view.getContext(), MessageAccountActivity.class);
                     accountActivity.putExtra("userIDD", messageArrayList.get(position).msgUserID);
-                    view.getContext().startActivity(accountActivity);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        view.getContext().startActivity(accountActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                    }
+                    else{
+                        view.getContext().startActivity(accountActivity);
+                    }
                 }
             });
         }
@@ -212,5 +224,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
             return VIEW_TYPE_RECEIVED;
         }
     }
+
+
 }
 
