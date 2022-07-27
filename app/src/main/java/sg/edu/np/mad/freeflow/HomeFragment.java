@@ -1,13 +1,16 @@
 package sg.edu.np.mad.freeflow;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +19,9 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +43,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView tasksRecyclerView;
 
     private ImageButton addWorkspaceButton;
+    private ImageButton sortTasksButton;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,6 +72,7 @@ public class HomeFragment extends Fragment {
         workspaceRecyclerView = v.findViewById(R.id.workspace_recycler_view);
         addWorkspaceButton = v.findViewById(R.id.new_workspace_button);
         tasksRecyclerView = v.findViewById(R.id.tasks_recycler_view);
+        sortTasksButton = v.findViewById(R.id.sort_tasks_button);
 
         return v;
     }
@@ -108,6 +115,22 @@ public class HomeFragment extends Fragment {
                 });
 
                 popupMenu.show();
+            }
+        });
+
+        sortTasksButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                taskWorkspaceWrapperList = taskWorkspaceWrapperList.stream()
+                        .sorted(new Comparator<TaskWorkspaceWrapper>() {
+                            @Override
+                            public int compare(TaskWorkspaceWrapper o1, TaskWorkspaceWrapper o2) {
+                                return o1.task.title.compareTo(o2.task.title);
+                            }
+                        }).collect(Collectors.toCollection(ArrayList::new));
+                taskAdapter.setTaskWorkspaceWrapperList(taskWorkspaceWrapperList);
+                reloadData();
             }
         });
 

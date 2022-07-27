@@ -58,14 +58,23 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/task_subtitle_text_view"
+                        android:id="@+id/task_due_date_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Yesterday, 1pm"
-                        android:textColor="@color/black"
+                        android:textColor="@color/workspace_orange"
                         android:textSize="10sp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/task_description_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Description of task goes here"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
