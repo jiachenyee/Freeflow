@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public class TaskActivity extends AppCompatActivity {
     RecyclerView taskDetailRecyclerView;
 
     ArrayList<String> urls = new ArrayList<>();
+    ArrayList<Map<String, Object>> subtasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +163,7 @@ public class TaskActivity extends AppCompatActivity {
 
                             newTaskActivity.putExtra("workspaceAccentColor", extras.getInt("accentColor"));
 
-                            startActivity(newTaskActivity);
+                            startActivityForResult(newTaskActivity, 200);
                         }
 
                         return true;
@@ -212,6 +214,34 @@ public class TaskActivity extends AppCompatActivity {
                     docRef.update("urls", urls);
                 } else {
                     docRef.update("urls", FieldValue.arrayUnion(url));
+                }
+
+                setUpRecyclerView();
+            }
+        } else if (requestCode == 200) {
+            if (data != null && data.getExtras().getString("title") != null) {
+                String taskTitle = data.getStringExtra("title");
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Bundle extras = this.getIntent().getExtras();
+
+                String workspaceID = extras.getString("workspaceID");
+                String taskID = extras.getString("taskID");
+
+                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+                Map<String, Object> obj = new HashMap<>();
+
+                obj.put("title", taskTitle);
+                obj.put("isCompleted", false);
+
+                subtasks.add(obj);
+
+                if (urls.size() == 1) {
+                    docRef.update("subtasks", subtasks);
+                } else {
+                    docRef.update("subtasks", FieldValue.arrayUnion(obj));
                 }
 
                 setUpRecyclerView();

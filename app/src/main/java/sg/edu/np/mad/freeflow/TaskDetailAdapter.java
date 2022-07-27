@@ -88,9 +88,18 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
             viewHolder.setAccentColor(color);
 
             return viewHolder;
-        } else {
+        } else if (viewType == 1) {
             View item = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.link_header_card,
+                    parent,
+                    false);
+
+            TaskDetailViewHolder viewHolder = new TaskDetailViewHolder(item);
+
+            return viewHolder;
+        } else {
+            View item = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.subtask_card,
                     parent,
                     false);
 
@@ -104,8 +113,10 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
     public int getItemViewType(int position) {
         if (position == 0 || position == websiteInformationArrayList.size() + 1) {
             return 1;
-        } else {
+        } else if (position < websiteInformationArrayList.size() + 2) {
             return 0;
+        } else {
+            return 2;
         }
     }
 
@@ -159,6 +170,6 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
 
     @Override
     public int getItemCount() {
-        return websiteInformationArrayList.size() + 2;
+        return websiteInformationArrayList.size() + taskActivity.subtasks.size() + 2;
     }
 }
