@@ -13,6 +13,8 @@ public class User {
 
     public String userID;
 
+    public User(){}
+
     public User(String name, String profilePictureURL) {
         this.name = name;
         this.profilePictureURL = profilePictureURL;

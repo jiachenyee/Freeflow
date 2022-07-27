@@ -7,7 +7,7 @@
     tools:context=".NewWorkspaceActivity">
 
     <LinearLayout
-        android:id="@+id/header_view"
+        android:id="@+id/msg_header_view"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:background="@color/workspace_orange"
@@ -52,7 +52,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_view"
+        app:layout_constraintTop_toBottomOf="@+id/msg_header_view"
         app:shapeAppearance="@style/WorkspaceIcon"
         android:src="@drawable/workspace_icon" />
 
@@ -64,7 +64,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/workspace_image"
-        app:layout_constraintTop_toBottomOf="@+id/header_view">
+        app:layout_constraintTop_toBottomOf="@+id/msg_header_view">
 
         <TextView
             android:id="@+id/workspaceName"

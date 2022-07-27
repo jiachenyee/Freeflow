@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,8 +18,14 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -77,6 +85,20 @@ public class TaskActivity extends AppCompatActivity {
             floatingActionButton.setVisibility(View.GONE);
             findViewById(R.id.mark_as_complete_card).setVisibility(View.GONE);
         }
+
+        findViewById(R.id.message_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent messageIntent = new Intent(getApplicationContext(), MessageChatActivity.class);
+                messageIntent.putExtra("accentColor", extras.getInt("accentColor"));
+                messageIntent.putExtra("workspaceID", extras.getString("workspaceID"));
+                messageIntent.putExtra("taskID", extras.getString("taskID"));
+                System.out.println("hiiiiii" + extras.getInt("accentColor"));
+                System.out.println("hiiiiiiiii" + extras.getString("workspaceID"));
+                System.out.println("hiiiiiiiiiiiii" + extras.getString("taskID"));
+                startActivity(messageIntent);
+            }
+        });
 
         setUpRecyclerView();
     }

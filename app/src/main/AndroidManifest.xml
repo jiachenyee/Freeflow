@@ -22,6 +22,12 @@
             android:name=".NewLinkActivity"
             android:exported="false" />
         <activity
+            android:name=".MessageAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessageChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".TaskActivity"
             android:exported="false" />
         <activity

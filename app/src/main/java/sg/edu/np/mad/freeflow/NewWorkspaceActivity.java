@@ -84,7 +84,7 @@ public class NewWorkspaceActivity extends AppCompatActivity {
             }
         });
 
-        headerView = findViewById(R.id.header_view);
+        headerView = findViewById(R.id.msg_header_view);
         doneButton = findViewById(R.id.done_button);
         workspaceNameEditTextCard = findViewById(R.id.category_name_card);
         workspaceNameEditText = findViewById(R.id.category_name_edit_text);

@@ -20,7 +20,7 @@
         >
 
         <ImageView
-            android:id="@+id/profile_image_view"
+            android:id="@+id/their_message_profilepic"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:visibility="gone"
