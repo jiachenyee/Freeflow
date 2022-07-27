@@ -42,6 +42,8 @@ public class NewLinkActivity extends AppCompatActivity {
 
         headerView.setBackgroundColor(color);
         createButton.setBackgroundColor(color);
+
+        findViewById(R.id.link_card).setBackgroundColor(color);
     }
 
     private void setUpDismiss() {

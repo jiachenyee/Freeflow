@@ -65,7 +65,7 @@
             android:background="#ccffffff"
             android:fontFamily="@font/interbold"
 
-            android:hint="Type a link"
+            android:hint="https://np.edu.sg"
             android:inputType="textUri"
             android:minHeight="48dp"
 
