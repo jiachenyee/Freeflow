@@ -101,6 +101,14 @@ public class TaskActivity extends AppCompatActivity {
                     urls = unsafeURLs;
                 }
 
+                ArrayList<Map<String, Object>> unsafeSubtasks = (ArrayList<Map<String, Object>>) documentSnapshot.get("subtasks");
+
+                if (unsafeSubtasks == null) {
+                    subtasks = new ArrayList<>();
+                } else {
+                    subtasks = unsafeSubtasks;
+                }
+
                 setUpRecyclerView();
             }
         });
@@ -238,7 +246,7 @@ public class TaskActivity extends AppCompatActivity {
 
                 subtasks.add(obj);
 
-                if (urls.size() == 1) {
+                if (subtasks.size() == 1) {
                     docRef.update("subtasks", subtasks);
                 } else {
                     docRef.update("subtasks", FieldValue.arrayUnion(obj));
@@ -247,5 +255,14 @@ public class TaskActivity extends AppCompatActivity {
                 setUpRecyclerView();
             }
         }
+    }
+
+    public void toggleMarkAsComplete(int taskIndex) {
+        Map<String, Object> subtask = subtasks.get(taskIndex);
+
+        boolean isCompleted = (boolean) subtask.get("isCompleted");
+        subtask.put("isCompleted", !isCompleted);
+
+        setUpRecyclerView();
     }
 }

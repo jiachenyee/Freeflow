@@ -1,6 +1,7 @@
 package sg.edu.np.mad.freeflow;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.google.android.material.circularreveal.CircularRevealWidget;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.umehara.ogmapper.OgMapper;
 import io.umehara.ogmapper.domain.OgTags;
@@ -164,6 +166,24 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
                 }
                 break;
             case SUBTASK:
+                int realPosition = position - 2 - websiteInformationArrayList.size();
+
+                Map<String, Object> task = taskActivity.subtasks.get(realPosition);
+
+                holder.taskTitleTextView.setText((String) task.get("title"));
+
+                boolean isCompleted = (boolean) task.get("isCompleted");
+
+                Drawable image = taskActivity.getResources().getDrawable(isCompleted ? R.drawable.ic_baseline_check_box_24 : R.drawable.ic_baseline_check_box_outline_blank_24);
+                holder.checkboxImageView.setImageDrawable(image);
+
+                holder.root.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        taskActivity.toggleMarkAsComplete(realPosition);
+                    }
+                });
+
                 break;
         }
     }
