@@ -74,56 +74,91 @@ public class TaskDetailAdapter extends RecyclerView.Adapter<TaskDetailViewHolder
     @NonNull
     @Override
     public TaskDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.link_card,
-                parent,
-                false);
 
-        TaskDetailViewHolder viewHolder = new TaskDetailViewHolder(item);
+        if (viewType == 0) {
+            View item = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.link_card,
+                    parent,
+                    false);
 
-        int color = taskActivity.getIntent().getExtras().getInt("accentColor");
+            TaskDetailViewHolder viewHolder = new TaskDetailViewHolder(item);
 
-        viewHolder.setAccentColor(color);
-        return viewHolder;
+            int color = taskActivity.getIntent().getExtras().getInt("accentColor");
+
+            viewHolder.setAccentColor(color);
+
+            return viewHolder;
+        } else {
+            View item = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.link_header_card,
+                    parent,
+                    false);
+
+            TaskDetailViewHolder viewHolder = new TaskDetailViewHolder(item);
+
+            return viewHolder;
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0 || position == websiteInformationArrayList.size() + 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskDetailViewHolder holder, int position) {
-        WebsiteInformation information = websiteInformationArrayList.get(position);
-
-        if (information.url != null) {
-            holder.websiteURLTextView.setText(information.url);
-
-            holder.root.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(information.url));
-                    taskActivity.startActivity(i);
+        switch (holder.getViewType()) {
+            case HEADER:
+                if (position == 0) {
+                    holder.titleTextView.setText("Links and Attachments");
+                } else {
+                    holder.titleTextView.setText("Subtasks");
                 }
-            });
-            holder.websiteURLTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.websiteURLTextView.setVisibility(View.GONE);
-        }
+                break;
+            case WEBSITE:
+                WebsiteInformation information = websiteInformationArrayList.get(position - 1);
 
-        if (information.name != null) {
-            holder.websiteTitleTextView.setText(information.name);
-            holder.websiteTitleTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.websiteTitleTextView.setVisibility(View.GONE);
-        }
+                if (information.url != null) {
+                    holder.websiteURLTextView.setText(information.url);
 
-        if (information.description != null) {
-            holder.websiteDescriptionTextView.setText(information.description);
-            holder.websiteDescriptionTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.websiteDescriptionTextView.setVisibility(View.GONE);
+                    holder.root.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(information.url));
+                            taskActivity.startActivity(i);
+                        }
+                    });
+                    holder.websiteURLTextView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.websiteURLTextView.setVisibility(View.GONE);
+                }
+
+                if (information.name != null) {
+                    holder.websiteTitleTextView.setText(information.name);
+                    holder.websiteTitleTextView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.websiteTitleTextView.setVisibility(View.GONE);
+                }
+
+                if (information.description != null) {
+                    holder.websiteDescriptionTextView.setText(information.description);
+                    holder.websiteDescriptionTextView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.websiteDescriptionTextView.setVisibility(View.GONE);
+                }
+                break;
+            case SUBTASK:
+                break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return websiteInformationArrayList.size();
+        return websiteInformationArrayList.size() + 2;
     }
 }
