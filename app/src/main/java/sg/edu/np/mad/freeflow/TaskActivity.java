@@ -260,8 +260,20 @@ public class TaskActivity extends AppCompatActivity {
     public void toggleMarkAsComplete(int taskIndex) {
         Map<String, Object> subtask = subtasks.get(taskIndex);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Bundle extras = this.getIntent().getExtras();
+
+        String workspaceID = extras.getString("workspaceID");
+        String taskID = extras.getString("taskID");
+
+        DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+        docRef.update("subtasks", FieldValue.arrayRemove(subtask));
+
         boolean isCompleted = (boolean) subtask.get("isCompleted");
         subtask.put("isCompleted", !isCompleted);
+
+        docRef.update("subtasks", FieldValue.arrayUnion(subtask));
 
         setUpRecyclerView();
     }
