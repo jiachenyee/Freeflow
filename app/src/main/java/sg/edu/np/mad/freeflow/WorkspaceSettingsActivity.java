@@ -23,11 +23,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.logging.Log;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class WorkspaceSettingsActivity extends AppCompatActivity {
@@ -35,11 +40,10 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     RecyclerView settingsRecyclerView;
-    Button leaveButton;
+    Button deleteButton;
     Button manageButton;
     FirebaseFirestore db;
     ArrayList<String> admins;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +51,21 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workspace_setting);
 
         Bundle extras = this.getIntent().getExtras(); //extras stores the specific workspace INFO!
-        //getting admin list of disabling of buttons
-        admins = extras.getStringArrayList("admin");
 
         settingsRecyclerView = findViewById(R.id.settings_recycler_view);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        //setting visibility of leave button based on admin status of current user
-        leaveButton = findViewById(R.id.workspace_setting_leavebutton);
-        leaveButton.setVisibility(admins.contains(mAuth.getCurrentUser().getUid()) ? View.VISIBLE : View.INVISIBLE);
+        admins = extras.getStringArrayList("workspaceUsers"); //ok this works
 
-        //setting visibility of manage button based on admin status of current user
-        manageButton = findViewById(R.id.manage_button);
-        manageButton.setVisibility(admins.contains(mAuth.getCurrentUser().getUid()) ? View.VISIBLE : View.INVISIBLE);
+        //getting admin list of disabling of buttons (DEBUG)
+        CollectionReference workspaceRef = db.collection("workspaces");
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        //setting visibility of leave button based on admin status of current user
+        deleteButton = findViewById(R.id.workspace_setting_deletebutton);
+        deleteButton.setVisibility(admins.contains(uid) ? View.VISIBLE : View.INVISIBLE);
+
 
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override

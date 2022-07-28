@@ -12,7 +12,18 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
 public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
+
+    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     Button inviteButton;
     Button manageButton;
@@ -24,6 +35,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
     TextView emailTextView;
 
     CardView adminCardView;
+    ArrayList<String> admins;
 
     public WorkspaceSettingsViewHolder(View view, WorkspaceSettingsActivity activity, Bundle extras) {
         super(view);
@@ -37,6 +49,15 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         usernameTextView = view.findViewById(R.id.username_text_view);
         emailTextView = view.findViewById(R.id.email_text_view);
         adminCardView = view.findViewById(R.id.admin_card_view);
+
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        //getting admin list of disabling of buttons (DEBUG)
+        CollectionReference workspaceRef = db.collection("workspaces");
+
+        Task<QuerySnapshot> workref = workspaceRef.whereArrayContains("admin",FirebaseAuth.getInstance().getCurrentUser().getUid()).get();
+
 
         if (inviteButton != null) {
             inviteButton.setTextColor(activity.getResources().getColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]));
@@ -68,6 +89,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
                     activity.startActivity(manageUserActivity);
                 }
             });
+
     }
 }
 }
