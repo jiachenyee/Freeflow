@@ -9,7 +9,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class WorkspaceInviteActivity extends AppCompatActivity {
 
@@ -51,7 +48,7 @@ public class WorkspaceInviteActivity extends AppCompatActivity {
         workspaceImage = findViewById(R.id.workspace_image);
         instructionsTextView = findViewById(R.id.join_workspace_description);
         joinWorkspaceURLCard = findViewById(R.id.join_workspace_url_card);
-        headerView = findViewById(R.id.header_view);
+        headerView = findViewById(R.id.msg_header_view);
 
         joinWorkspaceTitleTextView.setText("Join \"" + workspaceName + "\"");
 

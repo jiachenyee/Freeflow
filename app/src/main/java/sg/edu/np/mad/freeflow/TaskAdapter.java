@@ -20,6 +20,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.taskWorkspaceWrappers = taskWorkspaceWrappers;
         this.activity = activity;
     }
+    //Constructor to filter list for search functionality
+    public void setFilteredList(List<TaskWorkspaceWrapper> filteredList){
+        this.taskWorkspaceWrappers = filteredList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -38,7 +43,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
         holder.setUpTasks(activity.getResources().getColor(Workspace.colors[taskWorkspaceWrapper.color]));
         holder.taskTitleTextView.setText(taskWorkspaceWrapper.task.title);
-        holder.taskSubtitleTextView.setText(taskWorkspaceWrapper.task.description);
+        holder.taskDueDateTextView.setText(taskWorkspaceWrapper.task.dueDate);
+        holder.taskDescriptionTextView.setText(taskWorkspaceWrapper.task.description);
         holder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
             @Override
             public void onTaskOpenHandler() {
@@ -56,5 +62,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public int getItemCount() {
         return taskWorkspaceWrappers.size();
+    }
+
+    public void setTaskWorkspaceWrapperList(List<TaskWorkspaceWrapper> wrapperList) {
+        this.taskWorkspaceWrappers = wrapperList;
     }
 }

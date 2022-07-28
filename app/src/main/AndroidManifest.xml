@@ -11,6 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Freeflow">
+        
+        <activity
+             android:name=".NewTaskDueDateActivity"
+             android:exported="false" />
+        <activity
+            android:name=".NewSubtaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewLinkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessageAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessageChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".assignee_card"
+            android:exported="false" />
+        <activity
+            android:name=".activity_manage_assignee"
+            android:exported="false" />
         <activity
             android:name=".ManageUserActivity"
             android:exported="false" />
@@ -43,6 +65,9 @@
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageAssigneeActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

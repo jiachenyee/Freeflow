@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
     TextView taskTitleTextView;
-    TextView taskSubtitleTextView;
+    TextView taskDueDateTextView;
+    TextView taskDescriptionTextView;
 
     View superview;
 
@@ -19,7 +20,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         taskTitleTextView = itemView.findViewById(R.id.task_title_text_view);
-        taskSubtitleTextView = itemView.findViewById(R.id.task_subtitle_text_view);
+        taskDueDateTextView = itemView.findViewById(R.id.task_due_date_text_view);
+        taskDescriptionTextView = itemView.findViewById(R.id.task_description_text_view);
 
         superview = itemView;
 
@@ -41,6 +43,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         CardView tasksBackgroundCard = superview.findViewById(R.id.tasks_background_card);
         tasksBackgroundCard.setCardBackgroundColor(color);
         taskTitleTextView.setTextColor(color);
+        taskDueDateTextView.setTextColor(color);
     }
 
     public interface OnTaskOpenHandler {

@@ -20,7 +20,7 @@
         >
 
         <ImageView
-            android:id="@+id/profile_image_view"
+            android:id="@+id/their_message_profilepic"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:visibility="gone"
@@ -38,7 +38,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/username_text_view"
+                    android:id="@+id/assignee_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ryan"
