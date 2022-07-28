@@ -11,10 +11,10 @@ public class Task {
     String taskID;
     ArrayList<String> assigneeList;
 
-    public Task(String title, String description, String taskID, ArrayList<String> assigneeList) {
+    public Task(String title, String dueDate, String description, ArrayList<String> assigneeList) {
         this.title = title;
+        this.dueDate = dueDate;
         this.description = description;
-        this.taskID = taskID;
 
         this.assigneeList = assigneeList;
     }
