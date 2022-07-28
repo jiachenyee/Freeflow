@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,6 +33,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
 
     ArrayList<String> users;
     ArrayList<String> admins;
+    String uid;
 
     ArrayList<User> decodedUsers = new ArrayList<>();
 
@@ -41,7 +43,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
 
         users = extras.getStringArrayList("workspaceUsers");
         admins = extras.getStringArrayList("workspaceUsers");
-
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -111,6 +113,8 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
             } else {
                 holder.workspaceImage.setImageBitmap((Bitmap) extras.getParcelable("workspaceIcon"));
             }
+            //setting visibility of manage button based on admin status of current user
+            holder.manageButton.setVisibility(admins.contains(uid) ? View.VISIBLE : View.INVISIBLE);
 
             holder.workspaceNameEditText.setText(extras.getString("workspaceName"));
         } else {

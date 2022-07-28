@@ -53,10 +53,8 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        //getting admin list of disabling of buttons (DEBUG)
-        CollectionReference workspaceRef = db.collection("workspaces");
 
-        Task<QuerySnapshot> workref = workspaceRef.whereArrayContains("admin",FirebaseAuth.getInstance().getCurrentUser().getUid()).get();
+
 
 
         if (inviteButton != null) {
@@ -89,6 +87,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
                     activity.startActivity(manageUserActivity);
                 }
             });
+
 
     }
 }
