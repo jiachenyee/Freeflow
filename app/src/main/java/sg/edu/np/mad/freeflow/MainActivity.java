@@ -42,6 +42,8 @@ import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String DEFAULT_DUE_DATE = "DD MMMM YYYY HH mm";
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -274,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
                     @Override
                     public boolean test(TaskWorkspaceWrapper taskWorkspaceWrapper) {
-                        return taskWorkspaceWrapper.task.dueDate != null;
+                        return !DEFAULT_DUE_DATE.equals(taskWorkspaceWrapper.task.dueDate);
                     }
                 })
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
