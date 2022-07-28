@@ -77,7 +77,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
 
         // do a if loop to check if the sender of the message is the current user
         if (getItemViewType(position) == VIEW_TYPE_SENT){
-            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd ,EEEE");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd, EEEE");
             if (position == 0){
                 holder.messageHolder.setVisibility(View.VISIBLE);
                 holder.messageSpace.setVisibility(View.GONE);
@@ -129,7 +129,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
 
             System.out.println(userArrayList.size());
 
-            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd ,EEEE");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM dd, EEEE");
             if (position == 0){
                 holder.message1Holder.setVisibility(View.VISIBLE);
                 holder.message1Space.setVisibility(View.GONE);
