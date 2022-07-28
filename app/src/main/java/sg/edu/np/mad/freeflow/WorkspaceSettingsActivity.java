@@ -1,5 +1,6 @@
 package sg.edu.np.mad.freeflow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,19 +19,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class WorkspaceSettingsActivity extends AppCompatActivity {
 
     RecyclerView settingsRecyclerView;
+    Button leaveButton;
+    FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspace_setting);
 
-        Bundle extras = this.getIntent().getExtras();
+        Bundle extras = this.getIntent().getExtras(); //extras stores the specific workspace INFO!
 
         settingsRecyclerView = findViewById(R.id.settings_recycler_view);
+        db = FirebaseFirestore.getInstance();
 
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +51,45 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.workspace_setting_leavebutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                db.collection("users").document(uid).update("workspaces",FieldValue.delete()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        db.collection("workspaces").document(extras.getString("workspaceID")).update("users", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                                Intent returnHomeActivity = new Intent(WorkspaceSettingsActivity.this, MainActivity.class);
+                                startActivity(returnHomeActivity);
+                                showInfoToast("Successfully left workspace");
+
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                showInfoToast("Error leaving workspace");
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showInfoToast("Error leaving workspace");
+                    }
+                });
+            }
+        });
+
+
         setUpRecyclerView(extras);
         setUpTitleBar(extras);
+    }
+    private void showInfoToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     private void setUpRecyclerView(Bundle extras) {
@@ -62,4 +111,5 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         LinearLayout workspaceActivityHeader = findViewById(R.id.header_view);
         workspaceActivityHeader.setBackgroundResource(color);
     }
+
 }
