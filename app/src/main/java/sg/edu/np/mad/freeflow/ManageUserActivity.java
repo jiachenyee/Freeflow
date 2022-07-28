@@ -30,7 +30,7 @@ public class ManageUserActivity extends AppCompatActivity {
     Button adminButton;
     Button kickButton;
     EditText NameEditText;
-    String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class ManageUserActivity extends AppCompatActivity {
                 //DocumentReference userRef = db.collection("users").document(userID);
                 String Name = NameEditText.getText().toString();
 
+
                 // Exit early as data validation
                 if (Name.length() == 0) { return; }
 
@@ -69,20 +70,23 @@ public class ManageUserActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 List<DocumentSnapshot> doclist = task.getResult().getDocuments();
                                 DocumentSnapshot User = doclist.get(0);
-                                uid = User.getString("uid");//getting uid of name
+                                String uid = User.getString("uid");//getting uid of name
 
+                                String workspaceID = extras.getString("workspaceID");
+                                DocumentReference Ref = db.collection("workspaces").document(workspaceID);
+                                // Add admin to workspace
+                                Ref.update("admin", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "User elevated to Admin",
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                        finish();
+                                    }
+                                });
                             }
                         });
-                String workspaceID = extras.getString("workspaceID");
-                DocumentReference Ref = db.collection("workspaces").document(workspaceID);
-                // Add admin to workspace
-                Ref.update("admin", FieldValue.arrayUnion(uid));
-
-                Toast.makeText(getApplicationContext(),
-                                "User elevated to Admin",
-                                Toast.LENGTH_LONG)
-                        .show();
-                finish();
             }
         });
 
@@ -102,15 +106,24 @@ public class ManageUserActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 List<DocumentSnapshot> doclist = task.getResult().getDocuments();
                                 DocumentSnapshot User = doclist.get(0);
-                                uid = User.getString("uid");//getting uid of name
+                                String uid = User.getString("uid");//getting uid of name
 
+                                String workspaceID = extras.getString("workspaceID");
+                                DocumentReference Ref = db.collection("workspaces").document(workspaceID);
+                                // remove from user from workspace
+                                Ref.update("users", FieldValue.arrayRemove(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Successfully removed user from workspace",
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                        finish();
+                                    }
+                                });
+                                //if admin, remove from admin too
                             }
                         });
-                String workspaceID = extras.getString("workspaceID");
-                DocumentReference Ref = db.collection("workspaces").document(workspaceID);
-                // remove from user from workspace
-                Ref.update("users", FieldValue.arrayRemove(uid));
-                //if admin, remove from admin too
 
             }
         });
