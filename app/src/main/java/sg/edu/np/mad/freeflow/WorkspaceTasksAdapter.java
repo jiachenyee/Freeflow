@@ -105,6 +105,8 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                                 workspaceTaskActivity.putExtra("taskID", taskID);
                                 workspaceTaskActivity.putExtra("accentColor", activity.getResources().getColor(Workspace.colors[workspace.accentColor - 1]));
                                 workspaceTaskActivity.putExtra("categoryName", category.name);
+                                workspaceTaskActivity.putExtra("workspaceUsers", workspace.users);
+                                workspaceTaskActivity.putExtra("workspaceAccentColor", workspace.accentColor-1);
 
                                 activity.startActivityForResult(workspaceTaskActivity, 100);
                             }

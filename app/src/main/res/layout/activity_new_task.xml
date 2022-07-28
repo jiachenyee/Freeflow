@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/assingee_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewTaskActivity">
@@ -48,12 +49,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/msg_header_view"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -70,9 +73,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/interregular"
-                    android:textSize="14sp"
                     android:text="Task Title"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/task_title_card"
@@ -148,9 +151,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/interregular"
-                    android:textSize="14sp"
                     android:text="Task Description"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/task_description_card"
@@ -167,23 +170,62 @@
                         android:layout_width="match_parent"
                         android:layout_height="256dp"
 
-                        android:paddingTop="8dp"
                         android:background="#ccffffff"
+                        android:ems="10"
                         android:fontFamily="@font/interbold"
 
-                        android:hint="Add a task description"
-
-                        android:minHeight="48dp"
-                        android:inputType="textMultiLine"
-                        android:ems="10"
                         android:gravity="start|top"
 
+                        android:hint="Add a task description"
+                        android:inputType="textMultiLine"
+                        android:minHeight="48dp"
                         android:paddingStart="16dp"
+
+                        android:paddingTop="8dp"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/task_assignee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/interregular"
+                    android:text="Assignee"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/add_assignee2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginEnd="16dp"
+                    android:background="#00000000"
+                    android:src="@drawable/plus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/black"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/assignee_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_assignee" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
@@ -199,9 +241,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/interregular"
-                    android:textSize="14sp"
                     android:text="Category"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/task_category_card"
@@ -251,6 +293,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
+
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>

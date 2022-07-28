@@ -20,6 +20,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.taskWorkspaceWrappers = taskWorkspaceWrappers;
         this.activity = activity;
     }
+    //Constructor to filter list for search functionality
+    public void setFilteredList(List<TaskWorkspaceWrapper> filteredList){
+        this.taskWorkspaceWrappers = filteredList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override

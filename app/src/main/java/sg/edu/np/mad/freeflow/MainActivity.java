@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     TextView usernameTextView;
     ImageView profileImageView;
     TextView subtitleTextView;
+    //Create SearchView Variable
+    SearchView taskSearchView;
 
     FirebaseFirestore db;
 
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
         usernameTextView = findViewById(R.id.username_text_view);
         profileImageView = findViewById(R.id.their_message_profilepic);
         subtitleTextView = findViewById(R.id.subtitle_text_view);
@@ -312,4 +316,5 @@ public class MainActivity extends AppCompatActivity {
 
         setUpHomeFragment();
     }
+
 }
