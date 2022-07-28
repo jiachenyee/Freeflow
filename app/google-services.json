@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "734498139025",
+    "project_id": "freeflow-e46ec",
+    "storage_bucket": "freeflow-e46ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734498139025:android:c280442ee5209bc42f8830",
+        "android_client_info": {
+          "package_name": "sg.edu.np.mad.freeflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734498139025-47ek5thm70sc62ku4c37ll9jh5o0fn80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.mad.freeflow",
+            "certificate_hash": "e3ae1cbb3b3ac951e4b2e53732a8c4533ef1200a"
+          }
+        },
+        {
+          "client_id": "734498139025-a5rtihoa5ieri8hqtjt90013aotlvdgd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfSkiASF-w-GIBeN9QQSde2u4Ye2937tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734498139025-a5rtihoa5ieri8hqtjt90013aotlvdgd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
