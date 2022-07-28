@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
                     @Override
                     public boolean test(TaskWorkspaceWrapper taskWorkspaceWrapper) {
-                        return !DEFAULT_DUE_DATE.equals(taskWorkspaceWrapper.task.dueDate);
+                        return taskWorkspaceWrapper.task.dueDate != null && !DEFAULT_DUE_DATE.equals(taskWorkspaceWrapper.task.dueDate);
                     }
                 })
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
