@@ -43,6 +43,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
 
         settingsRecyclerView = findViewById(R.id.settings_recycler_view);
         db = FirebaseFirestore.getInstance();
+       
 
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +83,40 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        }); //end of leave button func
+
+        findViewById(R.id.workspace_setting_deletebutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                db.collection("users").document(uid).update("workspaces",FieldValue.delete()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        db.collection("workspaces").document(extras.getString("workspaceID")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                                Intent returnHomeActivity = new Intent(WorkspaceSettingsActivity.this, MainActivity.class);
+                                startActivity(returnHomeActivity);
+                                showInfoToast("Successfully deleted workspace");
+
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                showInfoToast("Error leaving workspace");
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showInfoToast("Error leaving workspace");
+                    }
+                });
+            }
+        }); //end of delete button func
 
 
         setUpRecyclerView(extras);

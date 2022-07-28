@@ -42,6 +42,8 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
         users = extras.getStringArrayList("workspaceUsers");
         admins = extras.getStringArrayList("workspaceUsers");
 
+
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         for (String userID: users) {
@@ -66,6 +68,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
                     }
                 }
             });
+
         }
 
     }
@@ -118,6 +121,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
             holder.usernameTextView.setText(currentUser.name);
             holder.emailTextView.setText(currentUser.emailAddress);
         }
+
     }
 
     @Override

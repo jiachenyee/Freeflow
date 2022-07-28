@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
 
     Button inviteButton;
+    Button manageButton;
     EditText workspaceNameEditText;
     ImageView workspaceImage;
     CardView workspaceNameCard;
@@ -28,6 +29,7 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         inviteButton = view.findViewById(R.id.invite_button);
+        manageButton = view.findViewById(R.id.manage_button);
         workspaceNameEditText = view.findViewById(R.id.category_name_edit_text);
         workspaceImage = view.findViewById(R.id.workspace_image);
         workspaceNameCard = view.findViewById(R.id.category_name_card);
@@ -52,5 +54,20 @@ public class WorkspaceSettingsViewHolder extends RecyclerView.ViewHolder {
                 }
             });
         }
+        if (manageButton != null) {
+            manageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent manageUserActivity = new Intent(activity, ManageUserActivity.class);
+
+                    manageUserActivity.putExtra("workspaceIcon", (Bitmap) extras.getParcelable("workspaceIcon"));
+                    manageUserActivity.putExtra("workspaceAccentColor", extras.getInt("workspaceAccentColor"));
+                    manageUserActivity.putExtra("workspaceName", extras.getString("workspaceName"));
+                    manageUserActivity.putExtra("workspaceInviteCode", extras.getString("workspaceInviteCode"));
+
+                    activity.startActivity(manageUserActivity);
+                }
+            });
     }
+}
 }
