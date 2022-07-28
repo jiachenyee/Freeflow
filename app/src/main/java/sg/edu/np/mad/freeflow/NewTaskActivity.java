@@ -180,19 +180,6 @@ public class NewTaskActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101) {
-            if(resultCode == RESULT_OK){
-                // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
-                assigneeList = data.getStringArrayListExtra("assigneeIdList");
-
-                decodeWorkSpaceUsers(assigneeList);
-            }
-        }
-    }
-
     private void decodeWorkSpaceUsers(ArrayList<String> userIdList){
         ArrayList<User> decodedUsers = new ArrayList<>();
 
@@ -346,7 +333,14 @@ public class NewTaskActivity extends AppCompatActivity {
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (REQUEST_CODE == requestCode) {
+        if (requestCode == 101) {
+            if(resultCode == RESULT_OK){
+                // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
+                assigneeList = data.getStringArrayListExtra("assigneeIdList");
+
+                decodeWorkSpaceUsers(assigneeList);
+            }
+        } else if (REQUEST_CODE == requestCode) {
             final String dueDate = data.getStringExtra(CHOSEN_DUE_DATE);
             final String dueTime = data.getStringExtra(CHOSEN_DUE_TIME);
 

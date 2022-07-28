@@ -95,6 +95,7 @@ public class TaskActivity extends AppCompatActivity {
         setUpAccentColor(extras);
         setUpMarkAsCompleteButton(extras);
         setUpFAB(extras);
+        setUpMessageButton();
 
         addAssigneeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,60 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 102) {
+
+        if (requestCode == 100) {
+            // New link
+            if (data != null && data.getExtras().getString("url") != null) {
+                String url = data.getStringExtra("url");
+
+                urls.add(url);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Bundle extras = this.getIntent().getExtras();
+
+                String workspaceID = extras.getString("workspaceID");
+                String taskID = extras.getString("taskID");
+
+                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+                if (urls.size() == 1) {
+                    docRef.update("urls", urls);
+                } else {
+                    docRef.update("urls", FieldValue.arrayUnion(url));
+                }
+
+                setUpRecyclerView();
+            }
+        } else if (requestCode == 200) {
+            if (data != null && data.getExtras().getString("title") != null) {
+                String taskTitle = data.getStringExtra("title");
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Bundle extras = this.getIntent().getExtras();
+
+                String workspaceID = extras.getString("workspaceID");
+                String taskID = extras.getString("taskID");
+
+                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
+
+                Map<String, Object> obj = new HashMap<>();
+
+                obj.put("title", taskTitle);
+                obj.put("isCompleted", false);
+
+                subtasks.add(obj);
+
+                if (subtasks.size() == 1) {
+                    docRef.update("subtasks", subtasks);
+                } else {
+                    docRef.update("subtasks", FieldValue.arrayUnion(obj));
+                }
+
+                setUpRecyclerView();
+            }
+        } else if (requestCode == 102) {
             if(resultCode == RESULT_OK){
                 // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
                 assigneeList = data.getStringArrayListExtra("assigneeIdList");
@@ -130,6 +184,10 @@ public class TaskActivity extends AppCompatActivity {
             }
         }
 
+        setUpRecyclerView();
+    }
+
+    private void setUpMessageButton() {
         findViewById(R.id.message_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,8 +201,6 @@ public class TaskActivity extends AppCompatActivity {
                 startActivity(messageIntent);
             }
         });
-
-        setUpRecyclerView();
     }
 
     private void loadFromFirestore(Bundle extras) {
@@ -361,65 +417,6 @@ public class TaskActivity extends AppCompatActivity {
         taskDetailRecyclerView.setLayoutManager(layoutManager);
         taskDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
         taskDetailRecyclerView.setAdapter(taskDetailAdapter);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 100) {
-            // New link
-            if (data != null && data.getExtras().getString("url") != null) {
-                String url = data.getStringExtra("url");
-
-                urls.add(url);
-
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                Bundle extras = this.getIntent().getExtras();
-
-                String workspaceID = extras.getString("workspaceID");
-                String taskID = extras.getString("taskID");
-
-                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
-
-                if (urls.size() == 1) {
-                    docRef.update("urls", urls);
-                } else {
-                    docRef.update("urls", FieldValue.arrayUnion(url));
-                }
-
-                setUpRecyclerView();
-            }
-        } else if (requestCode == 200) {
-            if (data != null && data.getExtras().getString("title") != null) {
-                String taskTitle = data.getStringExtra("title");
-
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                Bundle extras = this.getIntent().getExtras();
-
-                String workspaceID = extras.getString("workspaceID");
-                String taskID = extras.getString("taskID");
-
-                DocumentReference docRef = db.collection("workspaces").document(workspaceID).collection("tasks").document(taskID);
-
-                Map<String, Object> obj = new HashMap<>();
-
-                obj.put("title", taskTitle);
-                obj.put("isCompleted", false);
-
-                subtasks.add(obj);
-
-                if (subtasks.size() == 1) {
-                    docRef.update("subtasks", subtasks);
-                } else {
-                    docRef.update("subtasks", FieldValue.arrayUnion(obj));
-                }
-
-                setUpRecyclerView();
-            }
-        }
     }
 
     public void toggleMarkAsComplete(int taskIndex) {

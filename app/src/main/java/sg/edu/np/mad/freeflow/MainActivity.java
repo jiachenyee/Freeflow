@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        usernameTextView = findViewById(R.id.username_text_view);
+        usernameTextView = findViewById(R.id.assignee_text_view);
         profileImageView = findViewById(R.id.their_message_profilepic);
         subtitleTextView = findViewById(R.id.subtitle_text_view);
 
