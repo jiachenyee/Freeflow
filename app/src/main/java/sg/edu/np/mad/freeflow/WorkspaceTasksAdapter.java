@@ -91,9 +91,10 @@ public class WorkspaceTasksAdapter extends RecyclerView.Adapter<WorkspaceTasksVi
                 for (Task task: tasks) {
                     if (task.taskID.equals(taskID)) {
                         holder.taskTitleTextView.setText(task.title);
-                        holder.taskSubtitleTextView.setText(task.description);
+                        holder.taskDueDateTextView.setText(task.dueDate);
+                        holder.taskDescriptionTextView.setText(task.description);
 
-                        holder.taskID = taskID;
+//                        holder.taskID = taskID;
 
                         holder.setOnClickHandler(new WorkspaceTasksViewHolder.OnTaskOpenHandler() {
                             @Override

@@ -17,7 +17,6 @@ public class User {
 
     public String getName(){ return name; }
 
-
     public User(String name, String profilePictureURL) {
         this.name = name;
         this.profilePictureURL = profilePictureURL;

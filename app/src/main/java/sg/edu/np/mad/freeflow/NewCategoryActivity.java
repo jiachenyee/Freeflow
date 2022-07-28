@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Logger;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class NewCategoryActivity extends AppCompatActivity {
@@ -88,7 +81,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         Button doneButton = findViewById(R.id.done_button);
         doneButton.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
 
-        LinearLayout headerView = findViewById(R.id.header_view);
+        LinearLayout headerView = findViewById(R.id.msg_header_view);
         headerView.setBackgroundResource(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
 
         CardView categoryNameCard = findViewById(R.id.category_name_card);

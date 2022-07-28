@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MessageAccountActivity">
+
+    <ImageButton
+        android:id="@+id/msg_account_close_button"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="32dp"
+        android:background="#00000000"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/close" />
+
+    <TextView
+        android:id="@+id/msg_account_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Account"
+        android:fontFamily="@font/interbold"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+
+        app:layout_constraintStart_toEndOf="@id/msg_account_close_button"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/msg_account_profilepic"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+
+        android:layout_marginTop="56dp"
+
+        android:minWidth="64dp"
+        android:textColor="@color/black"
+        app:layout_constrainedWidth="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/msg_account_title"
+        app:shapeAppearance="@style/Circle"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msg_account_profilepic">
+
+
+        <TextView
+            android:id="@+id/msg_account_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/interextrabold"
+            android:gravity="center"
+            android:text="Ryan"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/msg_account_email_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/intersemibold"
+            android:gravity="center"
+            android:text="test@example.com"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

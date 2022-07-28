@@ -8,7 +8,7 @@
     tools:context=".NewTaskActivity">
 
     <LinearLayout
-        android:id="@+id/header_view"
+        android:id="@+id/msg_header_view"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:background="@color/workspace_orange"
@@ -49,8 +49,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_view">
+        app:layout_constraintTop_toBottomOf="@id/msg_header_view"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +66,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/header_view">
+                app:layout_constraintTop_toBottomOf="@+id/msg_header_view">
 
                 <TextView
                     android:id="@+id/taskTitle"
@@ -103,13 +105,46 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/header_view">
+
+                <TextView
+                    android:id="@+id/taskDueDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/interregular"
+                    android:textSize="14sp"
+                    android:text="Task Due Date"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/due_date_picker"
+                    style="?android:spinnerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="@font/interregular"
+                    android:hint="Add a task due date"
+                    android:text="DD MMMM YYYY HH mm"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:onClick="dueDatePicker" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/msg_header_view">
 
                 <TextView
                     android:id="@+id/taskDescription"
@@ -193,13 +228,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/header_view">
+                app:layout_constraintTop_toBottomOf="@+id/msg_header_view">
 
                 <TextView
                     android:id="@+id/task_category"

@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/tasks_title_text_view"
+        android:id="@+id/tasks_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tasks"
@@ -77,6 +77,26 @@
         app:layout_constraintTop_toBottomOf="@+id/tasks_title_text_view"
         app:queryBackground="@color/fui_transparent"
         app:queryHint="Search Task Name" />
+
+    <ImageButton
+        android:id="@+id/sort_tasks_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/filter"
+
+        android:adjustViewBounds="true"
+        android:maxWidth="20dp"
+        android:maxHeight="20dp"
+        android:scaleType="fitCenter"
+
+        app:tint="@color/workspace_blue"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tasks_title"
+
+        android:layout_marginEnd="16dp"
+
+        android:background="#00000000"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycler_view"

@@ -247,9 +247,10 @@ public class WorkspaceActivity extends AppCompatActivity {
                         Map<String, Object> snapshotData = snapshot.getData();
 
                         String title = (String) snapshotData.get("title");
+                        String dueDate = (String) snapshotData.get("dueDate");
                         String description = (String) snapshotData.get("description");
 
-                        tasks.add(new sg.edu.np.mad.freeflow.Task(title, description, snapshot.getId()));
+                        tasks.add(new sg.edu.np.mad.freeflow.Task(title, dueDate,  description, snapshot.getId()));
                     }
 
                     workspaceSubtitleTextView.setText(Integer.toString(tasks.size()) + " tasks • " + Integer.toString(+ workspace.users.size()) + " members");
