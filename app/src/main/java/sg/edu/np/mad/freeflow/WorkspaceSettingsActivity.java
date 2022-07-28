@@ -60,6 +60,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         //getting admin list of disabling of buttons (DEBUG)
         CollectionReference workspaceRef = db.collection("workspaces");
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Task<QuerySnapshot> workref = workspaceRef.whereArrayContains("admin",uid).get();
 
 
         //setting visibility of leave button based on admin status of current user

@@ -7,15 +7,17 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/workspace_setting_deletebutton"
-        android:layout_width="340dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="38dp"
+        android:layout_width="334dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="22dp"
+
         android:fontFamily="@font/interbold"
         android:text="DELETE"
         android:textAllCaps="false"
         android:textSize="16dp"
         android:theme="@style/Button.red"
-
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/workspace_setting_leavebutton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,15 +26,17 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/workspace_setting_leavebutton"
-        android:layout_width="351dp"
-        android:layout_height="46dp"
+        android:layout_width="354dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="16dp"
+
         android:fontFamily="@font/interbold"
         android:text="Leave"
         android:textAllCaps="false"
         android:textSize="16dp"
         android:theme="@style/Button.red"
-
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +45,8 @@
 
     <LinearLayout
         android:id="@+id/header_view"
-        android:layout_width="414dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/workspace_orange"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/settings_recycler_view"
@@ -81,11 +85,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/settings_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="389dp"
+        android:layout_height="468dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/workspace_setting_deletebutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
