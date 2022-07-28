@@ -10,7 +10,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +27,7 @@ import java.util.ArrayList;
 public class AssigneeAdapter extends RecyclerView.Adapter<AssigneeViewHolder>{
     ArrayList<User> assigneeList;
     Context context;
+
     public AssigneeAdapter(ArrayList<User> assigneeList, Context context){
         this.assigneeList = assigneeList;
         this.context = context;
@@ -33,21 +43,15 @@ public class AssigneeAdapter extends RecyclerView.Adapter<AssigneeViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull AssigneeViewHolder holder, int position) {
-        System.out.println(assigneeList.size() + "HEREEE");
-        System.out.println(position);
         User user = assigneeList.get(position);
-        System.out.println(user.name);
         String name = user.name;
-        //String imageURL = user.profilePictureURL;
-
+        Picasso.with(context).load(user.profilePictureURL).into(holder.profileImage);
         holder.userNameTextView.setText(name);
-
     }
 
     @Override
     public int getItemCount() {
         return assigneeList.size();
     }
-
 
 }

@@ -9,16 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +51,7 @@ public class NewTaskActivity extends AppCompatActivity {
         taskNameEditText = findViewById(R.id.task_title_edit_text);
         taskDescriptionEditText = findViewById(R.id.task_description_edit_text);
 
-        addAssigneeButton = findViewById(R.id.add_assignee);
+        addAssigneeButton = findViewById(R.id.add_assignee2);
 
 
         Bundle extras = getIntent().getExtras();
@@ -172,11 +169,8 @@ public class NewTaskActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
                 assigneeList = data.getStringArrayListExtra("assigneeIdList");
-                String msg = "Assignee list" + assigneeList.size();
-                Toast.makeText(NewTaskActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                 decodeWorkSpaceUsers(assigneeList);
-                System.out.println("Loop not entered");
             }
         }
     }
@@ -197,10 +191,7 @@ public class NewTaskActivity extends AppCompatActivity {
                             if (document.exists()) { ;
                                 User user = new User(document.getData(), userId);
                                 decodedUsers.add(user);
-                                System.out.println(decodedUsers.get(0).name);
-                                System.out.println("Here" + decodedUsers.size());
                                 if (decodedUsers.size() == userIdList.size()){
-                                    System.out.println("Final list size: " + decodedUsers.size());
                                     setUpAssigneeRecyclerView(decodedUsers);
                                 }
                             } else {
@@ -242,6 +233,8 @@ public class NewTaskActivity extends AppCompatActivity {
 
         CardView taskCategoryCard = findViewById(R.id.task_category_card);
         taskCategoryCard.setCardBackgroundColor(getResources().getColor(colorResource));
+
+        addAssigneeButton.setColorFilter(getResources().getColor(colorResource));
 
         createButton.setBackgroundResource(colorResource);
     }

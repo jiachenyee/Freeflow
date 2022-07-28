@@ -171,7 +171,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/add_assignee"
+                    android:id="@+id/add_assignee2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -179,7 +179,7 @@
                     android:background="#00000000"
                     android:src="@drawable/plus"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:tint="@color/workspace_orange"
+                    app:tint="@color/black"
                     tools:layout_editor_absoluteY="0dp" />
 
                 <androidx.recyclerview.widget.RecyclerView

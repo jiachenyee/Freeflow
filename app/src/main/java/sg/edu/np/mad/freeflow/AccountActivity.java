@@ -32,12 +32,13 @@ public class AccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
         // Get the user and auth info from Firebase
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+            user = mAuth.getCurrentUser();
 
         // Grab the text views from the XML.
         usernameTextView = findViewById(R.id.name_text_view);

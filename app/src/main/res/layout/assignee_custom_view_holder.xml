@@ -12,17 +12,20 @@
         android:layout_marginHorizontal="16dp"
 
         android:layout_marginVertical="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/search_bar_background"
         android:orientation="horizontal"
-        android:padding="6dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="16dp">
 
         <ImageView
             android:id="@+id/profile_image_view"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="8dp"
             android:visibility="visible"
             tools:srcCompat="@tools:sample/avatars" />
@@ -32,16 +35,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:fontFamily="@font/interbold"
             android:text="Ryan"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/assignee_checkbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="32dp"
+            android:layout_weight="0" />
 
     </LinearLayout>
 

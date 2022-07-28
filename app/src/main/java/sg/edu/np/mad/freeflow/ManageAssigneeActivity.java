@@ -10,11 +10,13 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -36,6 +39,9 @@ import java.util.List;
 public class ManageAssigneeActivity extends AppCompatActivity {;
 
     ArrayList<String> assigneeList = new ArrayList<String>();
+    ArrayList<String> removedAssignees = new ArrayList<String>();
+    ArrayList<String> userIdList;
+    Button assignButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +49,19 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
         setContentView(R.layout.activity_manage_assignee);
 
         Bundle extras = getIntent().getExtras();
-        ArrayList<String> userIdList = extras.getStringArrayList("workspaceUsers");
+        userIdList = extras.getStringArrayList("workspaceUsers");
         assigneeList = extras.getStringArrayList("assigneeList");
 
         LinearLayout memberLinearLayout = findViewById(R.id.member_lineaer_layout);
-        Button assignButton = findViewById(R.id.assign_button);
+        assignButton = findViewById(R.id.assign_button);
 
         assignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent newTaskActivity = new Intent();
                 newTaskActivity.putExtra("assigneeIdList", assigneeList);
+                System.out.println("Final removed list size: " + removedAssignees);
+                newTaskActivity.putExtra("assigneesRemoved", removedAssignees);
                 setResult(RESULT_OK, newTaskActivity);
                 finish();
             }
@@ -89,8 +97,7 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
                             System.out.println(decodedUsers.get(0).name);
                             System.out.println("Here" + decodedUsers.size());
                             if (decodedUsers.size() == userIdList.size()){
-                                System.out.println("Final list size: " + decodedUsers.size());
-                                createAssigneeCheckBox(decodedUsers, layout);
+                                setUpLayoutInflator(decodedUsers, layout);
                             }
                         } else {
                             System.out.println("User not found");
@@ -101,6 +108,67 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
                 }
             });
         }
+    }
+
+    private void setUpLayoutInflator(ArrayList<User> decodedUsers, LinearLayout layout){
+        for (int i = 0; i < decodedUsers.size(); i ++){
+            LayoutInflater inflater = getLayoutInflater();
+            View mylayout = inflater.inflate(R.layout.assignee_custom_view_holder, layout, false);
+
+            ImageView userImage = mylayout.findViewById(R.id.profile_image_view);
+            TextView userName = mylayout.findViewById(R.id.assignee_text_view);
+            CheckBox assigneeCheckBox = mylayout.findViewById(R.id.assignee_checkbox);
+
+            Picasso.with(this).load(decodedUsers.get(i).profilePictureURL).into(userImage);
+            userName.setText(decodedUsers.get(i).name);
+            assigneeCheckBox.setId(i);
+            if (assigneeList != null){
+                if (assigneeList.size() > 0 && assigneeList.contains(decodedUsers.get(assigneeCheckBox.getId()).userID)){ assigneeCheckBox.setChecked(true); }
+                assigneeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked){
+                            if (removedAssignees.size() > 0){
+                                removedAssignees.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                                assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                                System.out.println(removedAssignees.size() + " before");
+                            }
+                            assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                        }else{
+                            assigneeList.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                            removedAssignees.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                            System.out.println(removedAssignees.size() + " after");
+                        }
+
+                    }
+                });
+                //layout.addView(mylayout);
+            }else{
+                assigneeList = new ArrayList<>();
+                assigneeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked){
+                            if (removedAssignees.size() > 0){
+                                removedAssignees.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                                assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                                System.out.println(removedAssignees.size() + " before");
+                            }
+                            assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                        }else{
+                            assigneeList.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                            removedAssignees.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                            System.out.println(removedAssignees.size() + " after");
+                        }
+
+                    }
+                });
+
+            }
+            layout.addView(mylayout);
+
+        }
+
     }
 
     private void createAssigneeCheckBox(ArrayList<User> decodedUsers, LinearLayout layout){
@@ -115,14 +183,16 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
+                        if (removedAssignees.size() > 0){
+                            removedAssignees.remove(decodedUsers.get(checkBox.getId()).userID);
+                            assigneeList.add(decodedUsers.get(checkBox.getId()).userID);
+                            System.out.println(removedAssignees.size() + " before");
+                        }
                         assigneeList.add(decodedUsers.get(checkBox.getId()).userID);
-                        System.out.println(assigneeList.size() + " before");
-                        String msg = "You have " + (isChecked ? "checked" : "unchecked") + " checkbox " + decodedUsers.get(checkBox.getId()).userID;
-                        Toast.makeText(ManageAssigneeActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }else{
                         assigneeList.remove(decodedUsers.get(checkBox.getId()).userID);
-                        String msg = assigneeList.size() + " after";
-                        Toast.makeText(ManageAssigneeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        removedAssignees.add(decodedUsers.get(checkBox.getId()).userID);
+                        System.out.println(removedAssignees.size() + " after");
                     }
 
                 }

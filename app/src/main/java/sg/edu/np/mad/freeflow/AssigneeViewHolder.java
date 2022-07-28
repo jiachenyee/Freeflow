@@ -14,7 +14,7 @@ public class AssigneeViewHolder extends RecyclerView.ViewHolder {
 
     public AssigneeViewHolder(View viewItem){
         super(viewItem);
-        //profileImage = viewItem.findViewById(R.id.profile_image_view);
+        profileImage = viewItem.findViewById(R.id.profile_image_view);
         userNameTextView = viewItem.findViewById(R.id.assignee_text_view);
     }
 }
