@@ -59,8 +59,9 @@ public class ManageUserActivity extends AppCompatActivity {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 //DocumentReference userRef = db.collection("users").document(userID);
+                //getting text from input
                 String Name = NameEditText.getText().toString();
-
+                //finding user with email that matches input, then getting uid from that user document
                 db.collectionGroup("users").whereEqualTo("email", Name).get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
@@ -70,14 +71,14 @@ public class ManageUserActivity extends AppCompatActivity {
 
                             }
                         });
-                String workspaceID = extras.getString("workspaceID");
+                String workspaceID = extras.getString("workspaceID"); //getting workspaceID
                 DocumentReference Ref = db.collection("workspaces").document(workspaceID);
                 // Add admin to workspace
                 Ref.update("admin", FieldValue.arrayUnion(uid));
 
                 Toast.makeText(getApplicationContext(),
                                 "User elevated to Admin",
-                                Toast.LENGTH_LONG)
+                                Toast.LENGTH_LONG) //toast to show user elevated to Admin
                         .show();
                 finish();
             }
@@ -90,6 +91,7 @@ public class ManageUserActivity extends AppCompatActivity {
 
                 //DocumentReference userRef = db.collection("users").document(userID);
                 String Name = NameEditText.getText().toString();
+                //finding user with the email and getting uid
 
                 db.collectionGroup("users").whereEqualTo("email", Name).get()
                         .addOnCompleteListener(task -> {
@@ -104,7 +106,6 @@ public class ManageUserActivity extends AppCompatActivity {
                 DocumentReference Ref = db.collection("workspaces").document(workspaceID);
                 // remove from user from workspace
                 Ref.update("users", FieldValue.arrayRemove(uid));
-                //if admin, remove from admin too
 
             }
         });
