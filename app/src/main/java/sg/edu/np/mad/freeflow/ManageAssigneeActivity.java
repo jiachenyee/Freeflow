@@ -38,10 +38,10 @@ import java.util.List;
 
 public class ManageAssigneeActivity extends AppCompatActivity {;
 
-    ArrayList<String> assigneeList = new ArrayList<String>();
-    ArrayList<String> removedAssignees = new ArrayList<String>();
-    ArrayList<String> userIdList;
-    Button assignButton;
+    ArrayList<String> assigneeList = new ArrayList<String>();       //list of assignee
+    ArrayList<String> removedAssignees = new ArrayList<String>();   //List of removed assignees
+    ArrayList<String> userIdList;                                   //List of userId
+    Button assignButton;                                            //Button to assign users
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,35 +55,40 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
         LinearLayout memberLinearLayout = findViewById(R.id.member_lineaer_layout);
         assignButton = findViewById(R.id.assign_button);
 
+        //Action to perform on click
         assignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Intent to pass back to previous activity
                 Intent newTaskActivity = new Intent();
+                //Pass the list of assignee ID
                 newTaskActivity.putExtra("assigneeIdList", assigneeList);
-                System.out.println("Final removed list size: " + removedAssignees);
+                //Pass the the list of assignee id removed from task
                 newTaskActivity.putExtra("assigneesRemoved", removedAssignees);
                 setResult(RESULT_OK, newTaskActivity);
                 finish();
             }
         });
-
+        //Set action for the close button
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
+        //Set up the accent color
         setUpAccentColor(Workspace.colors[extras.getInt("workspaceAccentColor",0)]);
+        //Convert Userid to user objects
         decodeWorkSpaceUsers(userIdList, memberLinearLayout);
     }
 
+    //Method to convert user Id to user objects
     private void decodeWorkSpaceUsers(ArrayList<String> userIdList, LinearLayout layout){
+        //Instantiate an empty list of user objects
         ArrayList<User> decodedUsers = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
+        //Run through list of user id and convert to user objects from firebase
         for (String userId : userIdList){
             DocumentReference docRef = db.collection("users").document(userId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -94,9 +99,8 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
                         if (document.exists()) { ;
                             User user = new User(document.getData(), userId);
                             decodedUsers.add(user);
-                            System.out.println(decodedUsers.get(0).name);
-                            System.out.println("Here" + decodedUsers.size());
                             if (decodedUsers.size() == userIdList.size()){
+                                //Once all converted set up the view
                                 setUpLayoutInflator(decodedUsers, layout);
                             }
                         } else {
@@ -109,101 +113,48 @@ public class ManageAssigneeActivity extends AppCompatActivity {;
             });
         }
     }
-
+    //Method to set up the view for the manage assignee activity
     private void setUpLayoutInflator(ArrayList<User> decodedUsers, LinearLayout layout){
+        //Inflate viewholder to parent view
         for (int i = 0; i < decodedUsers.size(); i ++){
             LayoutInflater inflater = getLayoutInflater();
             View mylayout = inflater.inflate(R.layout.assignee_custom_view_holder, layout, false);
-
+            //Set all relevant widgets in the view
             ImageView userImage = mylayout.findViewById(R.id.profile_image_view);
             TextView userName = mylayout.findViewById(R.id.assignee_text_view);
             CheckBox assigneeCheckBox = mylayout.findViewById(R.id.assignee_checkbox);
-
+            //User picasso to load url to image
             Picasso.with(this).load(decodedUsers.get(i).profilePictureURL).into(userImage);
             userName.setText(decodedUsers.get(i).name);
             assigneeCheckBox.setId(i);
-            if (assigneeList != null){
-                if (assigneeList.size() > 0 && assigneeList.contains(decodedUsers.get(assigneeCheckBox.getId()).userID)){ assigneeCheckBox.setChecked(true); }
-                assigneeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked){
-                            if (removedAssignees.size() > 0){
-                                removedAssignees.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                                assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                                System.out.println(removedAssignees.size() + " before");
-                            }
-                            assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                        }else{
-                            assigneeList.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                            removedAssignees.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                            System.out.println(removedAssignees.size() + " after");
-                        }
-
-                    }
-                });
-                //layout.addView(mylayout);
-            }else{
-                assigneeList = new ArrayList<>();
-                assigneeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked){
-                            if (removedAssignees.size() > 0){
-                                removedAssignees.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                                assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                                System.out.println(removedAssignees.size() + " before");
-                            }
-                            assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                        }else{
-                            assigneeList.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                            removedAssignees.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
-                            System.out.println(removedAssignees.size() + " after");
-                        }
-
-                    }
-                });
-
-            }
-            layout.addView(mylayout);
-
-        }
-
-    }
-
-    private void createAssigneeCheckBox(ArrayList<User> decodedUsers, LinearLayout layout){
-        for(int i = 0; i < decodedUsers.size(); i ++){
-            // Create Checkbox Dynamically
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setId(i);
-            checkBox.setText(decodedUsers.get(i).name);
-            if (assigneeList.size() > 0 && assigneeList.contains(decodedUsers.get(checkBox.getId()).userID)){ checkBox.setChecked(true); }
-            checkBox.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            //Check if there are people assigned to this task already
+            if (assigneeList.size() > 0 && assigneeList.contains(decodedUsers.get(assigneeCheckBox.getId()).userID)){ assigneeCheckBox.setChecked(true); }
+            //Action to perform when check box is checked and vice versa
+            assigneeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
-                        if (removedAssignees.size() > 0){
-                            removedAssignees.remove(decodedUsers.get(checkBox.getId()).userID);
-                            assigneeList.add(decodedUsers.get(checkBox.getId()).userID);
-                            System.out.println(removedAssignees.size() + " before");
+                        //Add assignee to assignee list, add assignee to removed list
+                        if (removedAssignees.size() > 0 && removedAssignees.contains(decodedUsers.get(assigneeCheckBox.getId()).userID)){
+                            removedAssignees.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                            assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+
                         }
-                        assigneeList.add(decodedUsers.get(checkBox.getId()).userID);
+                        assigneeList.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
                     }else{
-                        assigneeList.remove(decodedUsers.get(checkBox.getId()).userID);
-                        removedAssignees.add(decodedUsers.get(checkBox.getId()).userID);
-                        System.out.println(removedAssignees.size() + " after");
+                        assigneeList.remove(decodedUsers.get(assigneeCheckBox.getId()).userID);
+                        removedAssignees.add(decodedUsers.get(assigneeCheckBox.getId()).userID);
+
                     }
 
                 }
             });
-            // Add Checkbox to LinearLayout
-            if (layout != null) {
-                layout.addView(checkBox);
-            }
+            //Add view holder to parent view once all functions are completed.
+            layout.addView(mylayout);
         }
-    }
 
+    }
+    //Method to set up accent color
     private void setUpAccentColor(int colorResource) {
 
         LinearLayout headerView = findViewById(R.id.header_view);

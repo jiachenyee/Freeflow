@@ -178,7 +178,7 @@ public class TaskActivity extends AppCompatActivity {
                 // GET YOUR USER LIST HERE AND USE IT FOR YOUR PURPOSE.
                 assigneeList = data.getStringArrayListExtra("assigneeIdList");
                 removedAssigneesList = data.getStringArrayListExtra("assigneesRemoved");
-                System.out.println(removedAssigneesList.size());
+                System.out.println("IN Task acitivity:" + assigneeList.size());
                 updateTaskAssignee(extras);
                 //loadFromFirestore(extras);
             }
@@ -265,12 +265,24 @@ public class TaskActivity extends AppCompatActivity {
                         System.out.println("Updated");
                         removedAssigneesList.remove(uId);
                         if (removedAssigneesList.size() == 0){
-                            loadFromFirestore(extras);
-                        }
+                            for (String uId : assigneeList){
+                                docRef.update("assignee", FieldValue.arrayUnion(uId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        assignedList.remove(uId);
+                                        System.out.println("Assignee Added");
+                                        if (assignedList.size() == 0){
+                                            loadFromFirestore(extras);
+                                        }
 
+                                    }
+                                });
+                            }
+                        }
                     }
                 });
             }
+
         }else{
             for (String uId : assigneeList){
                 docRef.update("assignee", FieldValue.arrayUnion(uId)).addOnSuccessListener(new OnSuccessListener<Void>() {
