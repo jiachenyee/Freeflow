@@ -53,7 +53,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     String selectedItem;
 
-    ArrayList<String> assigneeList = new ArrayList<String>();
+    ArrayList<String> assigneeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,6 @@ public class NewTaskActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
-        //ArrayList<String> assigneeIdList = extras.getStringArrayList("assigneeIdList");
 
         initDueDatePicker();
 
@@ -102,7 +101,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
-
+        //Action to perform when add assignee button is clicked
         addAssigneeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,7 +178,7 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Method to convert user id to user Objects
     private void decodeWorkSpaceUsers(ArrayList<String> userIdList){
         ArrayList<User> decodedUsers = new ArrayList<>();
 

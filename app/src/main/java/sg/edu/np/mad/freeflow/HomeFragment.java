@@ -98,8 +98,9 @@ public class HomeFragment extends Fragment {
         workspaceRecyclerView.setLayoutManager(mLayoutManager);
         workspaceRecyclerView.setItemAnimator(new DefaultItemAnimator());
         workspaceRecyclerView.setAdapter(mAdapter);
-
+        //clear focus from the currently focused component, and set the focus to the root focus modifier
         taskSearchView.clearFocus();
+        //When there is new query in the search bar, perform this action
         taskSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -108,10 +109,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //Search through all task name and add to list
                 filterList(newText);
                 return true;
             }
-
+            //Method to filter list with the search query
             private void filterList(String newText) {
                 List<TaskWorkspaceWrapper> filteredList = new ArrayList<>();
                 for (TaskWorkspaceWrapper taskWorkspaceWrapper : taskWorkspaceWrapperList){

@@ -105,10 +105,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="@font/intermedium"
+                android:fontFamily="@font/interbold"
                 android:text="Task Description"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/task_description_text_view"
@@ -128,10 +128,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/interregular"
+                    android:fontFamily="@font/interbold"
                     android:text="Assignee"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
