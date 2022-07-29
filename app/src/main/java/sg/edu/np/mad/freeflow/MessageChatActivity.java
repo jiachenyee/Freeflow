@@ -60,11 +60,13 @@ import java.util.Set;
 
 public class MessageChatActivity extends AppCompatActivity {
 
+    //variables for buttons and other resources
     ImageButton closeButton;
     EditText messageEditText;
     ImageButton sendButton;
     TextView messageTitle;
 
+    //variables for firebase/firestore connection
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private RecyclerView chatRecyclerView;
@@ -72,8 +74,12 @@ public class MessageChatActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    //array list used for populating the messages from Firestore
     ArrayList<Message> messagesList = new ArrayList<>();
+    //array list used for populating the users from Firestore
     ArrayList<User> usersList = new ArrayList<>();
+
+    //variables used for implementing the recycler view and adapter
     Boolean sentNotification;
     String taskID;
     String workspaceID;
@@ -109,14 +115,18 @@ public class MessageChatActivity extends AppCompatActivity {
         workspaceID = extras.getString("workspaceID");
         taskID = extras.getString("taskID");
         color = extras.getInt("accentColor");
+        //setting background of task header to the workspace colour
         findViewById(R.id.msg_header_view).setBackgroundColor(color);
 
+        //notification will be send by default unless user has interacted in the chat
         sentNotification = true;
-        System.out.println("TaskID: " + taskID);
-        System.out.println("WorkspaceID: " + workspaceID);
 
 
-        //display of task title
+        /* ----------------------------------------------------------------- */
+        /* ----------------   GETTING DATA FROM FIRESTORE   ---------------- */
+        /* ----------------------------------------------------------------- */
+
+        //display of task title in the header from FireStore
         db.collection("workspaces")
                 .document(workspaceID)
                 .collection("tasks")
@@ -128,11 +138,8 @@ public class MessageChatActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                //String taskTitle = documentSnapshot.get("title").toString();
-                                //System.out.println("Title: " + taskTitle);
                                 messageTitle.setText(documentSnapshot.get("title").toString());
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
-                                System.out.println("Done");
                             } else {
                                 Log.d(TAG, "No such document");
                             }
@@ -143,48 +150,8 @@ public class MessageChatActivity extends AppCompatActivity {
                 });
 
 
-        /*
-        db.collection("workspaces")
-                .document(workspaceID)
-                .collection("tasks")
-                .document(taskID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                //Map<String, Object> documentData = document.getData();
-                                ArrayList<Map<String, Object>> retrieveArrayList  = (ArrayList<Map<String, Object>>) document.get("messages");
-                                if (retrieveArrayList != null){
-                                    for (int mes = 0; mes < retrieveArrayList.size(); mes++){
-                                        Map<String, Object> retrievedMsg = retrieveArrayList.get(mes);
-                                        Message msgDetails = new Message();
-                                        msgDetails.msgContent = retrievedMsg.get("MsgContent").toString();
-                                        msgDetails.msgUserID = retrievedMsg.get("MsgUserId").toString();
-                                        msgDetails.msgTimeStamp = Long.parseLong(retrievedMsg.get("MsgTimeStamp").toString());
-                                        System.out.println("YAY: " + msgDetails.msgContent);
-                                        messagesList.add(msgDetails);
-                                    }
-                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                    setUpRecyclerView(messagesList, usersList, currentId, color);
-                                    System.out.println("Done3");
-                                }
-                            } else {
-                                Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
 
-        System.out.println("Now" + messagesList);
-
-         */
-
-        //getting users from FireStore
+        //getting users from FireStore based on realtime updates
         db.collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
@@ -196,28 +163,31 @@ public class MessageChatActivity extends AppCompatActivity {
                     //prevent duplication of userList
                     usersList.clear();
                 }
-                //Loop every document to get user details
+                //Loop every document to get all user details
                 for (QueryDocumentSnapshot document : value) {
                     User aUser = new User();
-                    aUser.userID = document.getId();
+                    aUser.userID = document.getId(); //userID is based on document ID
                     Map<String, Object> userMap = document.getData();
+                    //filling in the user properties
                     aUser.name = userMap.get("name").toString();
                     aUser.emailAddress = userMap.get("emailAddress").toString();
                     aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
+                    //adding that user to the user list
                     usersList.add(aUser);
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
             }
         });
 
-        //getting messages from FireStore
+
+
+        //getting messages from FireStore with Realtime Updates
         db.collection("workspaces")
                 .document(workspaceID)
                 .collection("tasks")
                 .document(taskID)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    //retrieving the messages with Realtime Updates
                     public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
                             Log.w(TAG, "Listen failed.", e);
@@ -228,15 +198,18 @@ public class MessageChatActivity extends AppCompatActivity {
                             messagesList.clear();
                         }
                         if (snapshot != null && snapshot.exists()) {
+                            //mapping the nested array into an array list
                             ArrayList<Map<String, Object>> retrieveArrayList  = (ArrayList<Map<String, Object>>) snapshot.get("messages");
                             if (retrieveArrayList != null){
                                 for (int mes = 0; mes < retrieveArrayList.size(); mes++){
                                     Map<String, Object> retrievedMsg = retrieveArrayList.get(mes);
+                                    //setting up the Message class and its properties
                                     Message msgDetails = new Message();
                                     msgDetails.msgContent = retrievedMsg.get("MsgContent").toString();
                                     msgDetails.msgUserID = retrievedMsg.get("MsgUserId").toString();
                                     msgDetails.msgTimeStamp = Long.parseLong(retrievedMsg.get("MsgTimeStamp").toString());
                                     System.out.println("YAY: " + msgDetails.msgContent);
+                                    //adding the message class into the message list
                                     messagesList.add(msgDetails);
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
@@ -250,20 +223,16 @@ public class MessageChatActivity extends AppCompatActivity {
                             Log.d(TAG, "Current data: null");
                         }
 
-                        //checking if notification for user exist
+                        //notification: checking if user has sent at least a message
                         if (messagesList.size() != 0){
                             for(int uidd = 0; uidd < messagesList.size(); uidd ++){
-                                System.out.println("AHHHHHHAHAHAHAHHA");
-                                System.out.println("------" + currentId);
-                                System.out.println(messagesList.get(uidd).msgUserID);
                                 if (messagesList.get(uidd).msgUserID.equals(currentId)){
                                     sentNotification = false;
                                 }
                             }
                         }
 
-                        System.out.println("Notification: " + sentNotification);
-                        //sending notification
+                        //sending notification if valid
                         createNotificationChannel();
                         if (sentNotification){
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(MessageChatActivity.this, "Message Notification")
@@ -283,9 +252,9 @@ public class MessageChatActivity extends AppCompatActivity {
                 });
 
 
-
-
-        //getMsgDataWithRealtimeUpdates();
+        /* --------------------------------------------------------------------- */
+        /* ----------------   EVENT LISTENERS FOR THE BUTTONS   ---------------- */
+        /* --------------------------------------------------------------------- */
 
         //ending the activity after close button is clicked
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -300,54 +269,54 @@ public class MessageChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //prevent user from sending an empty message
                 if (messageEditText.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "No message input", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Boolean removeWhitespace = true;
 
+                //removing whitespace at the start and end of the message
+                Boolean removeWhitespace = true;
                 Message newMsg = new Message();
                 String inputMessage = messageEditText.getText().toString();
-
                 while (removeWhitespace){
                     Character back = inputMessage.charAt(inputMessage.length() -1);
                     Character front = inputMessage.charAt(0);
                     System.out.println("character is: " + back);
                     if (Character.isWhitespace(back)){
-                        System.out.println("Spaccee");
+                        //removing the last character
                         inputMessage = inputMessage.substring(0, inputMessage.length() -1);
-                        System.out.println("you are |" + inputMessage + "|" );
                     }
                     else if(Character.isWhitespace(front)){
-                        System.out.println("Spaccee");
+                        //removing the first character
                         inputMessage = inputMessage.substring(1);
-                        System.out.println("you are |" + inputMessage + "|" );
                     }
                     else{
                         removeWhitespace = false;
                     }
                 }
 
-
+                //Populating the message class object
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 newMsg.msgContent = inputMessage;
                 newMsg.msgUserID = currentId;
                 newMsg.msgTimeStamp = timestamp.getTime();
-
+                //adding the message to the message list
                 messagesList.add(newMsg);
+                //clearing the input field
                 messageEditText.setText("");
 
+                //mapping the message object into a mapped nested list
                 Map<String, Object> messageData = new HashMap<>();
                 Map<String, Object> eachMessaging = newMsg.toMap();
-
                 messageData.put("messages", Arrays.asList(eachMessaging));
+
                 //adding messages to Firestore Database
                 db.collection("workspaces")
                         .document(workspaceID)
                         .collection("tasks")
                         .document(taskID)
-                        .update("messages", FieldValue.arrayUnion(eachMessaging))
+                        .update("messages", FieldValue.arrayUnion(eachMessaging)) //arrayUnion is used to append the new message to the nested messages array in FireStore
                         .addOnSuccessListener(new OnSuccessListener<Void>(){
                             @Override
                             public void onSuccess(Void unused) {
@@ -363,26 +332,33 @@ public class MessageChatActivity extends AppCompatActivity {
                             }
                         });
 
-                //setUpRecyclerView(messagesList, usersList, currentId, color);
-                chatAdapter.notifyDataSetChanged();
+                //set up the recycler view if this is the first message sent
+                if (messagesList.size() <= 1){
+                    setUpRecyclerView(messagesList, usersList, currentId, color);
+                }
+                //add the message into the message list found in the chat Adapter
+                else{
+                    chatAdapter = new MessageChatAdapter(messagesList, usersList, currentId, color, MessageChatActivity.this, MessageChatActivity.this);
+                    chatAdapter.notifyDataSetChanged();
+                }
+
             }
         });
     }
 
 
-
+    //method used for setting up the message recycler view
     private void setUpRecyclerView(ArrayList<Message> msgList, ArrayList<User> usersList, String currentId, int color){
         chatRecyclerView = findViewById(R.id.message_recycler_view);
         chatRecyclerView.setHasFixedSize(true);
         chatAdapter = new MessageChatAdapter(msgList, usersList, currentId, color, MessageChatActivity.this, MessageChatActivity.this);
-        System.out.println("list size: " + usersList.size());
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(MessageChatActivity.this));
-        //chatRecyclerView.scrollToPosition(msgList.size()-1);
         chatRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        chatRecyclerView.getLayoutManager().scrollToPosition(msgList.size() - 1);
+        chatRecyclerView.getLayoutManager().scrollToPosition(msgList.size() - 1); //always display the most recent message
         chatRecyclerView.setAdapter(chatAdapter);
     }
 
+    //method used for setting up the notification
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -396,163 +372,4 @@ public class MessageChatActivity extends AppCompatActivity {
         }
     }
 
-    private void sentNotification(){
-
-    }
-
-    private void getMsgDataWithRealtimeUpdates(){
-        ArrayList<Message> updatedMsgList = new ArrayList<Message>();
-        FirebaseFirestore.getInstance().collection("workspaces")
-                .document(workspaceID)
-                .collection("tasks")
-                .document(taskID)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-                else{
-                    messagesList.clear();
-                }
-                if (snapshot != null && snapshot.exists()) {
-                    ArrayList<Map<String, Object>> retrieveArrayList  = (ArrayList<Map<String, Object>>) snapshot.get("messages");
-                    if (retrieveArrayList != null){
-                        for (int mes = 0; mes < retrieveArrayList.size(); mes++){
-                            Map<String, Object> retrievedMsg = retrieveArrayList.get(mes);
-                            Message msgDetails = new Message();
-                            msgDetails.msgContent = retrievedMsg.get("MsgContent").toString();
-                            msgDetails.msgUserID = retrievedMsg.get("MsgUserId").toString();
-                            msgDetails.msgTimeStamp = Long.parseLong(retrievedMsg.get("MsgTimeStamp").toString());
-                            System.out.println("YAY: " + msgDetails.msgContent);
-                            messagesList.add(msgDetails);
-                        }
-                        Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
-                        setUpRecyclerView(messagesList, usersList, currentId, color);
-                        chatAdapter.notifyDataSetChanged();
-                    }
-                    Log.d(TAG, "Current data: " + snapshot.getData());
-                } else {
-                    Log.d(TAG, "Current data: null");
-                }
-            }
-        });
-    }
-
-    private void getTaskTitle(){
-        FirebaseFirestore.getInstance().collection("workspaces")
-                .document(workspaceID)
-                .collection("tasks")
-                .document(taskID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            if (documentSnapshot.exists()) {
-                                String taskTitle = documentSnapshot.get("title").toString();
-                                System.out.println("Title: " + taskTitle);
-                                //messageTitle.setText(documentSnapshot.get("title").toString());
-                                Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
-                            } else {
-                                Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
-    }
-
-    private void getUsersList(){
-        System.out.println("Hello Ryan Y");
-        FirebaseFirestore.getInstance().collection("users")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()){
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            User allUsers = new User();
-                            allUsers.userID = document.getId();
-                            Map<String, Object> userMap = document.getData();
-                            allUsers.name = userMap.get("name").toString();
-                            System.out.println("NAMEEEEEEEEEEEEEEE: " + allUsers.name);
-                            allUsers.emailAddress = userMap.get("emailAddress").toString();
-                            allUsers.profilePictureURL = userMap.get("profilePictureURL").toString();
-                            usersList.add(allUsers);
-                            Log.d(TAG, document.getId() + " => " + document.getData());
-                        }
-                        return;
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                }
-        });
-        System.out.println("DATAAAAAAAAAAAA: " + usersList);
-    }
-
-    private void getUpdatedUserList(){
-        ArrayList<User> updatedUserList = new ArrayList<>();
-        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-
-                for (QueryDocumentSnapshot document : value) {
-                    User aUser = new User();
-                    aUser.userID = document.getId();
-                    Map<String, Object> userMap = document.getData();
-                    aUser.name = userMap.get("name").toString();
-                    aUser.emailAddress = userMap.get("emailAddress").toString();
-                    aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
-                    updatedUserList.add(aUser);
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-                }
-            }
-        });
-    }
-
-    private void getMsgList(){
-        //getting data from cloud Firestore
-        ArrayList<Message> messageData = new ArrayList<Message>();
-        FirebaseFirestore.getInstance().collection("workspaces")
-                .document(workspaceID)
-                .collection("tasks")
-                .document(taskID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                //Map<String, Object> documentData = document.getData();
-                                ArrayList<Map<String, Object>> retrieveArrayList  = (ArrayList<Map<String, Object>>) document.get("messages");
-                                if (retrieveArrayList != null){
-                                    for (int mes = 0; mes < retrieveArrayList.size(); mes++){
-                                        Map<String, Object> retrievedMsg = retrieveArrayList.get(mes);
-                                        Message msgDetails = new Message();
-                                        msgDetails.msgContent = retrievedMsg.get("MsgContent").toString();
-                                        msgDetails.msgUserID = retrievedMsg.get("MsgUserId").toString();
-                                        msgDetails.msgTimeStamp = Long.parseLong(retrievedMsg.get("MsgTimeStamp").toString());
-                                        System.out.println("YAY: " + msgDetails.msgContent);
-                                        messagesList.add(msgDetails);
-                                    }
-                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                    return;
-                                }
-                            } else {
-                                Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
-    }
 }

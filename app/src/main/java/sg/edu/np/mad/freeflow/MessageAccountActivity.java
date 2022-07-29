@@ -46,77 +46,20 @@ public class MessageAccountActivity extends AppCompatActivity {
         setAnimation();
         setContentView(R.layout.activity_message_account);
 
+        //initialising the variables
         ArrayList<User> userArrayList = new ArrayList<>();
-
         userNameTextView = findViewById(R.id.msg_account_name_text_view);
         userProfileImageView = findViewById(R.id.msg_account_profilepic);
         userEmailTextView = findViewById(R.id.msg_account_email_text_view);
         closeButton = findViewById(R.id.msg_account_close_button);
         accountTitle = findViewById(R.id.msg_account_title);
 
-
+        //getting data from Intent
         Intent accountActivity = getIntent();
         Bundle extras = this.getIntent().getExtras();
-
-        /*
-        if (extras != null){
-            if (extras.containsKey("userID")){
-                String userID = extras.getString("userID");
-                String userName = extras.getString("userName");
-                String userEmail = extras.getString("userEmail");
-                String userPicture = extras.getString("userPicture");
-                System.out.println("NAMEEEEE: " + userName);
-                System.out.println("EMAILLLLLLL: " + userEmail);
-                String[] nameString = userName.split(" ");
-
-                accountTitle.setText(nameString[0] + "'s Account");
-                userNameTextView.setText(userName);
-                userEmailTextView.setText(userEmail);
-                Picasso.with(this).load(Uri.parse(userPicture)).into(userProfileImageView);
-            }
-
-        }
-
-         */
-
         String userIDD = accountActivity.getStringExtra("userIDD");
-        System.out.println("..." + userIDD);
-        /*
-        String userName = accountActivity.getStringExtra("userName");
-        String userEmail = accountActivity.getStringExtra("userEmail");
-        String userPicture = accountActivity.getStringExtra("userPicture");
 
-         */
-
-        /*
-        FirebaseFirestore.getInstance().collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-                else{
-                    userArrayList.clear();
-                }
-
-                for (QueryDocumentSnapshot document : value) {
-                    User aUser = new User();
-                    aUser.userID = document.getId();
-                    Map<String, Object> userMap = document.getData();
-                    aUser.name = userMap.get("name").toString();
-                    aUser.emailAddress = userMap.get("emailAddress").toString();
-                    aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
-                    userArrayList.add(aUser);
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-                    System.out.println("Done4");
-                }
-            }
-        });
-
-         */
-
-
+        //retrieving the current list of users from FireStore
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -135,7 +78,6 @@ public class MessageAccountActivity extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
                             }
-                            System.out.println("hi its me: " + userArrayList);
                             User userAccount = new User();
                             for (int user = 0; user < userArrayList.size(); user++){
                                 if (userArrayList.get(user).userID.equals(userIDD)){
@@ -143,14 +85,13 @@ public class MessageAccountActivity extends AppCompatActivity {
                                 }
                             }
 
-
-                            System.out.println("NAMEEEEE: " + userAccount.name);
-                            System.out.println("EMAILLLLLLL: " + userAccount.emailAddress);
+                            //truncate the user name for the header
                             String[] nameString = userAccount.name.split(" ");
-
                             accountTitle.setText(nameString[0] + "'s Account");
+                            //setting up the user data
                             userNameTextView.setText(userAccount.name);
                             userEmailTextView.setText(userAccount.emailAddress);
+                            //setting up the user profile pic
                             Picasso.with(MessageAccountActivity.this).load(Uri.parse(userAccount.profilePictureURL)).into(userProfileImageView);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -158,19 +99,16 @@ public class MessageAccountActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
+        //ending the activity after closing it
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
     }
 
+    //add animation from one activity to another
     public void setAnimation(){
         if(Build.VERSION.SDK_INT>20) {
             Explode explode = new Explode();
