@@ -77,7 +77,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
                 db.collection("users").document(uid).update("workspaces",FieldValue.arrayRemove(extras.getString("workspaceID"))).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        db.collection("workspaces").document(extras.getString("workspaceID")).update("users", FieldValue.arrayUnion(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        db.collection("workspaces").document(extras.getString("workspaceID")).update("users", FieldValue.arrayRemove(uid)).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
 
