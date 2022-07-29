@@ -40,14 +40,14 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
     public WorkspaceSettingsAdapter(Bundle extras, WorkspaceSettingsActivity activity) {
         this.extras = extras;
         this.activity = activity;
-
+        //getting list of users, admins and uid of current user
         users = extras.getStringArrayList("workspaceUsers");
         admins = extras.getStringArrayList("workspaceUsers");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+        //getting users from the user list from firestore
         for (String userID: users) {
             DocumentReference userRef = db.collection("users").document(userID);
 
@@ -83,7 +83,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
             return 1;
         }
     }
-
+    //inflating viewholders
     @NonNull
     @Override
     public WorkspaceSettingsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,7 +101,7 @@ public class WorkspaceSettingsAdapter extends RecyclerView.Adapter<WorkspaceSett
         }
         return new WorkspaceSettingsViewHolder(item, activity, extras);
     }
-
+    //setting viewholder name cards, images, text and setting visibility of admin-only buttons
     @Override
     public void onBindViewHolder(@NonNull WorkspaceSettingsViewHolder holder, int position) {
         if (position == 0) {
