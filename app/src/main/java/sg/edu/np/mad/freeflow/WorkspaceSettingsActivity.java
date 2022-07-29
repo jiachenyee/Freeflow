@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -45,9 +47,10 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         settingsRecyclerView = findViewById(R.id.settings_recycler_view);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        admins = extras.getStringArrayList("workspaceUsers"); //ok this works
 
-        //getting admin list of disabling of buttons (DEBUG)
+        admins = extras.getStringArrayList("workspaceUsers"); //ok getting list of workspace users
+
+        //getting admin list for disabling of buttons
         CollectionReference workspaceRef = db.collection("workspaces");
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Task<QuerySnapshot> workref = workspaceRef.whereArrayContains("admin",uid).get();
@@ -57,14 +60,16 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.workspace_setting_deletebutton);
         deleteButton.setVisibility(admins.contains(uid) ? View.VISIBLE : View.INVISIBLE);
 
-
+        //close button
         findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
+        //leave button, used current user's uid to find user document and removing workspace from the user document
+        //then, finding uid in workspace to remove user from workspace
+        //if successful, show toast message
         findViewById(R.id.workspace_setting_leavebutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +102,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
                 });
             }
         }); //end of leave button func
-
+        //deleting workspace from user document, and deleting the workspace proper
         findViewById(R.id.workspace_setting_deletebutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,14 +123,14 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                showInfoToast("Error leaving workspace");
+                                showInfoToast("Error deleting workspace");
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showInfoToast("Error leaving workspace");
+                        showInfoToast("Error deleting workspace");
                     }
                 });
             }
