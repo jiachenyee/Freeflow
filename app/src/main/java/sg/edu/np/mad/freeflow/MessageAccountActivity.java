@@ -66,7 +66,6 @@ public class MessageAccountActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            System.out.println("Hi Jin Daat");
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User aUser = new User();
                                 aUser.userID = document.getId();

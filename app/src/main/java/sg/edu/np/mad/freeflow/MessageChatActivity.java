@@ -208,7 +208,6 @@ public class MessageChatActivity extends AppCompatActivity {
                                     msgDetails.msgContent = retrievedMsg.get("MsgContent").toString();
                                     msgDetails.msgUserID = retrievedMsg.get("MsgUserId").toString();
                                     msgDetails.msgTimeStamp = Long.parseLong(retrievedMsg.get("MsgTimeStamp").toString());
-                                    System.out.println("YAY: " + msgDetails.msgContent);
                                     //adding the message class into the message list
                                     messagesList.add(msgDetails);
                                 }
@@ -282,7 +281,6 @@ public class MessageChatActivity extends AppCompatActivity {
                 while (removeWhitespace){
                     Character back = inputMessage.charAt(inputMessage.length() -1);
                     Character front = inputMessage.charAt(0);
-                    System.out.println("character is: " + back);
                     if (Character.isWhitespace(back)){
                         //removing the last character
                         inputMessage = inputMessage.substring(0, inputMessage.length() -1);
@@ -320,8 +318,6 @@ public class MessageChatActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>(){
                             @Override
                             public void onSuccess(Void unused) {
-                                System.out.println(workspaceID);
-                                System.out.println(taskID);
                                 Toast.makeText(getApplicationContext(), "Message added successfully", Toast.LENGTH_LONG).show();
                             }
                         })

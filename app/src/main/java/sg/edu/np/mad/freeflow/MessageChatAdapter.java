@@ -105,8 +105,6 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
         else if (getItemViewType(position) == VIEW_TYPE_SECOND_RECEIVED){
             //checking the user list sent from the Activity with the user id attached to the message
             for(int u = 0; u < userArrayList.size(); u++){
-                System.out.println("yes sir: " + messageArrayList.get(position).msgUserID);
-                System.out.println("ryan: " + userArrayList.get(u).userID);
                 if (userArrayList.get(u).userID.equals(messageArrayList.get(position).msgUserID)){
                     theirSender = userArrayList.get(u);
                     break;
@@ -120,12 +118,8 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
         else{
             //checking the user list sent from the Activity with the user id attached to the message
             for (int u = 0; u < userArrayList.size(); u++) {
-                System.out.println("yes sir: " + messageArrayList.get(position).msgUserID);
-                System.out.println("ryan: " + userArrayList.get(u).userID);
                 if (userArrayList.get(u).userID.equals(messageArrayList.get(position).msgUserID)) {
-                    System.out.println("this is true lol");
                     theirSender = userArrayList.get(u);
-                    System.out.println(u + " " + theirSender.name);
                     break;
                 }
             }
