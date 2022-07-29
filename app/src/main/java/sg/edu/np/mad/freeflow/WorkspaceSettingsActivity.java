@@ -160,7 +160,7 @@ public class WorkspaceSettingsActivity extends AppCompatActivity {
     private void setUpTitleBar(Bundle extras) {
         int color = Workspace.colors[extras.getInt("workspaceAccentColor",0)];
 
-        LinearLayout workspaceActivityHeader = findViewById(R.id.msg_header_view);
+        LinearLayout workspaceActivityHeader = findViewById(R.id.header_view);
         workspaceActivityHeader.setBackgroundResource(color);
     }
 

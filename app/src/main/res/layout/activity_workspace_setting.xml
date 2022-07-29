@@ -7,14 +7,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/workspace_setting_deletebutton"
-        android:layout_width="334dp"
+        android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginHorizontal="16dp"
 
         android:fontFamily="@font/interbold"
-        android:text="DELETE"
+        android:text="Delete Workspace"
         android:textAllCaps="false"
         android:textSize="16dp"
         android:theme="@style/Button.red"
@@ -22,14 +20,13 @@
         app:layout_constraintBottom_toTopOf="@+id/workspace_setting_leavebutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_recycler_view" />
+         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/workspace_setting_leavebutton"
-        android:layout_width="354dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
 
         android:fontFamily="@font/interbold"
@@ -40,19 +37,18 @@
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workspace_setting_deletebutton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/msg_header_view"
+        android:id="@+id/header_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="85dp"
         android:background="@color/workspace_orange"
         android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/settings_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/close_button"
@@ -68,7 +64,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="374dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="18dp"
@@ -85,15 +81,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/settings_recycler_view"
-        android:layout_width="389dp"
-        android:layout_height="468dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/workspace_setting_deletebutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_view" />
+        app:layout_constraintTop_toBottomOf="@id/header_view"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
