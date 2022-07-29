@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/interregular"
-            android:text="Name of user:"
+            android:text=" Email of user:"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
