@@ -19,6 +19,13 @@ In the future, further improvements such as real time notification to update the
 as liking and deleting of the messages can be further added to this current functionality. Furthermore, while viewing the account 
 details of other users, more information like the common workspaces or tasks which the other user and the current user are attached 
 to, can be displayed at the whitespace found at the bottom. 
+
+
+## New Topics Implemented
+
+- Realtime Update from Cloud FireStore
+- Notification 
+- Animation between activities
   
 
 
