@@ -43,6 +43,7 @@ import java.util.Calendar;
 public class NewTaskActivity extends AppCompatActivity {
 
     Spinner categorySpinner;
+    //Create dueDateButton and DatePickerDialog variables
     private DatePickerDialog datePickerDialog;
     private Button dueDateButton;
     Button createButton;
@@ -61,7 +62,10 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         categorySpinner = findViewById(R.id.category_spinner);
+
+        //Store due date picker button in variable dueDateButton
         dueDateButton = findViewById(R.id.due_date_picker);
+
         createButton = findViewById(R.id.create_button);
         taskNameEditText = findViewById(R.id.task_title_edit_text);
         taskDescriptionEditText = findViewById(R.id.task_description_edit_text);
@@ -73,6 +77,7 @@ public class NewTaskActivity extends AppCompatActivity {
         ArrayList<String> categories = extras.getStringArrayList("workspaceCategories");
         //ArrayList<String> assigneeIdList = extras.getStringArrayList("assigneeIdList");
 
+        //Initialisation of due date picker
         initDueDatePicker();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
@@ -119,9 +124,11 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = taskNameEditText.getText().toString();
+                //Gets the text on dueDateButton
                 String dueDate = dueDateButton.getText().toString();
                 String description = taskDescriptionEditText.getText().toString();
 
+                //Creates a new task with the task's title, due date, description and assigneeList
                 Task newTask = new Task(title, dueDate, description, assigneeList);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -244,6 +251,7 @@ public class NewTaskActivity extends AppCompatActivity {
         createButton.setBackgroundResource(colorResource);
     }
 
+    //Date picker
     private void initDueDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
