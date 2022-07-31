@@ -8,7 +8,7 @@
 <img src="assets/screenshots/overdue_tasks_JinDaat.png" alt="Profile" width="200">
 
 2. Search overdue `Task` using `Task` name:
-<img src="assets/screenshots/search_overdue_tasks_JinDaat.png" alt="Profile" width="200">
+<img src="Freeflow/assets/screenshots/search_overdue_tasks_JinDaat.png" alt="Profile" width="200">
 
 ## :heavy_plus_sign: Assign workspace `Task` to users
 - Allows each workspace task to be have assignees
