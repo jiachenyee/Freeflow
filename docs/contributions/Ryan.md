@@ -24,25 +24,20 @@ to, can be displayed at the whitespace found at the bottom.
 
 ## Usage
 - When user click on the chat icon, the app will bring him/her to the task messaging chat where they can view the interaction among other users. 
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
+
+    <img src="/../main/assets/screenshots/message_icon.png" alt="Message Icon" width="200">
 
 - If the current user has not interacted with the chat (has not sent a message yet), then a notification will appear to introduce them to the messaging functionality.
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
 
-- Just like any other chat, users can send any text messages freely across the chat without the worry of the data not being updated at real time. 
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
+    <img src="/../main/assets/screenshots/message_notification.png" alt="Message Notification" width="200">
 
-- Any messages sent by the current user will appear on the right side of the screen in the accent colour of the workspace. 
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
+- Just like any other chat, users can send any text messages freely across the chat without the worry of the data not being updated at real time. Any messages sent by the current user will appear on the right side of the screen in the accent colour of the workspace. The messages received from other users will appear on the left side of the screen with the username and profile picture attached to it. - All messages will have the timestamp applied to it and the date will be displayed at the top of the first message on a new day.
 
-- The messages received from other users will appear on the left side of the screen with the username and profile picture attached to it. 
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
-
-- All messages will have the timestamp applied to it and the date will be displayed at the top of the first message on a new day.
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
+    <img src="/../main/assets/screenshots/message_chat.png" alt="Message Chat" width="200">
 
 - If the user wishes to view other user’s account, he/she can simply click on the corresponding profile picture and an animation will bring he/she into the account page where he/she can view the details of that user. 
-  <img src="assets/screenshots/login.png" alt="Login" width="200">
+
+    <img src="/../main/assets/screenshots/message_account.png" alt="Message Account" width="200">
   
   
 
