@@ -43,6 +43,12 @@ https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e8
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Freeflow 2 (Assignment 2)
+- [Task Attachments, Links & Subtasks (Jia Chen)](docs/contributions/JiaChen.md)
+- [Task Messaging (Ryan)](docs/contributions/Ryan.md)
+- [Task Deadlines (Isabelle)](docs/contributions/Isabelle.md)
+- [Search and Assign Tasks (Jin Daat)](docs/contributions/JinDaat.md)
+- [Workspace Operations and User Roles (En Yang)](docs/contributions/EnYang.md)
 
 ## 📲 Installation
 ### From the Play Store
@@ -63,7 +69,7 @@ https://github.com/jiachenyee/Freeflow/blob/19527ad548c608d4ca78a2ca3ec22f4013e8
 6. Run the app!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-  
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -218,8 +224,6 @@ Koh En Yang - s10222282@connect.np.edu.sg
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
