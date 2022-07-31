@@ -42,7 +42,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
-
+    //Define default date
     private static final String DEFAULT_DUE_DATE = "DD MMMM YYYY HH mm";
 
     private FirebaseAuth mAuth;
@@ -257,12 +257,15 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             String taskName = (String) document.getData().get("title");
+                            //Stores the value stored under dueDate to variable taskDueDate_string
                             String taskDueDate_string = (String) document.getData().get("dueDate");
                             String taskDescription = (String) document.getData().get("description");
 
+                            //Add and initialise a new task to  display the task due date together with the title and description
                             tasks.add(new TaskWorkspaceWrapper(new sg.edu.np.mad.freeflow.Task(taskName, taskDueDate_string, taskDescription, document.getId()), workspace.id, workspace.accentColor - 1));
                         }
 
+                        //Uses the filterByTaskDueDate function to only display tasks which are due today or are overdue
                         tasks = filterByTaskDueDate(tasks);
                         refreshTasksRecyclerView();
                     } else {
@@ -273,28 +276,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //Function to filter out tasks which should not be shown on Home screen
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<TaskWorkspaceWrapper> filterByTaskDueDate(ArrayList<TaskWorkspaceWrapper> taskList) {
         return taskList.stream()
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
                     @Override
                     public boolean test(TaskWorkspaceWrapper taskWorkspaceWrapper) {
+                        //Returns tasks with due dates which are not null and do not equal to default due date initialised at the start of MainActivity
                         return taskWorkspaceWrapper.task.dueDate != null && !DEFAULT_DUE_DATE.equals(taskWorkspaceWrapper.task.dueDate);
                     }
                 })
                 .filter(new Predicate<TaskWorkspaceWrapper>() {
                     @Override
                     public boolean test(TaskWorkspaceWrapper workspace) {
+                        //Gets the date now
                         final LocalDate today = LocalDate.now();
 
+                        //Parses the due date of string type using the format "d MMMM yyyy HH mm" and returns a date to be stored in variable date
                         final LocalDate date = LocalDate.parse(workspace.task.dueDate, DateTimeFormatter.ofPattern("d MMMM yyyy HH mm"));
 
+                        //Returns the tasks if the due date stored in date is equal or before today's date
                         return today.isEqual(date) || today.isAfter(date);
                     }
                 }).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    //Sorts tasks in alphabetical order if the user taps on the sort button
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<TaskWorkspaceWrapper> sortAlphabetically(ArrayList<TaskWorkspaceWrapper> taskList) {
         return taskList.stream()

@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:fontFamily="@font/interregular"
-                    android:text="DD MONTH YYYY"
+                    android:text="DD MMMM YYYY"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:onClick="dueDatePicker" />
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:fontFamily="@font/interregular"
-                    android:text="HH:MM"
+                    android:text="HH mm"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:onClick="dueDatePicker" />
