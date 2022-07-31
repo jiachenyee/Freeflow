@@ -16,6 +16,12 @@
 - Enables admins to view and utilise admin-level actions such as modifying users and deleting the workspace
 - Hides these actions from non-admins
 
+- Settings from an Admin view
+<img src="/assets/screenshots/Admin-Settings.png" alt="Profile" width="200">
+
+- Settings from a Non-Admin view
+<img src="/assets/screenshots/non-membersettings.png" alt="Profile" width="200">
+
 
 ## Elevating Users to Admins + Removing Users from workspace
 - Allows admins to assign admin privileges to other users 
@@ -34,4 +40,6 @@
 3) Selected user's UID is then retrieved by Firebase
 4) Retrieve the selected workspace's ID from the workspace's settings
 5) Send a command to Firestore to delete the specified user from the workspace's list of users
-6) Send anothercommand to delete the specific workspace from the user's array of workspaces
+6) Send another command to delete the specific workspace from the user's array of workspaces
+
+
