@@ -37,6 +37,6 @@
 3. Tap "Done" to confirm changes and new assignees will be added/removed from the `Task`
 <img src="/assets/screenshots/confirm_edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
-## New Android Concepts Implemented
+## New Android Topics Implemented
 - SearchView (For the search bar)
 - CheckBox (For adding/editing assignees)
