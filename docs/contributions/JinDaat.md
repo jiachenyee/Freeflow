@@ -32,7 +32,7 @@
 <img src="/assets/screenshots/select_tasks_JinDaat.jpeg" alt="Profile" width="200">
 
 2. Tap the plus icon to edit assignee(s) for the workspace `Task`
-<img src="assets/screenshots/edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
+<img src="/assets/screenshots/edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 3. Tap "Done" to confirm changes and new assignees will be added/removed from the `Task`
 <img src="/assets/screenshots/confirm_edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
