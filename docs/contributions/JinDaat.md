@@ -31,7 +31,7 @@
 1. Tap on the `Task` you you wish to change the assignees in
 <img src="/assets/screenshots/select_tasks_JinDaat.jpeg" alt="Profile" width="200">
 
-2. Tap the plus icon to edit assignee(s) for the workspace `Task`
+2. Tap the plus icon to edit assignee(s) for the workspace `Task`. Select/Deselect assignee for this `Task`
 <img src="/assets/screenshots/edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 3. Tap "Done" to confirm changes and new assignees will be added/removed from the `Task`
