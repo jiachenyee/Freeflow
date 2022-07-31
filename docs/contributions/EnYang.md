@@ -9,6 +9,9 @@
 3) Send a command to Firestore which deletes the specific workspace from the user's array of workspaces
 4) Send another command to Firestore to delete the current user from the workspace's list of users
 
+<img src="/assets/screenshots/leftworkspace.png" alt="Profile" width="200">
+
+
 ## Admin Operations
 - Enables admins to view and utilise admin-level actions such as modifying users and deleting the workspace
 - Hides these actions from non-admins
