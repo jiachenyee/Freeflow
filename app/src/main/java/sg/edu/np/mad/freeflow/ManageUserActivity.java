@@ -61,6 +61,9 @@ public class ManageUserActivity extends AppCompatActivity {
                 //DocumentReference userRef = db.collection("users").document(userID);
                 String Name = NameEditText.getText().toString();
 
+                // Exit early as data validation
+                if (Name.length() == 0) { return; }
+
                 db.collectionGroup("users").whereEqualTo("email", Name).get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
@@ -90,6 +93,9 @@ public class ManageUserActivity extends AppCompatActivity {
 
                 //DocumentReference userRef = db.collection("users").document(userID);
                 String Name = NameEditText.getText().toString();
+
+                // Exit early as data validation
+                if (Name.length() == 0) { return; }
 
                 db.collectionGroup("users").whereEqualTo("email", Name).get()
                         .addOnCompleteListener(task -> {
