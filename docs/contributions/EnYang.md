@@ -8,6 +8,7 @@
 2) Retrieve the selected workspace's ID from the workspace's settings
 3) Send a command to Firestore which deletes the specific workspace from the user's array of workspaces
 4) Send another command to Firestore to delete the current user from the workspace's list of users
+5) Successful toast is shown afterwards
 
 <img src="/assets/screenshots/leftworkspace.png" alt="Profile" width="200">
 
