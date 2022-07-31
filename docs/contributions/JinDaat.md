@@ -5,7 +5,7 @@
 - There must be existing overdue `Task` to search for overdue `Task`.
 
 1. Make sure there are existing overdue workspace `Task`:
-<img src="assets/screenshots/overdue_tasks_JinDaat.png" alt="Profile" width="200">
+<img src="Freeflow/assets/screenshots/overdue_tasks_JinDaat.png" alt="Profile" width="200">
 
 2. Search overdue `Task` using `Task` name:
 <img src="Freeflow/assets/screenshots/search_overdue_tasks_JinDaat.png" alt="Profile" width="200">
