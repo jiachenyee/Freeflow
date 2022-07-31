@@ -4,10 +4,10 @@
 - Search overdue `Task` using `Task` name.
 - There must be existing overdue `Task` to search for overdue `Task`.
 
-1. Make sure there are existing overdue workspace `Task`:
+1. Make sure there are existing overdue workspace `Task`
 <img src="/assets/screenshots/overdue_tasks_JinDaat.jpeg" alt="Profile" width="200">
 
-2. Search overdue `Task` using `Task` name:
+2. Search overdue `Task` using `Task` name
 <img src="/assets/screenshots/search_overdue_tasks_JinDaat.jpeg" alt="Profile" width="200">
 
 ## :heavy_plus_sign: Assign workspace `Task` to users
