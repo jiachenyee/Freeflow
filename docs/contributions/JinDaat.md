@@ -18,7 +18,7 @@
 **Add assignee(s) when creating a new workspace `Task`**
 
 1. Tap the plus icon to add assignee(s) when creating a new `Task`
-<img src="/assets/screenshots/new_task_JinDaat.jpeg" alt="Profile" width="200">
+<img src="/assets/screenshots/new_task_activity_JinDaat.jpeg" alt="Profile" width="200">
 
 2. Select members from the workspace you wish to assign to this `Task`
 <img src="/assets/screenshots/manage_assignee_JinDaat.jpeg" alt="Profile" width="200">
