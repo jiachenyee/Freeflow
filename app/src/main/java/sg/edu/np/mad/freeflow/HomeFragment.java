@@ -154,6 +154,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Sorts tasks in alphabetical order if the user taps on the sort button
         sortTasksButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
