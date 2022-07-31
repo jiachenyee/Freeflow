@@ -42,4 +42,4 @@
 5) Send a command to Firestore to delete the specified user from the workspace's list of users
 6) Send another command to delete the specific workspace from the user's array of workspaces
 
-
+<img src="/assets/screenshots/firestore.png" alt="Profile" width="200">
