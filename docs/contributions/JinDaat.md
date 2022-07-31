@@ -18,24 +18,24 @@
 **Add assignee(s) when creating a new workspace `Task`**
 
 1. Tap the plus icon to add assignee(s) when creating a new `Task`
-<img src="assets/screenshots/new_task_JinDaat.png" alt="Profile" width="200">
+<img src="/assets/screenshots/new_task_JinDaat.jpeg" alt="Profile" width="200">
 
 2. Select members from the workspace you wish to assign to this `Task`
-<img src="assets/screenshots/manage_assignee_JinDaat.png" alt="Profile" width="200">
+<img src="/assets/screenshots/manage_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 3. Tap on "Done" to add assignee(s) to the `Task`
-<img src="assets/screenshots/new_task_assignee_JinDaat.png" alt="Profile" width="200">
+<img src="/assets/screenshots/new_task_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 **Edit assignee(s) for created workspace `Task`**
 
 1. Tap on the `Task` you you wish to change the assignees in
-<img src="assets/screenshots/select_tasks_JinDaat.png" alt="Profile" width="200">
+<img src="/assets/screenshots/select_tasks_JinDaat.jpeg" alt="Profile" width="200">
 
 2. Tap the plus icon to edit assignee(s) for the workspace `Task`
-<img src="assets/screenshots/edit_assignee_JinDaat.png" alt="Profile" width="200">
+<img src="assets/screenshots/edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 3. Tap "Done" to confirm changes and new assignees will be added/removed from the `Task`
-<img src="assets/screenshots/confirm_edit_assignee_JinDaat.png" alt="Profile" width="200">
+<img src="/assets/screenshots/confirm_edit_assignee_JinDaat.jpeg" alt="Profile" width="200">
 
 ## New Android Concepts Implemented
 - SearchView (For the search bar)
