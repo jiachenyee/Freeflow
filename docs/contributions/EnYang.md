@@ -1,5 +1,5 @@
-#Contributions made by Koh En Yang (S10222282K)
-Add Screenshots!
+# Contributions made by Koh En Yang (S10222282K)
+
 
 ## Leaving Workspace
 - Allows all users to leave the workspace via the settings page
