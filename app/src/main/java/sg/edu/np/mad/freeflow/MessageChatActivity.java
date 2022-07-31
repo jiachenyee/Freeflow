@@ -60,6 +60,8 @@ import java.util.Set;
 
 public class MessageChatActivity extends AppCompatActivity {
 
+    //hi
+
     //variables for buttons and other resources
     ImageButton closeButton;
     EditText messageEditText;
