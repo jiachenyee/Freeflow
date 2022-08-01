@@ -92,7 +92,8 @@ public class NewLinkActivity extends AppCompatActivity {
     }
 
     private boolean validateURL(String url) {
-        Pattern pattern = Pattern.compile("https://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("https://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+                Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(url);
 
         return matcher.matches();
