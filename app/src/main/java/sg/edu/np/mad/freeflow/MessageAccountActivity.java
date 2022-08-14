@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,9 +71,16 @@ public class MessageAccountActivity extends AppCompatActivity {
                                 User aUser = new User();
                                 aUser.userID = document.getId();
                                 Map<String, Object> userMap = document.getData();
-                                aUser.name = userMap.get("name").toString();
-                                aUser.emailAddress = userMap.get("emailAddress").toString();
-                                aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
+                                if (userMap.get("name") == null || userMap.get("emailAddress") == null){
+                                    aUser.name = "Anonymous";
+                                    aUser.emailAddress = "---";
+                                    aUser.profilePictureURL = null;
+                                }
+                                else{
+                                    aUser.name = userMap.get("name").toString();
+                                    aUser.emailAddress = userMap.get("emailAddress").toString();
+                                    aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
+                                }
                                 userArrayList.add(aUser);
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
@@ -91,7 +99,13 @@ public class MessageAccountActivity extends AppCompatActivity {
                             userNameTextView.setText(userAccount.name);
                             userEmailTextView.setText(userAccount.emailAddress);
                             //setting up the user profile pic
-                            Picasso.with(MessageAccountActivity.this).load(Uri.parse(userAccount.profilePictureURL)).into(userProfileImageView);
+                            if (userAccount.profilePictureURL == null || userAccount.profilePictureURL == ""){
+                                userProfileImageView.setBackgroundColor(Color.parseColor("#000000"));
+                            }
+                            else{
+                                Picasso.with(MessageAccountActivity.this).load(Uri.parse(userAccount.profilePictureURL)).into(userProfileImageView);
+                            }
+
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

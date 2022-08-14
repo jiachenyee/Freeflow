@@ -171,9 +171,16 @@ public class MessageChatActivity extends AppCompatActivity {
                     aUser.userID = document.getId(); //userID is based on document ID
                     Map<String, Object> userMap = document.getData();
                     //filling in the user properties
-                    aUser.name = userMap.get("name").toString();
-                    aUser.emailAddress = userMap.get("emailAddress").toString();
-                    aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
+                    if (userMap.get("name") == null || userMap.get("emailAddress") == null){
+                        aUser.name = "Anonymous";
+                        aUser.emailAddress = "---";
+                        aUser.profilePictureURL = null;
+                    }
+                    else{
+                        aUser.name = userMap.get("name").toString();
+                        aUser.emailAddress = userMap.get("emailAddress").toString();
+                        aUser.profilePictureURL = userMap.get("profilePictureURL").toString();
+                    }
                     //adding that user to the user list
                     usersList.add(aUser);
                     Log.d(TAG, document.getId() + " => " + document.getData());

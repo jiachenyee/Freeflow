@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.transition.Explode;
@@ -152,7 +153,13 @@ public class MessageChatAdapter extends RecyclerView.Adapter<MessageChatViewHold
                 holder.messageUsername_Their.setText(theirSender.name);
             }
             //load profile picture with third party library
-            Picasso.with(context).load(Uri.parse(theirSender.profilePictureURL)).fit().centerCrop().into(holder.messageProfile_Their);
+            if (theirSender.profilePictureURL == null || theirSender.profilePictureURL == ""){
+                holder.messageProfile_Their.setBackgroundColor(Color.parseColor("#000000"));
+            }
+            else{
+                Picasso.with(context).load(Uri.parse(theirSender.profilePictureURL)).fit().centerCrop().into(holder.messageProfile_Their);
+            }
+
 
             //Viewing the user account by clicking on the user profile picture
             holder.messageProfile_Their.setOnClickListener(new View.OnClickListener() {
