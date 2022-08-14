@@ -24,7 +24,10 @@ public class User {
 
     public User(FirebaseUser user) {
         this.name = user.getDisplayName();
-        this.profilePictureURL = user.getPhotoUrl().toString();
+
+        if (user.getPhotoUrl() != null) {
+            this.profilePictureURL = user.getPhotoUrl().toString();
+        }
         this.emailAddress = user.getEmail();
         this.userID = user.getUid();
     }

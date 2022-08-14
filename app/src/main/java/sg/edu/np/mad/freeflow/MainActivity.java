@@ -110,7 +110,13 @@ public class MainActivity extends AppCompatActivity {
 
     // Set up username and profile picture
     private void setUpUser() {
-        usernameTextView.setText("Hello " + user.getDisplayName() + "!");
+
+        if (user.getDisplayName().equals("")) {
+            usernameTextView.setText("Hello Guest!");
+        } else {
+            usernameTextView.setText("Hello " + user.getDisplayName() + "!");
+        }
+        if (user.getPhotoUrl() == null) { return; }
 
         // Add profile picture, make async HTTP request to download pfp
         new Thread(new Runnable() {

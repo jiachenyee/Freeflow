@@ -84,6 +84,9 @@ public class AccountActivity extends AppCompatActivity {
     private void setUpUser() {
         usernameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
+
+        if (user.getPhotoUrl() == null) { return; }
+
         // Add profile picture
         new Thread(new Runnable() {
             @Override
